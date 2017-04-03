@@ -52,29 +52,29 @@ gulp.task('build:mockup:copy', ['build:mockup:delegate'], () => {
 gulp.task('build:mockup', ['build:mockup:copy']);
 
 gulp.task('build:vendor:js', ['build:mockup:copy'], () => {
-  const mockup = [
-    `${paths.dist}/js/vendor/slick.min.js`,
-    `${paths.dist}/js/script.js`
-  ];
-  return gulp.src(_.concat(mockup, [
-    'node_modules/fancybox/dist/jquery.fancybox.js'
-  ]))
-    .pipe(concat('vendor.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest(`${paths.dist}/js`));
+  // const mockup = [
+  //   `${paths.dist}/js/vendor/slick.min.js`,
+  //   `${paths.dist}/js/script.js`
+  // ];
+  // return gulp.src(_.concat(mockup, [
+  //   'node_modules/fancybox/dist/jquery.fancybox.js'
+  // ]))
+  //   .pipe(concat('vendor.js'))
+  //   .pipe(uglify())
+  //   .pipe(gulp.dest(`${paths.dist}/js`));
 });
 
 gulp.task('build:vendor:css', ['build:mockup'], () => {
-  const mockup = [
-    `${paths.dist}/css/lib/normalize.min.css`,
-    `${paths.dist}/css/lib/slick.css`
-  ];
-  return gulp.src(_.concat(mockup, [
-    'node_modules/fancybox/dist/jquery.fancybox.css'
-  ]))
-    .pipe(concat('vendor.css'))
-    // keep it in `lib` in case relative paths rely on it being there
-    .pipe(gulp.dest(`${paths.dist}/css/lib`));
+  // const mockup = [
+  //   `${paths.dist}/css/lib/normalize.min.css`,
+  //   `${paths.dist}/css/lib/slick.css`
+  // ];
+  // return gulp.src(_.concat(mockup, [
+  //   'node_modules/fancybox/dist/jquery.fancybox.css'
+  // ]))
+  //   .pipe(concat('vendor.css'))
+  //   // keep it in `lib` in case relative paths rely on it being there
+  //   .pipe(gulp.dest(`${paths.dist}/css/lib`));
 });
 
 gulp.task('build:js', () => {
