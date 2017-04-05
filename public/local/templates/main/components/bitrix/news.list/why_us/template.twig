@@ -1,0 +1,16 @@
+<div class="grid slider_why_us">
+    {% for item in result.ITEMS %}
+        {% set icon = item.DISPLAY_PROPERTIES.ICON.FILE_VALUE %}
+        {% set animation_delay = 0.2 + 0.3 * loop.index %}
+        <div class="item wow fadeInDown"
+             id="{{ add_editing_actions(item, template) }}"
+             data-wow-duration=".6s"
+             data-wow-delay="{{ animation_delay ~ 's' }}">
+            <div class="ico">
+                <img src="{{ icon.SRC }}" alt="{{ icon.DESCRIPTION }}">
+            </div>
+            <strong>{{ item.NAME }}</strong>
+            <div class="text">{{ item.PREVIEW_TEXT }}</div>
+        </div>
+    {% endfor %}
+</div>

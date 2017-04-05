@@ -13,4 +13,5 @@ class PageProperty {
 class Iblock {
     const CONTENT_TYPE = 'content';
     const SERVICE = 'service';
+    const WHY_US = 'why_us';
 }

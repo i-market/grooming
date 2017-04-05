@@ -1,8 +1,12 @@
 <div class="grid">
     {% for item in result.ITEMS %}
-        {# delay in seconds #}
+        {% set icon = item.DISPLAY_PROPERTIES.ICON.FILE_VALUE %}
         {% set animation_delay = 1.2 + 0.4 * loop.index %}
-        <a href="{{ item.PROPERTIES.LINK.VALUE }}" class="item wow fadeInDown" data-wow-duration=".6s" data-wow-delay="{{ animation_delay ~ 's' }}">
+        <a href="{{ item.PROPERTIES.LINK.VALUE }}"
+           id="{{ add_editing_actions(item, template) }}"
+           class="item wow fadeInDown"
+           data-wow-duration=".6s"
+           data-wow-delay="{{ animation_delay ~ 's' }}">
         <span class="img">
           <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
           <span class="shape">
@@ -11,7 +15,6 @@
         </span>
             <span class="info">
           <span class="ico">
-              {% set icon = item.DISPLAY_PROPERTIES.ICON.FILE_VALUE %}
             <img src="{{ icon.SRC }}" alt="{{ icon.DESCRIPTION }}">
           </span>
         <span class="text">
