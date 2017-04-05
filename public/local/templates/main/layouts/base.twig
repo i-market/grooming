@@ -1,0 +1,140 @@
+<header class="header">
+    <div class="wrap">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a class="logo" href=../></a>
+        <nav class="main_menu cf">
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Груминг</a>
+                    <ul>
+                        <li>
+                            <strong>Услуги для собак</strong>
+                            <p><a href="#">Стоимость</a></p>
+                            <p><a href="#">Фотогалерея работ</a></p>
+                            <p><a href="#">Комплексные услуги </a></p>
+                            <p><a href="#">Дополнительные возможности</a></p>
+                            <p><a href="#">Услуги без записи</a></p>
+                            <p><a href="#">Pet expression</a></p>
+                            <p><a href="#">Share your pets style</a></p>
+                        </li>
+                        <li>
+                            <strong>Услуги для кошек</strong>
+                            <p><a href="#">Стоимость</a></p>
+                            <p><a href="#">Фотогалерея работ</a></p>
+                            <p><a href="#">Комплексные услуги </a></p>
+                            <p><a href="#">Дополнительные возможности</a></p>
+                            <p><a href="#">Услуги без записи</a></p>
+                        </li>
+                        <li>
+                            <strong>Дополнительные услуги</strong>
+                            <p><a href="#">Фотогалерея работ</a></p>
+                            <p><a href="#">Комплексные услуги </a></p>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">Гостиница</a></li>
+                <li><a href="#">Магазин</a></li>
+                <li><a href="#">Зоотакси</a></li>
+                <li><a href="#">Галерея</a></li>
+                <li><a href="#" class="active">Акции</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header_info">
+            <form action="" method="post" id="" class="search_form">
+                <input type="text" placeholder="Поиск">
+                <button type="submit"></button>
+            </form>
+            <a class="tel" href="tet:+7 (495) 664 -38-23">+7 (495) 664 -38-23</a>
+            <span class="re_call btn" data-modal="re_call">Обратный звонок</span>
+            <span class="open_form"></span>
+            <a class="tel_mobile" href="tet:+7 (495) 664 -38-23">
+                <i class="fa fa-phone"></i>
+            </a>
+        </div>
+    </div>
+</header>
+<!-- CONTENT START -->
+<main class="content">
+    {{ page }}
+</main>
+<!-- FOOTER START -->
+<footer class="footer">
+    <div class="wrap">
+        <div class="top">
+            <div class="logo">
+                <a href="#">
+                    <img src="{{ asset('images/logo.png') }}" alt="">
+                </a>
+            </div>
+            <div class="about_us">
+                <strong>о нас</strong>
+                <p>Наша компания предлагает Клиентам широкий спектр услуг для домашних питомцев: груминг, гостиница, зоомагазин и зоотакси. Профессионализм сотрудников и качество предоставляемых услуг не оставит Ваших питомцев равнодушными.</p>
+            </div>
+            <div class="menu">
+                <strong>меню</strong>
+                <div class="left">
+                    <p><a href="#">О нас</a></p>
+                    <p><a href="#">Груминг</a></p>
+                    <p><a href="#">Гостиница</a></p>
+                    <p><a href="#">Зоотакси</a></p>
+                    <p><a href="#">Магазин</a></p>
+                    <p><a href="#">Галерея</a></p>
+                </div>
+                <div class="right">
+                    <p><a href="#">Акции</a></p>
+                    <p><a href="#">Обратная связь</a></p>
+                    <p><a href="#">Контакты</a></p>
+                </div>
+            </div>
+            <div class="contacts">
+                <strong>контакты</strong>
+                <div class="line">
+                    <i class="fa fa-paper-plane"></i>
+                    <span class="text">Московская область, г. Жуковский,
+ул. Королева, д. 4, стр. 1</span>
+                </div>
+                <div class="line">
+                    <i class="fa fa-envelope"></i>
+                    <a class="text" href="mailto:Hello@groomilier.ru">Hello@groomilier.ru</a>
+                </div>
+                <div class="line">
+                    <i class="fa fa-phone"></i>
+                    <a class="text" href="tel:+74951234567">+7 (495) 123 45 67</a>
+                </div>
+                <div class="line">
+                    <i class="fa fa-globe"></i>
+                    <a class="text" href="www.grumilier.ru">www.grumilier.ru</a>
+                </div>
+                <div class="line">
+                    <i class="fa fa-clock-o"></i>
+                    <span class="text">Ежедневно с 10.00 до 21.00</span>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">Copyright 2016 © Grumilier.ru - Груминг, гостиница, магазин для животных. Создание и продвижение сайта: i-Market</div>
+    </div>
+</footer>
+<!--Модалки-->
+<!--Обратный звонок-->
+<div class="modal" id="re_call">
+    <form class="block" method="post" action="" name="" id="">
+        <span class="close"></span>
+        <strong>Заказать звонок</strong>
+        <input type="text" placeholder="ФИО">
+        <input type="text" placeholder="Телефон">
+        <textarea placeholder="Сообщение"></textarea>
+        <div class="bottom">
+            <button>Отправить</button>
+        </div>
+    </form>
+</div>
+<!-- ПОДКЛЮЧЕНИЕ СКРИПТОВ START -->
+{% for path in scripts %}
+    <script type="text/javascript" src="{{ path }}"></script>
+{% endfor %}
