@@ -15,4 +15,5 @@ class Iblock {
     const SERVICE = 'service';
     const WHY_US = 'why_us';
     const PROMOTIONS = 'promotions';
+    const GALLERY = 'gallery';
 }
