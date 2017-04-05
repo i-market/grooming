@@ -1,4 +1,6 @@
 <?
+use App\Iblock;
+use Bex\Tools\Iblock\IblockTools;
 use Core\View as v;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
@@ -18,67 +20,72 @@ $APPLICATION->SetTitle("Грумелье");
     <div class="left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0s"></div>
     <div class="right wow fadeInRight" data-wow-duration="1s" data-wow-delay="0s"></div>
     <div class="wrap">
-        <strong class="heading"><h2>Сервис</h2></strong>
-        <div class="grid">
-            <a href="#" class="item wow fadeInDown" data-wow-duration=".6s" data-wow-delay="1.2s">
-        <span class="img">
-          <img src="<?= v::asset('images/1-1.png') ?>" alt="">
-          <span class="shape">
-            <span>Груминг Cалон</span>
-        </span>
-        </span>
-                <span class="info">
-          <span class="ico">
-            <img src="<?= v::asset('images/icon-grouming.png') ?>" alt="">
-          </span>
-        <span class="text">Наши профессиональные и квалифицированные грумеры-стилисты, владеющие техникой
-безопасности при работе с кошками и собаками, всегда помогут Вашему питомцу
-выглядеть великолепно.</span>
-        </span>
-            </a>
-            <a href="#" class="item wow fadeInDown" data-wow-duration=".6s" data-wow-delay="1.6s">
-        <span class="img">
-          <img src="<?= v::asset('images/2-2.png') ?>" alt="">
-          <span class="shape">
-            <span>Гостиница</span>
-        </span>
-        </span>
-                <span class="info">
-          <span class="ico">
-            <img src="<?= v::asset('images/icon-hotel.png') ?>" alt="">
-          </span>
-        <span class="text">В нашем зоомагазине вы найдете широкий ассортимент качественной продукции для Вашего питомца. Вы всегда сможете порадовать Вашего любимца кормами, аксессуарами, лакомствами, игрушками и одеждой.</span>
-        </span>
-            </a>
-            <a href="#" class="item wow fadeInDown" data-wow-duration=".6s" data-wow-delay="2s">
-        <span class="img">
-          <img src="<?= v::asset('images/3-2.png') ?>" alt="">
-          <span class="shape">
-            <span>Зоомагазин</span>
-        </span>
-        </span>
-                <span class="info">
-          <span class="ico">
-            <img src="<?= v::asset('images/icon-market.png') ?>" alt="">
-          </span>
-        <span class="text">Наша гостиница предоставляет Вашему питомцу комфортабельное размещение и обеспечивает доброжелательную атмосферу в специально оборудованных номерах с комплексной системой безопасности.</span>
-        </span>
-            </a>
-            <a href="#" class="item wow fadeInDown" data-wow-duration=".6s" data-wow-delay="2.4s">
-        <span class="img">
-          <img src="<?= v::asset('images/4-1.png') ?>" alt="">
-          <span class="shape">
-            <span>Зоотакси</span>
-        </span>
-        </span>
-                <span class="info">
-          <span class="ico">
-            <img src="<?= v::asset('images/icon-taxi.png') ?>" alt="">
-          </span>
-        <span class="text">Наше специализированное зоотакси обеспечит комфортабельное и безопасное путешествие для Вас и Вашего питомца. Мы заботимся о комфорте и безопасности Вас и Ваших любимцев!</span>
-        </span>
-            </a>
-        </div>
+        <strong class="heading">
+            <? $APPLICATION->IncludeComponent(
+            	"bitrix:main.include",
+            	"",
+            	Array(
+            		"AREA_FILE_SHOW" => "file",
+            		"PATH" => v::includedArea('homepage/service_heading.php')
+            	)
+            ); ?>
+        </strong>
+        <? $APPLICATION->IncludeComponent(
+        	"bitrix:news.list",
+        	"service",
+        	Array(
+        		"ACTIVE_DATE_FORMAT" => "j F Y",
+        		"ADD_SECTIONS_CHAIN" => "N",
+        		"AJAX_MODE" => "N",
+        		"AJAX_OPTION_ADDITIONAL" => "",
+        		"AJAX_OPTION_HISTORY" => "N",
+        		"AJAX_OPTION_JUMP" => "N",
+        		"AJAX_OPTION_STYLE" => "Y",
+        		"CACHE_FILTER" => "N",
+        		"CACHE_GROUPS" => "Y",
+        		"CACHE_TIME" => "36000000",
+        		"CACHE_TYPE" => "A",
+        		"CHECK_DATES" => "Y",
+        		"DETAIL_URL" => "",
+        		"DISPLAY_BOTTOM_PAGER" => "Y",
+        		"DISPLAY_DATE" => "Y",
+        		"DISPLAY_NAME" => "Y",
+        		"DISPLAY_PICTURE" => "Y",
+        		"DISPLAY_PREVIEW_TEXT" => "Y",
+        		"DISPLAY_TOP_PAGER" => "N",
+        		"FIELD_CODE" => array("", ""),
+        		"FILTER_NAME" => "",
+        		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
+        		"IBLOCK_ID" => IblockTools::find(Iblock::CONTENT_TYPE, Iblock::SERVICE)->id(),
+        		"IBLOCK_TYPE" => Iblock::CONTENT_TYPE,
+        		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+        		"INCLUDE_SUBSECTIONS" => "Y",
+        		"MESSAGE_404" => "",
+        		"NEWS_COUNT" => PHP_INT_MAX,
+        		"PAGER_BASE_LINK_ENABLE" => "N",
+        		"PAGER_DESC_NUMBERING" => "N",
+        		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+        		"PAGER_SHOW_ALL" => "N",
+        		"PAGER_SHOW_ALWAYS" => "N",
+        		"PAGER_TEMPLATE" => ".default",
+        		"PAGER_TITLE" => '',
+        		"PARENT_SECTION" => "",
+        		"PARENT_SECTION_CODE" => "",
+        		"PREVIEW_TRUNCATE_LEN" => "",
+        		"PROPERTY_CODE" => array("LINK", "ICON"),
+        		"SET_BROWSER_TITLE" => "N",
+        		"SET_LAST_MODIFIED" => "N",
+        		"SET_META_DESCRIPTION" => "N",
+        		"SET_META_KEYWORDS" => "N",
+        		"SET_STATUS_404" => "N",
+        		"SET_TITLE" => "N",
+        		"SHOW_404" => "N",
+        		"SORT_BY1" => "CREATED",
+        		"SORT_BY2" => "SORT",
+        		"SORT_ORDER1" => "DESC",
+        		"SORT_ORDER2" => "ASC"
+        	)
+        ); ?>
     </div>
 </section>
 <section class="why_us">

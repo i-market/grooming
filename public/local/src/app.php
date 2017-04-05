@@ -9,3 +9,8 @@ class App {
 class PageProperty {
     const LAYOUT = 'layout';
 }
+
+class Iblock {
+    const CONTENT_TYPE = 'content';
+    const SERVICE = 'service';
+}

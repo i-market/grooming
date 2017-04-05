@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "89d2f148baa580654965c1f1e494b6da",
-    "content-hash": "09a0000b23bbf29338d8959813a82b0f",
+    "hash": "98a5d90275beccc2e8437554c4930c20",
+    "content-hash": "94dba03cfa1f3e0f82d9e0681832da25",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -56,6 +56,50 @@
                 "toolkit"
             ],
             "time": "2015-05-16 19:24:58"
+        },
+        {
+            "name": "bitrix-expert/tools",
+            "version": "1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bitrix-expert/tools.git",
+                "reference": "5668d07804318e3831459fe14d15d7a4efcdd186"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bitrix-expert/tools/zipball/5668d07804318e3831459fe14d15d7a4efcdd186",
+                "reference": "5668d07804318e3831459fe14d15d7a4efcdd186",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bex\\Tools\\": "src/"
+                },
+                "files": [
+                    "src/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nik Samokhvalov",
+                    "email": "nik@samokhvalov.info"
+                }
+            ],
+            "description": "Helpers for developers on Bitrix",
+            "keywords": [
+                "bitrix",
+                "iblock",
+                "tools"
+            ],
+            "time": "2017-03-27 11:07:34"
         },
         {
             "name": "doctrine/inflector",

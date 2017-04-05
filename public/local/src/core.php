@@ -341,11 +341,13 @@ class BreakpointExtension extends Twig_Extension {
     public function getName() {
         return 'breakpoint';
     }
+
     public function getFunctions() {
         return [
             new Twig_SimpleFunction('breakpoint', [$this, 'setBreakpoint'], ['needs_environment' => true, 'needs_context' => true]),
         ];
     }
+
     /**
      * If XDebug is detected, makes the debugger break.
      *
