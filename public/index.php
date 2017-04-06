@@ -1,4 +1,5 @@
 <?
+use App\HeroBanner;
 use App\Iblock;
 use Bex\Tools\Iblock\IblockTools;
 use Core\View as v;
@@ -8,14 +9,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Грумелье");
 ?>
 
-<section class="banner">
-    <div class="wrap">
-        <h1>Груминг. Гостиница. Зоомагазин</h1>
-        <div class="dog_line"></div>
-        <h2>Самый большой и современный сервис для Ваших любимых питомцев</h2>
-        <span class="next" data-href="next"></span>
-    </div>
-</section>
+<?= HeroBanner::render(HeroBanner::HOMEPAGE_CODE); ?>
 <section class="service" data-anchor="next">
     <div class="left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0s"></div>
     <div class="right wow fadeInRight" data-wow-duration="1s" data-wow-delay="0s"></div>

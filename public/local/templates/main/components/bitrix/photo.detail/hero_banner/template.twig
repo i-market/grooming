@@ -1,0 +1,9 @@
+<section class="banner" style="background-image: url('{{ result.DETAIL_PICTURE.SRC }}');">
+    <div class="wrap">
+        <h1>{{ result.NAME }}</h1>
+        {% set line_class = result.PROPERTIES.LINE_CLASS.VALUE_XML_ID %}
+        <div class="dog_line{{ line_class ? ' ' ~ line_class }}"></div>
+        <h2>{{ result.PREVIEW_TEXT }}</h2>
+        <span class="next" data-href="next"></span>
+    </div>
+</section>
