@@ -117,8 +117,9 @@ class Strings extends StringsMethods {
     }
 
     static function replaceAll($s, $pattern, $replacement) {
-        while(preg_match($pattern, $s))
+        while(preg_match($pattern, $s)) {
             $s = preg_replace($pattern, $replacement, $s);
+        }
         return $s;
     }
 }
