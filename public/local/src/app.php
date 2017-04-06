@@ -4,6 +4,8 @@ namespace App;
 
 use Core\Env;
 use Core\View as v;
+use Core\Strings;
+use Core\View;
 
 class App {
     const SITE_ID = 's1';
@@ -16,7 +18,11 @@ class App {
     static function layoutContext() {
         $scripts = self::useBitrixAsset() ? [] : self::assets()['scripts'];
         return [
-            'scripts' => $scripts
+            'scripts' => $scripts,
+            'header' => [
+                'phone_fragment' => View::renderIncludedArea('header_phone.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']])
+            ],
+            'copyright_year' => date('Y')
         ];
     }
 
@@ -62,4 +68,10 @@ class Iblock {
     const GALLERY = 'gallery';
     const BANNERS = 'banners';
     const HERO_BANNERS = 'hero_banners';
+}
+
+class Util {
+    static function normalizePhoneNumber($string) {
+        return Strings::replaceAll($string, '/[^\+\d]/', '');
+    }
 }
