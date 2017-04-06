@@ -27,7 +27,8 @@ class App {
                 'about_us' => v::twig()->render(v::partial('footer/about_us.twig'), [
                     'heading' => v::renderIncludedArea('footer/about_us/heading.php'),
                     'body' => v::renderIncludedArea('footer/about_us/body.php')
-                ])
+                ]),
+                'contact' => v::renderIncludedArea('footer/contact.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']])
             ],
             'copyright_year' => date('Y')
         ];

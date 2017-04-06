@@ -1,0 +1,5 @@
+<?php
+
+$arComponentDescription = [
+    'NAME' => 'Контакты'
+];
