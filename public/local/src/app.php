@@ -19,7 +19,8 @@ class App {
         return [
             'scripts' => $scripts,
             'header' => [
-                'phone_fragment' => v::renderIncludedArea('header_phone.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']])
+                'phone_fragment' => v::renderIncludedArea('header_phone.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']]),
+                'menu' => Layout::renderHeaderMenu()
             ],
             'copyright_year' => date('Y')
         ];

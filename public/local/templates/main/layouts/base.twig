@@ -7,47 +7,9 @@
             <span></span>
         </div>
         <a class="logo" href="{{ path('/') }}" title="{{ logo_label }}"></a>
-        <nav class="main_menu cf">
-            <ul>
-                <li><a href="#">Главная</a></li>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Груминг</a>
-                    <ul>
-                        <li>
-                            <strong>Услуги для собак</strong>
-                            <p><a href="#">Стоимость</a></p>
-                            <p><a href="#">Фотогалерея работ</a></p>
-                            <p><a href="#">Комплексные услуги </a></p>
-                            <p><a href="#">Дополнительные возможности</a></p>
-                            <p><a href="#">Услуги без записи</a></p>
-                            <p><a href="#">Pet expression</a></p>
-                            <p><a href="#">Share your pets style</a></p>
-                        </li>
-                        <li>
-                            <strong>Услуги для кошек</strong>
-                            <p><a href="#">Стоимость</a></p>
-                            <p><a href="#">Фотогалерея работ</a></p>
-                            <p><a href="#">Комплексные услуги </a></p>
-                            <p><a href="#">Дополнительные возможности</a></p>
-                            <p><a href="#">Услуги без записи</a></p>
-                        </li>
-                        <li>
-                            <strong>Дополнительные услуги</strong>
-                            <p><a href="#">Фотогалерея работ</a></p>
-                            <p><a href="#">Комплексные услуги </a></p>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="#">Гостиница</a></li>
-                <li><a href="#">Магазин</a></li>
-                <li><a href="#">Зоотакси</a></li>
-                <li><a href="#">Галерея</a></li>
-                {# TODO .active #}
-                <li><a href="#" class="active">Акции</a></li>
-                <li><a href="#">Контакты</a></li>
-            </ul>
-        </nav>
+        {{ header.menu }}
         <div class="header_info">
+            {# TODO search #}
             <form action="" method="post" id="" class="search_form">
                 <input type="text" placeholder="Поиск">
                 <button type="submit"></button>
