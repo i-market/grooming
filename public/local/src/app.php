@@ -22,6 +22,9 @@ class App {
                 'phone_fragment' => v::renderIncludedArea('header_phone.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']]),
                 'menu' => Layout::renderHeaderMenu()
             ],
+            'footer' => [
+                'menu' => Layout::renderFooterMenu()
+            ],
             'copyright_year' => date('Y')
         ];
     }

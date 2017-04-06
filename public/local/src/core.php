@@ -80,6 +80,13 @@ class Underscore extends ArraysMethods {
         return $ret;
     }
 
+    /**
+     * @return array Returns an array of [(take n) (drop n)]
+     */
+    static function splitAt($array, $n) {
+        return array(self::take($array, $n), self::drop($array, $n));
+    }
+
     static function identity($x) {
         return $x;
     }
