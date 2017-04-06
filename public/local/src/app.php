@@ -23,7 +23,11 @@ class App {
                 'menu' => Layout::renderHeaderMenu()
             ],
             'footer' => [
-                'menu' => Layout::renderFooterMenu()
+                'menu' => Layout::renderFooterMenu(),
+                'about_us' => v::twig()->render(v::partial('footer/about_us.twig'), [
+                    'heading' => v::renderIncludedArea('footer/about_us/heading.php'),
+                    'body' => v::renderIncludedArea('footer/about_us/body.php')
+                ])
             ],
             'copyright_year' => date('Y')
         ];
