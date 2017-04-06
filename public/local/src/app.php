@@ -5,7 +5,6 @@ namespace App;
 use Core\Env;
 use Core\View as v;
 use Core\Strings;
-use Core\View;
 
 class App {
     const SITE_ID = 's1';
@@ -20,7 +19,7 @@ class App {
         return [
             'scripts' => $scripts,
             'header' => [
-                'phone_fragment' => View::renderIncludedArea('header_phone.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']])
+                'phone_fragment' => v::renderIncludedArea('header_phone.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']])
             ],
             'copyright_year' => date('Y')
         ];
