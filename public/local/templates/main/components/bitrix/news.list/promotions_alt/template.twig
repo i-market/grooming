@@ -3,10 +3,7 @@
         {# TODO link #}
         <a href="#" class="item" id="{{ add_editing_actions(item, template) }}">
             <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
-            {# TODO dynamic bg color #}
-            <div class="discount right bottom" style="background: rgba(153, 153, 153, 0.6)">
-                {{ item.NAME }}
-            </div>
+            <span class="red_line">{{ item.NAME }}</span>
             <div class="info">
                 <p>{{ item.PREVIEW_TEXT }}</p>
             </div>
