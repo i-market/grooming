@@ -1,0 +1,17 @@
+{% if items is not empty %}
+    <div class="bread_crumbs">
+        <div class="wrap">
+            <ul>
+                <li><a href="{{ path('/') }}">Главная</a></li>
+                <span class="separator">/</span>
+                {% for item in items %}
+                    <li><a href="{{ item.LINK }}" class="{{ loop.last ? 'active' }}">{{ item.TITLE }}</a></li>
+                    {% if not loop.last %}
+                        {# TODO span inside ul is invalid html? #}
+                        <span class="separator">/</span>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}

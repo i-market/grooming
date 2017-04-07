@@ -40,4 +40,16 @@ if (App::useBitrixAsset()) {
 </head>
 <body>
 <? $APPLICATION->ShowPanel() ?>
+<?
+// renders empty string, puts html into the bitrix view
+$APPLICATION->IncludeComponent(
+    "bitrix:breadcrumb",
+    "top",
+    Array(
+        "PATH" => "",
+        "SITE_ID" => App::SITE_ID,
+        "START_FROM" => "0"
+    )
+);
+?>
 <? v::showLayoutHeader(PageProperty::LAYOUT, 'base.twig', App::layoutContext()) ?>
