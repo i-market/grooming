@@ -6,7 +6,6 @@ use Bitrix\Main\Config\Configuration;
 use CBitrixComponentTemplate;
 use CFile;
 use CIBlock;
-use CIBlockResult;
 use Core\Underscore as _;
 use Core\View as v;
 use Core\Nullable as nil;
@@ -177,16 +176,17 @@ class View {
         });
     }
 
-    static function showLayoutHeader($pageProperty, $defaultLayout, $context) {
-        v::showForProperty($pageProperty, function($layout) use ($context) {
-            if (is_callable($context)) {
-                $context = $context();
-            }
+    static function showLayoutHeader($pageProperty, $defaultLayout, $defaultContextFn) {
+        v::showForProperty($pageProperty, function($layout) use ($defaultContextFn) {
             $path = is_array($layout) ? $layout[0] : $layout;
-            $propCtx = is_array($layout) ? $layout[1] : array();
+            $propCtxMaybe = is_array($layout) ? $layout[1] : null;
+            if (is_callable($propCtxMaybe)) {
+                $propCtxMaybe = $propCtxMaybe();
+            }
             $twig = TemplateEngine::getInstance()->getEngine();
             $placeholder = '<page-placeholder/>';
-            $ctx = array_merge(array('page' => $placeholder), $context, $propCtx);
+            $layoutContext = nil::get($propCtxMaybe, $defaultContextFn());
+            $ctx = array_merge(['page' => $placeholder], $layoutContext);
             $html = $twig->render(SITE_TEMPLATE_PATH.'/layouts/'.$path, $ctx);
             list($header, $footer) = explode($placeholder, $html);
             self::$footer = $footer;

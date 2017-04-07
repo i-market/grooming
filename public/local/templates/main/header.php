@@ -52,4 +52,6 @@ $APPLICATION->IncludeComponent(
     )
 );
 ?>
-<? v::showLayoutHeader(PageProperty::LAYOUT, 'base.twig', App::layoutContext()) ?>
+<? v::showLayoutHeader(PageProperty::LAYOUT, 'base.twig', function() {
+    return App::layoutContext();
+}) ?>

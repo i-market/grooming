@@ -14,9 +14,9 @@ class App {
         return \Core\App::env() !== Env::DEV;
     }
 
-    static function layoutContext() {
+    static function layoutContext($options = []) {
         $scripts = self::useBitrixAsset() ? [] : self::assets()['scripts'];
-        return [
+        $ret = [
             'scripts' => $scripts,
             'header' => [
                 'phone_fragment' => v::renderIncludedArea('header_phone.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']]),
@@ -32,6 +32,10 @@ class App {
             ],
             'copyright_year' => date('Y')
         ];
+        if (isset($options['hero_banner'])) {
+            $ret['hero_banner'] = HeroBanner::render($options['hero_banner']);
+        }
+        return $ret;
     }
 
     static function assets() {
