@@ -6,6 +6,7 @@ use Bex\Tools\Iblock\IblockTools;
 
 class HeroBanner {
     const HOMEPAGE_CODE = 'Главная страница';
+    const STORE_CODE = 'Магазин';
 
     static function render($elementCode) {
         global $APPLICATION;

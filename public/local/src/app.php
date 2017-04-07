@@ -80,6 +80,7 @@ class Iblock {
     const GALLERY = 'gallery';
     const BANNERS = 'banners';
     const HERO_BANNERS = 'hero_banners';
+    const PRODUCT_CATEGORIES = 'product_categories';
 }
 
 class Util {

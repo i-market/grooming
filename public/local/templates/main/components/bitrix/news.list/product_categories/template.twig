@@ -1,0 +1,11 @@
+<div class="grid">
+    {% for item in result.ITEMS %}
+        <div class="item col col_4">
+            <div class="img">
+                <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
+            </div>
+            <p class="title">{{ item.NAME }}</p>
+            <div class="text editable-area">{{ item.PREVIEW_TEXT }}</div>
+        </div>
+    {% endfor %}
+</div>
