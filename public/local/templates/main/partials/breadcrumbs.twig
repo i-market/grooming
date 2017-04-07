@@ -1,17 +1,23 @@
 {% if items is not empty %}
     <div class="bread_crumbs">
         <div class="wrap">
-            <ul>
+            {# TODO span inside ul/ol is invalid html? #}
+            <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+                {# non-active by implication #}
                 <li><a href="{{ path('/') }}">Главная</a></li>
                 <span class="separator">/</span>
                 {% for item in items %}
-                    <li><a href="{{ item.LINK }}" class="{{ loop.last ? 'active' }}">{{ item.TITLE }}</a></li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="{{ item.LINK }}" class="{{ loop.last ? 'active' }}">
+                            <span itemprop="name">{{ item.TITLE }}</span>
+                        </a>
+                        <meta itemprop="position" content="{{ loop.index }}" />
+                    </li>
                     {% if not loop.last %}
-                        {# TODO span inside ul is invalid html? #}
                         <span class="separator">/</span>
                     {% endif %}
                 {% endfor %}
-            </ul>
+            </ol>
         </div>
     </div>
 {% endif %}
