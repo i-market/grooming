@@ -1,16 +1,20 @@
 <?
+use App\App;
 use App\HeroBanner;
 use App\Iblock;
 use App\Layout;
+use App\PageProperty;
 use Bex\Tools\Iblock\IblockTools;
 use Core\View as v;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 // TODO title
 $APPLICATION->SetTitle("Грумелье");
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutContext([
+    'hero_banner' => HeroBanner::HOMEPAGE_CODE
+])]);
 ?>
 
-<?= HeroBanner::render(HeroBanner::HOMEPAGE_CODE); ?>
 <section class="service" data-anchor="next">
     <div class="left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0s"></div>
     <div class="right wow fadeInRight" data-wow-duration="1s" data-wow-delay="0s"></div>
