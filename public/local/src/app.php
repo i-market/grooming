@@ -77,7 +77,7 @@ class Iblock {
     const SERVICE = 'service';
     const WHY_US = 'why_us';
     const PROMOTIONS = 'promotions';
-    const GALLERY = 'gallery';
+    const IMAGES = 'images';
     const BANNERS = 'banners';
     const HERO_BANNERS = 'hero_banners';
     const PRODUCT_CATEGORIES = 'product_categories';

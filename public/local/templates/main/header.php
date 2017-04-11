@@ -42,14 +42,17 @@ if (App::useBitrixAsset()) {
 <? $APPLICATION->ShowPanel() ?>
 <?
 // renders empty string, puts html into the bitrix view
+// hide icons, otherwise bitrix editing thingy is rendered in the wrong place on the page
 $APPLICATION->IncludeComponent(
     "bitrix:breadcrumb",
     "top",
-    Array(
+    array(
         "PATH" => "",
         "SITE_ID" => App::SITE_ID,
         "START_FROM" => "0"
-    )
+    ),
+    null,
+    array('HIDE_ICONS' => 'Y')
 );
 ?>
 <? v::showLayoutHeader(PageProperty::LAYOUT, 'base.twig', function() {

@@ -1,8 +1,8 @@
 <div class="grid slider_gallery">
     {% for item in result.ITEMS %}
         <div class="item" id="{{ add_editing_actions(item, template) }}">
-            <a class="gellery_item" rel="gallery" href="{{ item.PREVIEW_PICTURE.SRC }}">
-                <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}" />
+            <a class="gellery_item" rel="gallery" href="{{ item.DETAIL_PICTURE.SRC }}">
+                <img src="{{ item.DETAIL_PICTURE.SRC }}" alt="{{ item.DETAIL_PICTURE.ALT }}" />
             </a>
         </div>
     {% endfor %}
