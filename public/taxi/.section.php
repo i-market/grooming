@@ -1,0 +1,6 @@
+<?
+$sSectionName = "Зоотакси";
+$arDirProperties = Array(
+
+);
+?>

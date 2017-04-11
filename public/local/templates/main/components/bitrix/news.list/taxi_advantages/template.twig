@@ -1,0 +1,31 @@
+{% for item in result.ITEMS %}
+    {% set is_odd = loop.index0 is odd %}
+    {% set order = is_odd ? ['right', 'left'] : ['left', 'right'] %}
+    <div class="item{{ is_odd ? ' odd' }}">
+        {% for column in order %}
+            {% if column == 'left' %}
+                <div class="left">
+                    <div class="block">
+                        <div class="number">
+                            {% set no_image = loop.index > 5 %}
+                            {% if not no_image %}
+                                <img src="{{ asset('images/0' ~ loop.index ~ '.png') }}" alt="{{ '0' ~ loop.index }}">
+                            {% else %}
+                                {# just in case #}
+                                <img src="{{ asset('images/01.png') }}" style="visibility: hidden">
+                            {% endif %}
+                        </div>
+                        <div class="info">
+                            <p class="title">{{ item.NAME }}</p>
+                            <div class="text editable-area">{{ item.PREVIEW_TEXT }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% elseif column == 'right' %}
+                <div class="right">
+                    <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endfor %}

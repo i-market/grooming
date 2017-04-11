@@ -81,6 +81,7 @@ class Iblock {
     const BANNERS = 'banners';
     const HERO_BANNERS = 'hero_banners';
     const PRODUCT_CATEGORIES = 'product_categories';
+    const TAXI_ADVANTAGES = 'taxi_advantages';
 }
 
 class Util {
