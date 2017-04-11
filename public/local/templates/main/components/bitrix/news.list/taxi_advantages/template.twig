@@ -1,7 +1,7 @@
 {% for item in result.ITEMS %}
     {% set is_odd = loop.index0 is odd %}
     {% set order = is_odd ? ['right', 'left'] : ['left', 'right'] %}
-    <div class="item{{ is_odd ? ' odd' }}">
+    <div class="item{{ is_odd ? ' odd' }}" id="{{ add_editing_actions(item, template) }}">
         {% for column in order %}
             {% if column == 'left' %}
                 <div class="left">
