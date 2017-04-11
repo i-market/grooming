@@ -28,9 +28,9 @@ class App {
                     'heading' => v::renderIncludedArea('footer/about_us/heading.php'),
                     'body' => v::renderIncludedArea('footer/about_us/body.php')
                 ]),
-                'contact' => v::renderIncludedArea('footer/contact.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']])
-            ],
-            'copyright_year' => date('Y')
+                'contact' => v::renderIncludedArea('footer/contact.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']]),
+                'copyright' => v::renderIncludedArea('footer/copyright.php')
+            ]
         ];
         if (isset($options['hero_banner'])) {
             $ret['hero_banner'] = HeroBanner::render($options['hero_banner']);
