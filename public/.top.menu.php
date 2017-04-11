@@ -8,6 +8,13 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
+		"Груминг", 
+		"/grooming/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"Магазин", 
 		"/store/", 
 		Array(), 

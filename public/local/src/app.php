@@ -83,6 +83,7 @@ class Iblock {
     const PRODUCT_CATEGORIES = 'product_categories';
     const TAXI_ADVANTAGES = 'taxi_advantages';
     const TAXI_PRICING = 'taxi_pricing';
+    const GROOMING_SERVICE = 'grooming_service';
 }
 
 class Util {

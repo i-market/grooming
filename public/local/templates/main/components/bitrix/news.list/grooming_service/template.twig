@@ -1,0 +1,33 @@
+<div class="block">
+    {% for item in result.ITEMS %}
+        {% set icon = item.DISPLAY_PROPERTIES.ICON.FILE_VALUE %}
+        {% set is_even = loop.index is even %}
+        {% set order = is_even ? ['right', 'left'] : ['left', 'right'] %}
+        <div class="item{{ is_even ? ' even' }}" id="{{ add_editing_actions(item, template) }}">
+            {% for column in order %}
+                {% if column == 'left' %}
+                    <div class="left">
+                        <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
+                    </div>
+                {% elseif column == 'right' %}
+                    <div class="right">
+                        <a href="{{ item.PROPERTIES.LINK.VALUE }}" class="inner">
+                            <span class="title">{{ item.NAME }}</span>
+                            <span class="ico">
+                                <img src="{{ icon.SRC }}" alt="">
+                            </span>
+                            <span class="text editable-area">
+                                {{ item.PREVIEW_TEXT }}
+                            </span>
+                            <span class="link">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>

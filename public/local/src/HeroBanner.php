@@ -8,6 +8,7 @@ class HeroBanner {
     const HOMEPAGE_CODE = 'Главная страница';
     const STORE_CODE = 'Магазин';
     const TAXI_CODE = 'Зоотакси';
+    const GROOMING_CODE = 'Груминг';
 
     static function render($elementCode) {
         global $APPLICATION;
