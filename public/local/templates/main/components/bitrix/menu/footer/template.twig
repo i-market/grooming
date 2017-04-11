@@ -1,13 +1,17 @@
+{% macro item(item) %}
+    <p><a href="{{ item.LINK }}">{{ item.TEXT }}</a></p>
+{% endmacro %}
+
 <div class="menu">
     <strong>Меню</strong>
     <div class="left">
         {% for item in result.COLUMNS[0] %}
-            <p><a href="{{ item.LINK }}">{{ item.TEXT }}</a></p>
+            {{ _self.item(item) }}
         {% endfor %}
     </div>
     <div class="right">
         {% for item in result.COLUMNS[1] %}
-            <p><a href="{{ item.LINK }}">{{ item.TEXT }}</a></p>
+            {{ _self.item(item) }}
         {% endfor %}
     </div>
 </div>
