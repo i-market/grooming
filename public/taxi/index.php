@@ -161,71 +161,75 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutCon
         ); ?>
     </div>
 </section>
+<? // pricing ?>
 <section class="taxi_tarif">
     <div class="wrap wrap--pages">
-        <strong class="heading"><h2>Тарифы</h2></strong>
-        <div class="grid">
-            <div class="item col col_5">
-                <div class="top">
-                    <p>от <span>500</span>р</p>
-                </div>
-                <div class="ico">
-                    <img src="images/taxi_ico.svg" alt="">
-                </div>
-                <p class="text">Поездка в
-                    <br>пределах
-                    <br>20 км</p>
-                <a class="order" href="#">Заказать</a>
-            </div>
-            <div class="item col col_5">
-                <div class="top">
-                    <p>от <span>1500</span>р</p>
-                </div>
-                <div class="ico">
-                    <img src="images/taxi_ico_2.svg" alt="">
-                </div>
-                <p class="text">Поездка в
-                    <br>пределах
-                    <br>40 км</p>
-                <a class="order" href="#">Заказать</a>
-            </div>
-            <div class="item col col_5">
-                <div class="top">
-                    <p>от <span>800</span>р</p>
-                </div>
-                <div class="ico">
-                    <img src="images/taxi_ico.svg" alt="">
-                </div>
-                <p class="text">Ожидание
-                    <br>для поездки
-                    <br>туда-обратно</p>
-                <a class="order" href="#">Заказать</a>
-            </div>
-            <div class="item col col_5">
-                <div class="top">
-                    <p>от <span>2500</span>р</p>
-                </div>
-                <div class="ico">
-                    <img src="images/taxi_ico_2.svg" alt="">
-                </div>
-                <p class="text">Перевозка
-                    <br>животного без
-                    <br>хозяина</p>
-                <a class="order" href="#">Заказать</a>
-            </div>
-            <div class="item col col_5">
-                <div class="top">
-                    <p>от <span>3000</span>р</p>
-                </div>
-                <div class="ico">
-                    <img src="images/taxi_ico.svg" alt="">
-                </div>
-                <p class="text">Поездка
-                    <br>свыше
-                    <br>40 км</p>
-                <a class="order" href="#">Заказать</a>
-            </div>
-        </div>
+        <strong class="heading">
+            <? $APPLICATION->IncludeComponent(
+            	"bitrix:main.include",
+            	"",
+            	Array(
+            		"AREA_FILE_SHOW" => "file",
+            		"PATH" => v::includedArea('taxi/pricing_header.php')
+            	)
+            ); ?>
+        </strong>
+        <? $APPLICATION->IncludeComponent(
+        	"bitrix:news.list",
+        	"taxi_pricing",
+        	Array(
+        		"ACTIVE_DATE_FORMAT" => "j F Y",
+        		"ADD_SECTIONS_CHAIN" => "N",
+        		"AJAX_MODE" => "N",
+        		"AJAX_OPTION_ADDITIONAL" => "",
+        		"AJAX_OPTION_HISTORY" => "N",
+        		"AJAX_OPTION_JUMP" => "N",
+        		"AJAX_OPTION_STYLE" => "Y",
+        		"CACHE_FILTER" => "N",
+        		"CACHE_GROUPS" => "Y",
+        		"CACHE_TIME" => "36000000",
+        		"CACHE_TYPE" => "A",
+        		"CHECK_DATES" => "Y",
+        		"DETAIL_URL" => "",
+        		"DISPLAY_BOTTOM_PAGER" => "Y",
+        		"DISPLAY_DATE" => "Y",
+        		"DISPLAY_NAME" => "Y",
+        		"DISPLAY_PICTURE" => "Y",
+        		"DISPLAY_PREVIEW_TEXT" => "Y",
+        		"DISPLAY_TOP_PAGER" => "N",
+        		"FIELD_CODE" => array("", ""),
+        		"FILTER_NAME" => "",
+        		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
+        		"IBLOCK_ID" => IblockTools::find(Iblock::CONTENT_TYPE, Iblock::TAXI_PRICING)->id(),
+        		"IBLOCK_TYPE" => Iblock::CONTENT_TYPE,
+        		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+        		"INCLUDE_SUBSECTIONS" => "Y",
+        		"MESSAGE_404" => "",
+        		"NEWS_COUNT" => PHP_INT_MAX,
+        		"PAGER_BASE_LINK_ENABLE" => "N",
+        		"PAGER_DESC_NUMBERING" => "N",
+        		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+        		"PAGER_SHOW_ALL" => "N",
+        		"PAGER_SHOW_ALWAYS" => "N",
+        		"PAGER_TEMPLATE" => ".default",
+        		"PAGER_TITLE" => '',
+        		"PARENT_SECTION" => "",
+        		"PARENT_SECTION_CODE" => "",
+        		"PREVIEW_TRUNCATE_LEN" => "",
+        		"PROPERTY_CODE" => array("COST"),
+        		"SET_BROWSER_TITLE" => "N",
+        		"SET_LAST_MODIFIED" => "N",
+        		"SET_META_DESCRIPTION" => "N",
+        		"SET_META_KEYWORDS" => "N",
+        		"SET_STATUS_404" => "N",
+        		"SET_TITLE" => "N",
+        		"SHOW_404" => "N",
+        		"SORT_BY1" => "ACTIVE_FROM",
+        		"SORT_BY2" => "SORT",
+        		"SORT_ORDER1" => "DESC",
+        		"SORT_ORDER2" => "ASC"
+        	)
+        ); ?>
         <div class="allert_text"><span>*</span>При перевозке в ночное время с 23:00-06:00 осуществляется доплата 500 руб. к общей сумме заказа.</div>
         <div class="simple_text">
             <p>Идейные соображения высшего порядка, а также постоянное информационно-пропагандистское обеспечение нашей деятельности играет важную роль в формировании соответствующий условий активизации. Идейные соображения высшего порядка, а также новая модель организационной деятельности играет важную роль в формировании модели развития. Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения систем массового участия.</p>

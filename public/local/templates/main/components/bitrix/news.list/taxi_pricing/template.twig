@@ -1,0 +1,15 @@
+<div class="grid">
+    {% for item in result.ITEMS %}
+        <div class="item col col_5" id="{{ add_editing_actions(item, template) }}">
+            <div class="top">
+                <p>{{ item.FORMATTED_COST }}</p>
+            </div>
+            <div class="ico">
+                <img src="{{ asset('images/' ~ (loop.index is odd ? 'taxi_ico.svg' : 'taxi_ico_2.svg')) }}" alt="">
+            </div>
+            <div class="text editable-area">{{ item.PREVIEW_TEXT }}</div>
+            {# TODO order link #}
+            <a class="order" href="#">Заказать</a>
+        </div>
+    {% endfor %}
+</div>
