@@ -21,7 +21,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutCon
             	"",
             	Array(
             		"AREA_FILE_SHOW" => "file",
-            		"PATH" => v::includedArea('grooming/service_header.php')
+            		"PATH" => v::includedArea('grooming/service_heading.php')
             	)
             ); ?>
         </strong>
@@ -90,7 +90,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutCon
         	"",
         	Array(
         		"AREA_FILE_SHOW" => "file",
-        		"PATH" => v::includedArea('grooming/gallery_header.php')
+        		"PATH" => v::includedArea('grooming/gallery_heading.php')
         	)
         ); ?>
     </strong>

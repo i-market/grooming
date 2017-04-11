@@ -20,7 +20,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutCon
             "",
             Array(
                 "AREA_FILE_SHOW" => "file",
-                "PATH" => v::includedArea('taxi/advantages_header.php')
+                "PATH" => v::includedArea('taxi/advantages_heading.php')
             )
         ); ?>
         <? $APPLICATION->IncludeComponent(
@@ -170,7 +170,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutCon
             	"",
             	Array(
             		"AREA_FILE_SHOW" => "file",
-            		"PATH" => v::includedArea('taxi/pricing_header.php')
+            		"PATH" => v::includedArea('taxi/pricing_heading.php')
             	)
             ); ?>
         </strong>
