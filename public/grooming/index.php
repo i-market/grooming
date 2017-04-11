@@ -153,7 +153,16 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutCon
 </section>
 <section class="why_us why_us--pages">
     <div class="wrap wrap_why_us">
-        <strong class="heading"><h2>Почему мы?</h2></strong>
+        <strong class="heading">
+            <? $APPLICATION->IncludeComponent(
+            	"bitrix:main.include",
+            	"",
+            	Array(
+            		"AREA_FILE_SHOW" => "file",
+            		"PATH" => v::includedArea('grooming/why_us_heading.php')
+            	)
+            ); ?>
+        </strong>
         <div class="grid slider_why_us">
             <div class="item wow fadeInDown" data-wow-duration=".6s" data-wow-delay=".2s">
                 <div class="ico">
