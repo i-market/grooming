@@ -1,0 +1,13 @@
+{# TODO a11y #}
+<div class="more_info">
+    {% for item in result.ITEMS %}
+        {% set marker_id = item.PROPERTIES.MARKER_ID.VALUE %}
+        <img src="{{ asset('images/dog_cat.jpg') }}" alt="Собака и кошка">
+        <div class="plus {{ marker_id }}">+
+            <div class="dd_plus" id="{{ add_editing_actions(item, template) }}">
+                <span class="title">{{ item.NAME }}</span>
+                <div class="text editable-area">{{ item.PREVIEW_TEXT }}</div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -139,7 +139,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutCon
                 "PAGER_TEMPLATE" => ".default",
                 "PAGER_TITLE" => '',
                 "PARENT_SECTION" => "",
-                "PARENT_SECTION_CODE" => "",
+                "PARENT_SECTION_CODE" => "homepage",
                 "PREVIEW_TRUNCATE_LEN" => "",
                 "PROPERTY_CODE" => array("ICON"),
                 "SET_BROWSER_TITLE" => "N",
