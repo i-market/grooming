@@ -1,0 +1,125 @@
+{% macro hotel_item(item, template) %}
+    {% set cost = item.PROPERTIES.COST.VALUE %}
+    {% set photos = item.DISPLAY_PROPERTIES.PHOTOS.FILE_VALUE %}
+    <div class="hotel_item" id="{{ add_editing_actions(item, template) }}">
+        <div class="hotel_top">
+            <div class="hotel_top_left">
+                <p class="hotel_top_title">{{ item.NAME }}</p>
+                {# TODO editable area #}
+                <p class="hotel_top_text">{{ item.PREVIEW_TEXT }}</p>
+            </div>
+            <div class="hotel_top_right">
+                <p class="hotel_top_price">{{ cost }}</p>
+            </div>
+        </div>
+        <div class="hotel_bottom">
+            <div class="hotel_bottom_left">
+                <span class="hotel_bottom_open_hidden">Подробнее</span>
+            </div>
+            <div class="hotel_bottom_right">
+                {# TODO modals #}
+                <span class="hotel_btn pay">On-line оплата</span>
+                <span class="hotel_btn order" data-modal="some_form">Зарезервировать</span>
+            </div>
+        </div>
+        <div class="hotel_hidden">
+            <div class="wrap_hotel_hidden">
+                <div class="hotel_hidden_left editable-area">
+                    {{ item.DETAIL_TEXT }}
+                </div>
+                <div class="hotel_hidden_right">
+                    {% if photos is not empty %}
+                        {# TODO optional photos label? generic label? #}
+                        <p><strong>Фотографии номеров:</strong></p>
+                        <div class="grid">
+                            {% for photo in photos %}
+                                {# TODO resize #}
+                                <a class="gellery_item col col_2" href="{{ photo.SRC }}">
+                                    <img src="{{ photo.SRC }}" alt="{{ photo.ALT }}" rel="name">
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% for item in result.ITEMS %}
+    {{ _self.hotel_item(item, template) }}
+{% endfor %}
+{# TODO section details #}
+<div class="wrap_tables">
+    <div class="wrap">
+        <div class="item_table">
+            {# TODO section description #}
+            <strong>[TODO editable-* styles] Дополнительные услуги:</strong>
+            <div class="wrap_table">
+                <table class="additional_services_table">
+                    <thead>
+                    <tr>
+                        <td><b>Наименование услуги</b></td>
+                        <td><b>стоимость, рубли</b></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Специальный уход за животным (например, принятие ветеринарных препаратов)</td>
+                        <td>150 /сутки</td>
+                    </tr>
+                    <tr>
+                        <td>Обработка от эктопаразитов (блохи, клещи) (вет. препарат в стоимость не входит (Фронтлайн, Стронгхолд, Промерис Дуо и т.п.)) </td>
+                        <td>от 250 /доза</td>
+                    </tr>
+                    <tr>
+                        <td>Некастрированный кот старше 9 месяцев</td>
+                        <td>150 /сутки</td>
+                    </tr>
+                    <tr>
+                        <td>Специальный уход за животным (например, принятие ветеринарных препаратов)</td>
+                        <td>150 /сутки</td>
+                    </tr>
+                    <tr>
+                        <td>Обработка от эктопаразитов (блохи, клещи) (вет. препарат в стоимость не входит (Фронтлайн, Стронгхолд, Промерис Дуо и т.п.)) </td>
+                        <td>от 250 /доза</td>
+                    </tr>
+                    <tr>
+                        <td>Некастрированный кот старше 9 месяцев</td>
+                        <td>150 /сутки</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="item_table">
+            <strong>Стоимость кормления:</strong>
+            <div class="wrap_table wrap_table--price">
+                <table class="price_services_table">
+                    <thead>
+                    <tr>
+                        <td><b>Наименование услуги</b></td>
+                        <td><b>Эконом</b></td>
+                        <td><b>Премиум</b></td>
+                        <td><b>Суперпремиум</b></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Свыше 5 килограммсть не входит)</td>
+                        <td>200 руб/сутки</td>
+                        <td>200 руб/сутки</td>
+                        <td>200 руб/сутки</td>
+                    </tr>
+                    <tr>
+                        <td>Свыше 5 килограммсть не входит)</td>
+                        <td>200 руб/сутки</td>
+                        <td>200 руб/сутки</td>
+                        <td>200 руб/сутки</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

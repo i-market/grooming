@@ -85,6 +85,7 @@ class Iblock {
     const TAXI_PRICING = 'taxi_pricing';
     const GROOMING_SERVICE = 'grooming_service';
     const BODY_PARTS = 'body_parts';
+    const HOTEL_SERVICES = 'hotel_services';
 }
 
 class Util {

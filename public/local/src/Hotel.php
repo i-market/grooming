@@ -3,60 +3,14 @@
 namespace App;
 
 use Bex\Tools\Iblock\IblockTools;
-use Core\View as v;
 
-class Layout {
-    static function renderHeaderMenu() {
-        global $APPLICATION;
-        ob_start();
-        $APPLICATION->IncludeComponent(
-            "bitrix:menu",
-            "header",
-            Array(
-                "ALLOW_MULTI_SELECT" => "N",
-                "CHILD_MENU_TYPE" => "left",
-                "DELAY" => "N",
-                "MAX_LEVEL" => "2",
-                "MENU_CACHE_GET_VARS" => array(""),
-                "MENU_CACHE_TIME" => "3600",
-                "MENU_CACHE_TYPE" => "N",
-                "MENU_CACHE_USE_GROUPS" => "Y",
-                "ROOT_MENU_TYPE" => "top",
-                "USE_EXT" => "Y"
-            )
-        );
-        return ob_get_clean();
-    }
-
-    static function renderFooterMenu() {
-        global $APPLICATION;
-        ob_start();
-        $APPLICATION->IncludeComponent(
-            "bitrix:menu",
-            "footer",
-            Array(
-                "ALLOW_MULTI_SELECT" => "N",
-                "CHILD_MENU_TYPE" => "left",
-                "DELAY" => "N",
-                "MAX_LEVEL" => "1",
-                "MENU_CACHE_GET_VARS" => array(""),
-                "MENU_CACHE_TIME" => "3600",
-                "MENU_CACHE_TYPE" => "N",
-                "MENU_CACHE_USE_GROUPS" => "Y",
-                "ROOT_MENU_TYPE" => "top",
-                "USE_EXT" => "Y"
-            )
-        );
-        return ob_get_clean();
-    }
-
-    // TODO section code arg
-    static function renderBannersSection() {
+class Hotel {
+    static function renderHotelServicesTab($sectionCode) {
         global $APPLICATION;
         ob_start();
         $APPLICATION->IncludeComponent(
             "bitrix:news.list",
-            "banners_section",
+            "hotel_services_tab",
             Array(
                 "ACTIVE_DATE_FORMAT" => "j F Y",
                 "ADD_SECTIONS_CHAIN" => "N",
@@ -80,7 +34,7 @@ class Layout {
                 "FIELD_CODE" => array("", ""),
                 "FILTER_NAME" => "",
                 "HIDE_LINK_WHEN_NO_DETAIL" => "N",
-                "IBLOCK_ID" => IblockTools::find(Iblock::CONTENT_TYPE, Iblock::BANNERS)->id(),
+                "IBLOCK_ID" => IblockTools::find(Iblock::CONTENT_TYPE, Iblock::HOTEL_SERVICES)->id(),
                 "IBLOCK_TYPE" => Iblock::CONTENT_TYPE,
                 "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
                 "INCLUDE_SUBSECTIONS" => "Y",
@@ -94,9 +48,9 @@ class Layout {
                 "PAGER_TEMPLATE" => ".default",
                 "PAGER_TITLE" => '',
                 "PARENT_SECTION" => "",
-                "PARENT_SECTION_CODE" => "",
+                "PARENT_SECTION_CODE" => $sectionCode,
                 "PREVIEW_TRUNCATE_LEN" => "",
-                "PROPERTY_CODE" => array("LINK"),
+                "PROPERTY_CODE" => array("COST", "PHOTOS"),
                 "SET_BROWSER_TITLE" => "N",
                 "SET_LAST_MODIFIED" => "N",
                 "SET_META_DESCRIPTION" => "N",
