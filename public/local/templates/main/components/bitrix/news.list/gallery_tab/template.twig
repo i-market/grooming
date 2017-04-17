@@ -1,7 +1,7 @@
 <div class="gallery_slider_1 grid">
     {% for item in result.ITEMS %}
         {# TODO resize #}
-        <a href="{{ item.DETAIL_PICTURE.SRC }}" rel="some1" class="gellery_item col col_5">
+        <a href="{{ item.DETAIL_PICTURE.SRC }}" rel="some1" class="gellery_item col col_5" id="{{ add_editing_actions(item, template) }}">
             <img src="{{ item.DETAIL_PICTURE.SRC }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
         </a>
     {% endfor %}
