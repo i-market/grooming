@@ -15,7 +15,6 @@ use Twig_Extension;
 use Twig_SimpleFunction;
 use Underscore\Methods\ArraysMethods;
 use Underscore\Methods\StringsMethods;
-use Valitron\Validator;
 
 class Underscore extends ArraysMethods {
     static function mapValues($array, $f) {
@@ -260,69 +259,6 @@ class View {
             $resized = CFile::ResizeImageGet($item[$key], $dimensions);
             return _::set($item, $key.'.RESIZED', $resized);
         }, $items);
-    }
-}
-
-class Form {
-    static function field($name, $label, $type = 'text') {
-        return array(
-            'name' => $name,
-            'type' => $type,
-            'label' => $label
-        );
-    }
-
-    // TODO label?
-    static function select($name, $label, $options) {
-        return array(
-            'name' => $name,
-            'label' => $label,
-            'type' => 'select',
-            'options' => array_map(function($option) {
-                return is_array($option) ? $option : array(
-                    'text' => $option,
-                    'value' => $option,
-                    'attributes' => array()
-                );
-            }, $options)
-        );
-    }
-
-    static function formRoute($spec, $f) {
-        $rule = function($validation) {
-            if ($validation['type'] === 'minLength') {
-                return array('lengthMin', $validation['minLength']);
-            } else {
-                return array($validation['type']);
-            }
-        };
-        $handler = function($request, $response) use ($spec, $f, $rule) {
-            $params = $request->params(_::pluck($spec['fields'], 'name'));
-            $validator = new Validator($params);
-            foreach ($spec['validations'] as $validation) {
-                foreach ($validation['fields'] as $field) {
-                    $tpl = View::twig()->createTemplate($validation['message']);
-                    $message = $tpl->render(array(
-                        'field' => $spec['fields'][$field],
-                        'validation' => $validation
-                    ));
-                    $r = $rule($validation);
-                    $type = _::first($r);
-                    $args = _::drop($r, 1);
-                    $ruleArgs = array_merge(array($type, $field), $args);
-                    // mutate
-                    call_user_func_array(array($validator, 'rule'), $ruleArgs)->message($message);
-                }
-            }
-            $validator->validate();
-            $errors = $validator->errors();
-            return $f($params, $errors, $response);
-        };
-        return array(
-            'method' => 'POST',
-            'path' => $spec['action'],
-            'handler' => $handler
-        );
     }
 }
 
