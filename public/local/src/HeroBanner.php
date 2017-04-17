@@ -10,6 +10,7 @@ class HeroBanner {
     const TAXI_CODE = 'Зоотакси';
     const GROOMING_CODE = 'Груминг';
     const HOTEL_CODE = 'Гостиница';
+    const PROMOTIONS_CODE = 'Акции';
 
     static function render($elementCode) {
         global $APPLICATION;

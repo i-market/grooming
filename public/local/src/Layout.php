@@ -3,7 +3,6 @@
 namespace App;
 
 use Bex\Tools\Iblock\IblockTools;
-use Core\View as v;
 
 class Layout {
     static function renderHeaderMenu() {
