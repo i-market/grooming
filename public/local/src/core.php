@@ -132,7 +132,6 @@ class Strings extends StringsMethods {
 
 class Env {
     const DEV = "dev";
-    const STAGE = "stage";
     const PROD = "prod";
 }
 
