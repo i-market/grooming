@@ -213,7 +213,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutCon
                 "PARENT_SECTION" => "",
                 "PARENT_SECTION_CODE" => "homepage",
                 "PREVIEW_TRUNCATE_LEN" => "",
-                "PROPERTY_CODE" => array("", ""),
+                "PROPERTY_CODE" => array('IMAGE_CAPTION'),
                 "SET_BROWSER_TITLE" => "N",
                 "SET_LAST_MODIFIED" => "N",
                 "SET_META_DESCRIPTION" => "N",

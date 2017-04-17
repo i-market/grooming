@@ -1,19 +1,20 @@
 <div class="block">
     {% for item in result.ITEMS %}
+        {% set caption = item.PROPERTIES.IMAGE_CAPTION.VALUE %}
+        {% set period = item.PROPERTIES.PERIOD.VALUE %}
         {# TODO link? #}
         {#{{ item.DETAIL_PAGE_URL }}#}
         <a href="#" class="item_shares" id="{{ add_editing_actions(item, template) }}">
             <div class="left">
                 <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
-                {# TODO short name prop #}
-                <span class="red_line">[TODO]</span>
+                <span class="red_line">{{ caption }}</span>
                 <div class="info">
                     <p>{{ item.PREVIEW_TEXT }}</p>
                 </div>
             </div>
             <div class="right">
                 {# TODO date #}
-                <p class="date">[TODO] С марта по октябь</p>
+                <p class="date">{{ period }}</p>
                 <p class="title">{{ item.NAME }}</p>
                 <div class="text editable-area">
                     {{ item.DETAIL_TEXT }}
