@@ -1,0 +1,8 @@
+{% extends layout('base.twig') %}
+
+{% block content %}
+    {{ APPLICATION.GetViewContent('bitrix:breadcrumb:top') }}
+    <div class="editable-page">
+        {{ page }}
+    </div>
+{% endblock %}

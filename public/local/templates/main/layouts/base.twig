@@ -21,10 +21,12 @@
     </div>
 </header>
 <!-- CONTENT START -->
-<main class="content">
-    {{ hero_banner }}
-    {{ APPLICATION.GetViewContent('bitrix:breadcrumb:top') }}
-    {{ page }}
+<main class="content{{ content_class ? ' ' ~ content_class }}">
+    {% block content %}
+        {{ hero_banner }}
+        {{ APPLICATION.GetViewContent('bitrix:breadcrumb:top') }}
+        {{ page }}
+    {% endblock %}
 </main>
 <!-- FOOTER START -->
 <footer class="footer">
