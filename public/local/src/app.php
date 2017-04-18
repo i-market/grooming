@@ -38,9 +38,8 @@ class App {
                 'copyright' => v::renderIncludedArea('footer/copyright.php')
             ],
             'modals' => [
-                // callback request
                 're_call' => [
-                    'uri' => Api::uri(Api::CALLBACK_PATH)
+                    'uri' => '/api/callback'
                 ]
             ]
         ];
