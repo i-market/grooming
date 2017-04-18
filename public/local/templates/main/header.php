@@ -55,6 +55,9 @@ $APPLICATION->IncludeComponent(
     array('HIDE_ICONS' => 'Y')
 );
 ?>
-<? v::showLayoutHeader(PageProperty::LAYOUT, 'default.twig', function() {
+<?
+// see `local/templates/main/layouts` directory
+v::showLayoutHeader(PageProperty::LAYOUT, 'default.twig', function() {
     return App::layoutContext();
-}) ?>
+})
+?>
