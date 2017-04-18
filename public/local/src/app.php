@@ -62,7 +62,8 @@ class App {
         $scripts = array_merge(
             [
                 '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js',
-                'https://use.fontawesome.com/d5e5cdfb8c.js'
+                'https://use.fontawesome.com/d5e5cdfb8c.js',
+                SITE_TEMPLATE_PATH.'/assets/js/main.js'
             ],
             array_map(function($path) {
                 return v::asset($path);

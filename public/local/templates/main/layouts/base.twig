@@ -44,8 +44,25 @@
         <div class="bottom">{{ footer.copyright }} Создание и продвижение сайта: i-Market</div>
     </div>
 </footer>
-{% include partial('modals.twig') with modals %}
+{% block modals %}
+    <!--Модалки-->
+    <!--Обратный звонок-->
+    <div class="modal" id="re_call">
+        <form class="block" method="post" action="{{ re_call.uri }}">
+            <span class="close"></span>
+            <strong>Заказать звонок</strong>
+            <input name="name" type="text" placeholder="ФИО">
+            <input name="phone" type="text" placeholder="Телефон">
+            <textarea name="message" placeholder="Сообщение"></textarea>
+            <div class="bottom">
+                <button type="submit">Отправить</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
 <!-- ПОДКЛЮЧЕНИЕ СКРИПТОВ START -->
-{% for path in scripts %}
-    <script type="text/javascript" src="{{ path }}"></script>
-{% endfor %}
+{% block scripts %}
+    {% for path in scripts %}
+        <script type="text/javascript" src="{{ path }}"></script>
+    {% endfor %}
+{% endblock %}

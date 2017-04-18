@@ -7,7 +7,7 @@ use Core\View as v;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Гостиница");
-$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutContext([
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['hotel.twig', App::layoutContext([
     'hero_banner' => HeroBanner::HOTEL_CODE
 ])]);
 ?>
@@ -36,7 +36,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutCon
         </div>
     </div>
 </section>
-<section class="haircut" data-anchor="next">
+<section class="haircut hotel-options" data-anchor="next">
     <div class="tab_links tab_links--cat">
         <div class="wrap">
             <span data-tabLinks="cats">Кошки</span>
