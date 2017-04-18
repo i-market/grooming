@@ -1,4 +1,5 @@
 {% set logo_label = 'Грумелье' %}
+
 <header class="header">
     <div class="wrap">
         <div class="hamburger">
@@ -60,8 +61,8 @@
         </form>
     </div>
 {% endblock %}
-<!-- ПОДКЛЮЧЕНИЕ СКРИПТОВ START -->
 {% block scripts %}
+    <!-- ПОДКЛЮЧЕНИЕ СКРИПТОВ START -->
     {% for path in scripts %}
         <script type="text/javascript" src="{{ path }}"></script>
     {% endfor %}
