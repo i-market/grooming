@@ -2,9 +2,15 @@
 
 namespace App;
 
+use Bitrix\Main\Config\Configuration;
+use Bitrix\Main\Config\Option;
+use Bitrix\Main\Mail\Event;
 use Core\Env;
 use Core\View as v;
 use Core\Strings;
+use Core\Underscore as _;
+use Respect\Validation\Exceptions\NestedValidationException;
+use Respect\Validation\Validator as val;
 
 class App {
     const SITE_ID = 's1';
@@ -30,6 +36,12 @@ class App {
                 ]),
                 'contact' => v::renderIncludedArea('footer/contact.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']]),
                 'copyright' => v::renderIncludedArea('footer/copyright.php')
+            ],
+            'modals' => [
+                // callback request
+                're_call' => [
+                    'uri' => Api::uri(Api::CALLBACK_PATH)
+                ]
             ]
         ];
         if (isset($options['hero_banner'])) {
@@ -66,6 +78,65 @@ class App {
             'scripts' => $scripts
         ];
     }
+
+    static function sendMailEvent($eventName, $fields) {
+        // TODO save in case mail delivery fails
+        $event = [
+            'EVENT_NAME' => $eventName,
+            'LID' => self::SITE_ID,
+            'C_FIELDS' => $fields
+        ];
+        return Event::sendImmediate($event);
+    }
+
+    static function emailTo() {
+        $app = Configuration::getValue('app');
+        $ret = _::get($app, 'email_to', Option::get('main', 'email_from'));
+        if (Strings::isEmpty($ret)) {
+            trigger_error("can't find default email-to address", E_USER_WARNING);
+        }
+        return $ret;
+    }
+
+    static function requestCallback($data) {
+        $fields = [
+            'name' => [
+                'label' => 'ФИО',
+                'validator' => val::stringType()->notEmpty()
+                    ->setTemplate('Пожалуйста, заполните поле «ФИО».')
+            ],
+            'phone' => [
+                'label' => 'Телефон',
+                'validator' => val::stringType()->notEmpty()
+                    ->setTemplate('Пожалуйста, заполните поле «Телефон».')
+            ]
+        ];
+        $errors = _::clean(_::mapValues($fields, function($field, $key) use ($data) {
+            try {
+                $field['validator']->assert($data[$key]);
+                return null;
+            } catch(NestedValidationException $exception) {
+                return $exception->getMainMessage();
+            }
+        }));
+        $isValid = _::isEmpty($errors);
+        if ($isValid) {
+            self::sendMailEvent(MailEvent::CALLBACK_REQUEST, [
+                'EMAIL_TO' => self::emailTo(),
+                'NAME' => $data['name'],
+                'PHONE' => $data['phone'],
+                'MESSAGE' => $data['message']
+            ]);
+        }
+        return [
+            'type' => $isValid ? 'success' : 'error',
+            'errors' => ['fields' => $errors]
+        ];
+    }
+}
+
+class MailEvent {
+    const CALLBACK_REQUEST = 'CALLBACK_REQUEST';
 }
 
 class PageProperty {
