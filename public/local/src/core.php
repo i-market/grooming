@@ -110,7 +110,7 @@ class Nullable {
 
 class Strings extends StringsMethods {
     static function isEmpty($str) {
-        return trim($str) === '';
+        return $str === null || trim($str) === '';
     }
 
     static function ifEmpty($str, $value) {
