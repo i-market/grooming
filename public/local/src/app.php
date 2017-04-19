@@ -2,15 +2,20 @@
 
 namespace App;
 
+use Bex\Tools\Iblock\IblockTools;
 use Bitrix\Main\Config\Configuration;
 use Bitrix\Main\Config\Option;
+use Bitrix\Main\Loader;
 use Bitrix\Main\Mail\Event;
+use CIBlockElement;
 use Core\Env;
 use Core\View as v;
 use Core\Strings;
 use Core\Underscore as _;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as val;
+
+assert(Loader::includeModule('iblock'));
 
 class App {
     const SITE_ID = 's1';
@@ -80,13 +85,31 @@ class App {
     }
 
     static function sendMailEvent($eventName, $fields) {
-        // TODO save in case mail delivery fails
         $event = [
             'EVENT_NAME' => $eventName,
             'LID' => self::SITE_ID,
             'C_FIELDS' => $fields
         ];
-        return Event::sendImmediate($event);
+        if (\Core\App::env() !== Env::DEV) {
+            $el = new CIBlockElement();
+            $isAdded = $el->Add([
+                'IBLOCK_ID' => IblockTools::find(Iblock::APP_TYPE, Iblock::LOG)->id(),
+                'NAME' => 'Почтовое событие',
+                'PROPERTY_VALUES' => [
+                    'TYPE' => 'APP_MAIL_EVENT',
+                ],
+                'PREVIEW_TEXT' => json_encode(['event' => $event])
+            ]);
+            if (!$isAdded) {
+                trigger_error("can't add app.log element: ".$el->LAST_ERROR, E_USER_WARNING);
+            }
+        }
+        $result = Event::sendImmediate($event);
+        $isSent = $result === Event::SEND_RESULT_SUCCESS;
+        if (!$isSent) {
+            trigger_error("mail sending issue: ".$result, E_USER_WARNING);
+        }
+        return $result;
     }
 
     static function emailTo() {
@@ -144,6 +167,9 @@ class PageProperty {
 }
 
 class Iblock {
+    const APP_TYPE = 'app';
+    const LOG = 'log';
+
     const CONTENT_TYPE = 'content';
     const SERVICE = 'service';
     const WHY_US = 'why_us';
