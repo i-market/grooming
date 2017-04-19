@@ -10,9 +10,12 @@ CHTTP::SetStatus('404 Not Found');
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 $APPLICATION->SetTitle("404");
-$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['default.twig', array_merge(App::layoutContext(), [
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['default.twig', function() {
+    return array_merge(App::layoutContext(), [
+        'hide_breadcrumbs' => true,
     'content_class' => 'error'
-])]);
+    ]);
+}]);
 ?>
 
 <h1 class="h2">Ошибка 404</h1>

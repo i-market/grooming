@@ -8,9 +8,11 @@ use Core\View as v;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Акции");
-$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutContext([
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
+    return App::layoutContext([
     'hero_banner' => HeroBanner::PROMOTIONS_CODE
-])]);
+    ]);
+}]);
 ?>
 
 <section class="shares--page" data-anchor="next">

@@ -10,9 +10,11 @@ use Core\View as v;
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 // TODO title
 $APPLICATION->SetTitle("Грумелье");
-$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutContext([
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
+    return App::layoutContext([
     'hero_banner' => HeroBanner::HOMEPAGE_CODE
-])]);
+    ]);
+}]);
 ?>
 
 <section class="service" data-anchor="next">
