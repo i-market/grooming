@@ -66,8 +66,7 @@ class App {
         $scripts = array_merge(
             [
                 '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js',
-                'https://use.fontawesome.com/d5e5cdfb8c.js',
-                SITE_TEMPLATE_PATH.'/assets/js/main.js'
+                'https://use.fontawesome.com/d5e5cdfb8c.js'
             ],
             array_map(function($path) {
                 return v::asset($path);
@@ -76,7 +75,10 @@ class App {
                 'js/vendor/wow.min.js',
                 'js/vendor/jquery.fancybox.pack.js',
                 'js/script.js'
-            ])
+            ]),
+            [
+                SITE_TEMPLATE_PATH.'/assets/js/main.js'
+            ]
         );
         return [
             'styles' => $styles,
