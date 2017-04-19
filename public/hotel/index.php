@@ -9,7 +9,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Гостиница");
 $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['hotel.twig', function() {
     return App::layoutContext([
-    'hero_banner' => HeroBanner::HOTEL_CODE
+        'hero_banner' => HeroBanner::HOTEL_CODE
     ]);
 }]);
 ?>

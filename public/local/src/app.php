@@ -172,6 +172,8 @@ class Iblock {
     const APP_TYPE = 'app';
     const LOG = 'log';
 
+    const SERVICES_TYPE = 'services';
+
     const CONTENT_TYPE = 'content';
     const SERVICE = 'service';
     const WHY_US = 'why_us';

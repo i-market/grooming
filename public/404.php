@@ -13,7 +13,7 @@ $APPLICATION->SetTitle("404");
 $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['default.twig', function() {
     return array_merge(App::layoutContext(), [
         'hide_breadcrumbs' => true,
-    'content_class' => 'error'
+        'content_class' => 'error'
     ]);
 }]);
 ?>

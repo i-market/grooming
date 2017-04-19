@@ -1,0 +1,15 @@
+<div class="grid">
+    {% for service_type in service_types %}
+        <a href="{{ service_type.LINK }}" class="col col_3 item">
+            <div class="img">
+                <img src="{{ service_type.IMAGE.SRC }}" alt="{{ service_type.IMAGE.ALT }}">
+                <div class="hidden">
+                    <p>Подробнее<br>об услуге</p>
+                </div>
+            </div>
+            <div class="bottom">
+                <p>{{ service_type.NAME }}</p>
+            </div>
+        </a>
+    {% endfor %}
+</div>

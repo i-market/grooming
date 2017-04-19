@@ -11,7 +11,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Магазин");
 $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
     return App::layoutContext([
-    'hero_banner' => HeroBanner::STORE_CODE
+        'hero_banner' => HeroBanner::STORE_CODE
     ]);
 }]);
 ?>

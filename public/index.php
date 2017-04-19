@@ -12,7 +12,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Грумелье");
 $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
     return App::layoutContext([
-    'hero_banner' => HeroBanner::HOMEPAGE_CODE
+        'hero_banner' => HeroBanner::HOMEPAGE_CODE
     ]);
 }]);
 ?>

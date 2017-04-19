@@ -181,6 +181,9 @@ class View {
             $propCtxMaybe = is_array($layout) ? $layout[1] : null;
             if (is_callable($propCtxMaybe)) {
                 $propCtxMaybe = $propCtxMaybe();
+            } else {
+                // non-callables will evaluate in admin ui without the appropriate context and cause weird things to happen
+                trigger_error('non-callable contexts are deprecated', E_USER_WARNING);
             }
             $twig = TemplateEngine::getInstance()->getEngine();
             $placeholder = '<page-placeholder/>';

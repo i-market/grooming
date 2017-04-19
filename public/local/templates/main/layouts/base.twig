@@ -23,9 +23,11 @@
 </header>
 <!-- CONTENT START -->
 <main class="content{{ content_class ? ' ' ~ content_class }}">
-    {% block content %}
-        {{ hero_banner }}
+    {{ hero_banner }}
+    {% if not hide_breadcrumbs %}
         {{ APPLICATION.GetViewContent('bitrix:breadcrumb:top') }}
+    {% endif %}
+    {% block page %}
         {{ page }}
     {% endblock %}
 </main>
