@@ -3,7 +3,7 @@
         {% set caption = item.PROPERTIES.IMAGE_CAPTION.VALUE %}
         {# TODO link #}
         <a href="#" class="item" id="{{ add_editing_actions(item, template) }}">
-            <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
+            <img src="{{ item.PREVIEW_PICTURE.RESIZED.src }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
             {# TODO dynamic bg color #}
             <div class="discount right bottom" style="background: rgba(153, 153, 153, 0.6)">
                 {{ caption }}

@@ -257,10 +257,15 @@ class View {
     }
 
     static function assocResized($items, $key, $dimensions) {
-        return array_map(function($item) use ($key, $dimensions) {
+        $assoc = function($item) use ($key, $dimensions) {
             $resized = CFile::ResizeImageGet($item[$key], $dimensions);
             return _::set($item, $key.'.RESIZED', $resized);
-        }, $items);
+        };
+        if (_::has($items, $key)) {
+            return $assoc($items);
+        } else {
+            return array_map($assoc, $items);
+        }
     }
 }
 
