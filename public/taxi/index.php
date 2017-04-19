@@ -8,9 +8,11 @@ use Core\View as v;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Зоотакси");
-$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutContext([
-    'hero_banner' => HeroBanner::TAXI_CODE
-])]);
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
+    return App::layoutContext([
+        'hero_banner' => HeroBanner::TAXI_CODE
+    ]);
+}]);
 ?>
 
 <section class="taxi_advantages" data-anchor="next">

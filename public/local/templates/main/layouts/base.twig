@@ -1,4 +1,5 @@
 {% set logo_label = 'Грумелье' %}
+
 <header class="header">
     <div class="wrap">
         <div class="hamburger">
@@ -21,10 +22,14 @@
     </div>
 </header>
 <!-- CONTENT START -->
-<main class="content">
+<main class="content{{ content_class ? ' ' ~ content_class }}">
     {{ hero_banner }}
-    {{ APPLICATION.GetViewContent('bitrix:breadcrumb:top') }}
-    {{ page }}
+    {% if not hide_breadcrumbs %}
+        {{ APPLICATION.GetViewContent('bitrix:breadcrumb:top') }}
+    {% endif %}
+    {% block page %}
+        {{ page }}
+    {% endblock %}
 </main>
 <!-- FOOTER START -->
 <footer class="footer">
@@ -42,21 +47,25 @@
         <div class="bottom">{{ footer.copyright }} Создание и продвижение сайта: i-Market</div>
     </div>
 </footer>
-<!--Модалки-->
-<!--Обратный звонок-->
-<div class="modal" id="re_call">
-    <form class="block" method="post" action="" name="" id="">
-        <span class="close"></span>
-        <strong>Заказать звонок</strong>
-        <input type="text" placeholder="ФИО">
-        <input type="text" placeholder="Телефон">
-        <textarea placeholder="Сообщение"></textarea>
-        <div class="bottom">
-            <button>Отправить</button>
-        </div>
-    </form>
-</div>
-<!-- ПОДКЛЮЧЕНИЕ СКРИПТОВ START -->
-{% for path in scripts %}
-    <script type="text/javascript" src="{{ path }}"></script>
-{% endfor %}
+{% block modals %}
+    <!--Модалки-->
+    <!--Обратный звонок-->
+    <div class="modal" id="re_call">
+        <form class="block" method="post" action="{{ modals.re_call.uri }}">
+            <span class="close"></span>
+            <strong>Заказать звонок</strong>
+            <input name="name" type="text" placeholder="ФИО">
+            <input name="phone" type="text" placeholder="Телефон">
+            <textarea name="message" placeholder="Сообщение"></textarea>
+            <div class="bottom">
+                <button type="submit">Отправить</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <!-- ПОДКЛЮЧЕНИЕ СКРИПТОВ START -->
+    {% for path in scripts %}
+        <script type="text/javascript" src="{{ path }}"></script>
+    {% endfor %}
+{% endblock %}

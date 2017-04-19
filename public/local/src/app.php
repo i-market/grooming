@@ -2,9 +2,20 @@
 
 namespace App;
 
+use Bex\Tools\Iblock\IblockTools;
+use Bitrix\Main\Config\Configuration;
+use Bitrix\Main\Config\Option;
+use Bitrix\Main\Loader;
+use Bitrix\Main\Mail\Event;
+use CIBlockElement;
 use Core\Env;
 use Core\View as v;
 use Core\Strings;
+use Core\Underscore as _;
+use Respect\Validation\Exceptions\NestedValidationException;
+use Respect\Validation\Validator as val;
+
+assert(Loader::includeModule('iblock'));
 
 class App {
     const SITE_ID = 's1';
@@ -30,6 +41,11 @@ class App {
                 ]),
                 'contact' => v::renderIncludedArea('footer/contact.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']]),
                 'copyright' => v::renderIncludedArea('footer/copyright.php')
+            ],
+            'modals' => [
+                're_call' => [
+                    'uri' => '/api/callback'
+                ]
             ]
         ];
         if (isset($options['hero_banner'])) {
@@ -59,13 +75,93 @@ class App {
                 'js/vendor/wow.min.js',
                 'js/vendor/jquery.fancybox.pack.js',
                 'js/script.js'
-            ])
+            ]),
+            [
+                SITE_TEMPLATE_PATH.'/assets/js/main.js'
+            ]
         );
         return [
             'styles' => $styles,
             'scripts' => $scripts
         ];
     }
+
+    static function sendMailEvent($eventName, $fields) {
+        $event = [
+            'EVENT_NAME' => $eventName,
+            'LID' => self::SITE_ID,
+            'C_FIELDS' => $fields
+        ];
+        if (\Core\App::env() !== Env::DEV) {
+            $el = new CIBlockElement();
+            $isAdded = $el->Add([
+                'IBLOCK_ID' => IblockTools::find(Iblock::APP_TYPE, Iblock::LOG)->id(),
+                'NAME' => 'Почтовое событие',
+                'PROPERTY_VALUES' => [
+                    'TYPE' => 'APP_MAIL_EVENT',
+                ],
+                'PREVIEW_TEXT' => json_encode(['event' => $event])
+            ]);
+            if (!$isAdded) {
+                trigger_error("can't add app.log element: ".$el->LAST_ERROR, E_USER_WARNING);
+            }
+        }
+        $result = Event::sendImmediate($event);
+        $isSent = $result === Event::SEND_RESULT_SUCCESS;
+        if (!$isSent) {
+            trigger_error("mail sending issue: ".$result, E_USER_WARNING);
+        }
+        return $result;
+    }
+
+    static function emailTo() {
+        $app = Configuration::getValue('app');
+        $ret = _::get($app, 'email_to', Option::get('main', 'email_from'));
+        if (Strings::isEmpty($ret)) {
+            trigger_error("can't find default email-to address", E_USER_WARNING);
+        }
+        return $ret;
+    }
+
+    static function requestCallback($data) {
+        $fields = [
+            'name' => [
+                'label' => 'ФИО',
+                'validator' => val::stringType()->notEmpty()
+                    ->setTemplate('Пожалуйста, заполните поле «ФИО».')
+            ],
+            'phone' => [
+                'label' => 'Телефон',
+                'validator' => val::stringType()->notEmpty()
+                    ->setTemplate('Пожалуйста, заполните поле «Телефон».')
+            ]
+        ];
+        $errors = _::clean(_::mapValues($fields, function($field, $key) use ($data) {
+            try {
+                $field['validator']->assert($data[$key]);
+                return null;
+            } catch(NestedValidationException $exception) {
+                return $exception->getMainMessage();
+            }
+        }));
+        $isValid = _::isEmpty($errors);
+        if ($isValid) {
+            self::sendMailEvent(MailEvent::CALLBACK_REQUEST, [
+                'EMAIL_TO' => self::emailTo(),
+                'NAME' => $data['name'],
+                'PHONE' => $data['phone'],
+                'MESSAGE' => $data['message']
+            ]);
+        }
+        return [
+            'type' => $isValid ? 'success' : 'error',
+            'errors' => ['fields' => $errors]
+        ];
+    }
+}
+
+class MailEvent {
+    const CALLBACK_REQUEST = 'CALLBACK_REQUEST';
 }
 
 class PageProperty {
@@ -73,6 +169,11 @@ class PageProperty {
 }
 
 class Iblock {
+    const APP_TYPE = 'app';
+    const LOG = 'log';
+
+    const SERVICES_TYPE = 'services';
+
     const CONTENT_TYPE = 'content';
     const SERVICE = 'service';
     const WHY_US = 'why_us';

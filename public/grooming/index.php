@@ -8,9 +8,11 @@ use Core\View as v;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Груминг");
-$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutContext([
-    'hero_banner' => HeroBanner::GROOMING_CODE
-])]);
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
+	return App::layoutContext([
+		'hero_banner' => HeroBanner::GROOMING_CODE
+	]);
+}]);
 ?>
 
 <section class="service--page" data-anchor="next">

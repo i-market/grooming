@@ -9,9 +9,11 @@ use Core\View as v;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Магазин");
-$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', App::layoutContext([
-    'hero_banner' => HeroBanner::STORE_CODE
-])]);
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
+    return App::layoutContext([
+        'hero_banner' => HeroBanner::STORE_CODE
+    ]);
+}]);
 ?>
 
 <? // categories ?>
