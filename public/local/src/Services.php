@@ -18,35 +18,35 @@ class Services {
     /**
      * returns non-empty (have at least one active element) service types
      */
-    static function activeServiceTypes($animalSectionCode = null) {
+    static function activeServiceTypes($sectionCode = null) {
         $iblocks = self::serviceTypes();
-        return array_filter($iblocks, function($iblock) use ($animalSectionCode) {
+        return array_filter($iblocks, function($iblock) use ($sectionCode) {
             $filter = ['IBLOCK_ID' => $iblock['ID'], 'ACTIVE' => 'Y'];
-            if ($animalSectionCode !== null) {
-                $filter['IBLOCK_SECTION.CODE'] = $animalSectionCode;
+            if ($sectionCode !== null) {
+                $filter['IBLOCK_SECTION.CODE'] = $sectionCode;
             }
             $count = ElementTable::getCount($filter);
             return $count > 0;
         });
     }
 
-    static function renderServiceTypesGrid($animalSectionCode) {
-        $serviceTypes = array_map(function($serviceType) use ($animalSectionCode) {
+    static function renderServiceTypesGrid($sectionCode) {
+        $serviceTypes = array_map(function($serviceType) use ($sectionCode) {
             return array_merge($serviceType, [
                 // TODO refactor: hardcoded uri
-                'LINK' => '/grooming/'.$animalSectionCode.'/'.$serviceType['CODE'].'/',
+                'LINK' => '/grooming/'.$sectionCode.'/'.$serviceType['CODE'].'/',
                 // TODO fetch the image
                 'IMAGE' => []
             ]);
-        }, self::activeServiceTypes($animalSectionCode));
+        }, self::activeServiceTypes($sectionCode));
         return v::twig()->render(v::partial('services/service_types_grid.twig'), [
             'service_types' => $serviceTypes
         ]);
     }
     
-    static function renderGallerySection($animalSectionCode) {
+    static function renderGallerySection($sectionCode) {
         return v::twig()->render(v::partial('services/gallery_section.twig'), [
-            'gallery' => self::renderGallery($animalSectionCode)
+            'gallery' => self::renderGallery($sectionCode)
         ]);
     }
 

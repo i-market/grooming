@@ -11,15 +11,15 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
         'hero_banner' => HeroBanner::SERVICES_DOGS_CODE
     ]);
 }]);
-$animalSectionCode = 'dogs';
+$sectionCode = 'dogs';
 ?>
 
 <section class="services_for_dogs" data-anchor="next">
     <div class="wrap">
         <strong class="heading"><h2><? $APPLICATION->ShowTitle() ?></h2></strong>
-        <?= Services::renderServiceTypesGrid($animalSectionCode) ?>
+        <?= Services::renderServiceTypesGrid($sectionCode) ?>
     </div>
 </section>
-<?= Services::renderGallerySection($animalSectionCode) ?>
+<?= Services::renderGallerySection($sectionCode) ?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
