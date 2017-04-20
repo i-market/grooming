@@ -1,4 +1,7 @@
+import $ from 'jquery';
+
 window.App = {
+  // es5
   initHotelPage: function() {
     $(document).ready(function() {
       var $modalTemplate = $('#hotel-booking-template');

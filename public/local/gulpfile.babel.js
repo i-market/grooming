@@ -50,6 +50,16 @@ gulp.task('build:mockup:copy', ['build:mockup:delegate'], () => {
 
 gulp.task('build:mockup', ['build:mockup:copy']);
 
+gulp.task('build:vendor:js', () => {
+  return gulp.src([
+    // can't use intercooler with browserify probably because of the missing jquery dependency in package.json
+    'node_modules/intercooler/dist/intercooler.js'
+  ])
+    .pipe(concat('vendor.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(`${paths.dist}/js`));
+});
+
 gulp.task('build:js', () => {
   return browserify('assets/js/main.js')
     .on('error', (error) => {
@@ -68,7 +78,7 @@ gulp.task('build:images', () => {
     .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('build', ['build:mockup', /*'build:js',*/ 'build:images']);
+gulp.task('build', ['build:mockup', 'build:vendor:js', 'build:js', 'build:images']);
 
 gulp.task('revision:rev', ['build'], () => {
   return gulp.src(`${paths.dist}/**`)

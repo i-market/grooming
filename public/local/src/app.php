@@ -74,11 +74,10 @@ class App {
                 'js/vendor/slick.min.js',
                 'js/vendor/wow.min.js',
                 'js/vendor/jquery.fancybox.pack.js',
-                'js/script.js'
-            ]),
-            [
-                SITE_TEMPLATE_PATH.'/assets/js/main.js'
-            ]
+                'js/script.js',
+                'js/vendor.js',
+                'js/bundle.js'
+            ])
         );
         return [
             'styles' => $styles,
