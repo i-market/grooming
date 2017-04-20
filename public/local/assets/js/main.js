@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-window.App = {
+global.App = {
   // es5
   initHotelPage: function() {
     $(document).ready(function() {
@@ -23,7 +23,7 @@ window.App = {
               $modal.appendTo($modals);
             }
             // defined in mockup/js/script.js
-            window._openModal($modal);
+            global._openModal($modal);
           });
         });
       });
