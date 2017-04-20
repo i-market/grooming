@@ -1,0 +1,23 @@
+{% macro error(text) %}
+    {% if text %}
+        <div class="error-message">{{ text }}</div>
+    {% endif %}
+{% endmacro %}
+
+<span class="close"></span>
+{% if result.type == 'success' %}
+    {#<i class="fa fa-check fa-3x"></i>#}
+    <div class="success-message h3">Ваше сообщение успешно отправлено.</div>
+{% else %}
+    <strong>Заказать звонок</strong>
+    {% set errors = result.errors.fields %}
+    <input name="name" type="text" placeholder="ФИО" class="{{ errors.name ? ' error' }}" value="{{ params.name }}">
+    {{ _self.error(errors.name) }}
+    <input name="phone" type="text" placeholder="Телефон" class="{{ errors.phone ? ' error' }}" value="{{ params.phone }}">
+    {{ _self.error(errors.phone) }}
+    <textarea name="message" placeholder="Сообщение" class="{{ errors.message ? ' error' }}">{{ params.message }}</textarea>
+    {{ _self.error(errors.message) }}
+    <div class="bottom">
+        <button type="submit">{% include partial('indicator.twig') %}Отправить</button>
+    </div>
+{% endif %}

@@ -51,15 +51,8 @@
     <!--Модалки-->
     <!--Обратный звонок-->
     <div class="modal" id="re_call">
-        <form class="block" method="post" action="{{ modals.re_call.uri }}">
-            <span class="close"></span>
-            <strong>Заказать звонок</strong>
-            <input name="name" type="text" placeholder="ФИО">
-            <input name="phone" type="text" placeholder="Телефон">
-            <textarea name="message" placeholder="Сообщение"></textarea>
-            <div class="bottom">
-                <button type="submit">Отправить</button>
-            </div>
+        <form class="block" ic-post-to="/api/callback" ic-indicator=".indicator">
+            {% include partial('modals/callback_form.twig') %}
         </form>
     </div>
 {% endblock %}

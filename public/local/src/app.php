@@ -41,11 +41,6 @@ class App {
                 ]),
                 'contact' => v::renderIncludedArea('footer/contact.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']]),
                 'copyright' => v::renderIncludedArea('footer/copyright.php')
-            ],
-            'modals' => [
-                're_call' => [
-                    'uri' => '/api/callback'
-                ]
             ]
         ];
         if (isset($options['hero_banner'])) {
@@ -135,14 +130,14 @@ class App {
                     ->setTemplate('Пожалуйста, заполните поле «Телефон».')
             ]
         ];
-        $errors = _::clean(_::mapValues($fields, function($field, $key) use ($data) {
+        $errors = _::reduce($fields, function($acc, $field, $key) use ($data) {
             try {
                 $field['validator']->assert($data[$key]);
-                return null;
+                return $acc;
             } catch(NestedValidationException $exception) {
-                return $exception->getMainMessage();
+                return _::set($acc, $key, $exception->getMainMessage());
             }
-        }));
+        }, []);
         $isValid = _::isEmpty($errors);
         if ($isValid) {
             self::sendMailEvent(MailEvent::CALLBACK_REQUEST, [
