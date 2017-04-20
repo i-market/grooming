@@ -8,16 +8,10 @@
 {% block modals %}
     {{ parent() }}
     <div class="modal" id="hotel-booking-template">
-        <form class="block" method="post">
-            <span class="close"></span>
-            <strong>Заполните поля для резервирования, в ближайшее время мы свяжемся с вами</strong>
-            <input type="text" placeholder="Ваше имя">
-            <input type="text" placeholder="Номер телефона">
-            <input type="text" placeholder="Период бронирования">
-            <textarea placeholder="Описание животного"></textarea>
-            <div class="bottom">
-                <button type="submit">Отправить</button>
-            </div>
+        {# TODO refactor: see below #}
+        {# data attr: keep intercooler away from the template, rename to ic-* when instantiated #}
+        <form class="block" data-post-to="/api/booking">
+            {% include partial('modals/booking_form.twig') %}
         </form>
     </div>
     {# append modal instances to this container #}

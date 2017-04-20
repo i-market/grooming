@@ -1,0 +1,20 @@
+{% import partial('modals/macros.twig') as macros %}
+
+<span class="close"></span>
+{% if result.type == 'success' %}
+    <strong class="success-message">Ваше сообщение успешно отправлено.</strong>
+{% else %}
+    <strong>Заполните поля для резервирования, в ближайшее время мы свяжемся с вами</strong>
+    {% set errors = result.errors.fields %}
+    <input name="name" type="text" placeholder="Ваше имя" class="{{ errors.name ? ' error' }}" value="{{ params.name }}">
+    {{ macros.error(errors.name) }}
+    <input name="phone" type="text" placeholder="Номер телефона" class="{{ errors.phone ? ' error' }}" value="{{ params.phone }}">
+    {{ macros.error(errors.phone) }}
+    <input name="period" type="text" placeholder="Период бронирования" class="{{ errors.period ? ' error' }}" value="{{ params.period }}">
+    {{ macros.error(errors.period) }}
+    <textarea name="pet_description" placeholder="Описание животного" class="{{ errors.pet_description ? ' error' }}">{{ params.pet_description }}</textarea>
+    {{ macros.error(errors.pet_description) }}
+    <div class="bottom">
+        <button type="submit">{% include partial('indicator.twig') %}Отправить</button>
+    </div>
+{% endif %}

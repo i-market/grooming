@@ -1,0 +1,5 @@
+{% macro error(text) %}
+    {% if text %}
+        <div class="error-message">{{ text }}</div>
+    {% endif %}
+{% endmacro %}

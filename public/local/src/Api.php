@@ -17,6 +17,13 @@ class Api {
                     'result' => $result
                 ]);
             });
+            $router->respond('POST', '/booking', function($request, $response) {
+                // TODO sanitize
+                $params = $request->params();
+                return v::twig()->render(v::partial('modals/booking_form.twig'), [
+                    'params' => $params
+                ]);
+            });
         });
         return $router;
     }
