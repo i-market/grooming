@@ -14,7 +14,7 @@
                     <ul>
             <? else: ?>
                 <li>
-                    <a href="<?= $item['LINK'] ?>" class="<?= $class ?>"><?= $item['TEXT'] ?></a>
+                    <p><a href="<?= $item['LINK'] ?>" class="<?= $class ?>"><?= $item['TEXT'] ?></a></p>
                 </li>
             <? endif ?>
             <? $previousLevel = $item['DEPTH_LEVEL'] ?>

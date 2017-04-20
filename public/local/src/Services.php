@@ -34,7 +34,7 @@ class Services {
         $serviceTypes = array_map(function($serviceType) use ($sectionCode) {
             return array_merge($serviceType, [
                 // TODO refactor: hardcoded uri
-                'LINK' => '/grooming/'.$sectionCode.'/'.$serviceType['CODE'].'/',
+                'LINK' => v::path(join('/', ['grooming', $sectionCode, $serviceType['CODE']])),
                 // TODO fetch the image
                 'IMAGE' => []
             ]);

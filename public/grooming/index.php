@@ -69,7 +69,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
         		"PARENT_SECTION" => "",
         		"PARENT_SECTION_CODE" => "",
         		"PREVIEW_TRUNCATE_LEN" => "",
-        		"PROPERTY_CODE" => array("ICON", "LINK"),
+        		"PROPERTY_CODE" => array("ICON"),
         		"SET_BROWSER_TITLE" => "N",
         		"SET_LAST_MODIFIED" => "N",
         		"SET_META_DESCRIPTION" => "N",

@@ -1,5 +1,6 @@
 <div class="block">
     {% for item in result.ITEMS %}
+        {% set link = path('grooming/' ~ item.CODE) %}
         {% set icon = item.DISPLAY_PROPERTIES.ICON.FILE_VALUE %}
         {% set is_even = loop.index is even %}
         {% set order = is_even ? ['right', 'left'] : ['left', 'right'] %}
@@ -11,7 +12,7 @@
                     </div>
                 {% elseif column == 'right' %}
                     <div class="right">
-                        <a href="{{ item.PROPERTIES.LINK.VALUE }}" class="inner">
+                        <a href="{{ link }}" class="inner">
                             <span class="title">{{ item.NAME }}</span>
                             <span class="ico">
                                 <img src="{{ icon.SRC }}" alt="">
