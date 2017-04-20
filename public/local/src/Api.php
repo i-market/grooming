@@ -18,10 +18,11 @@ class Api {
                 ]);
             });
             $router->respond('POST', '/booking', function($request, $response) {
-                // TODO sanitize
-                $params = $request->params();
+                $params = $request->params(['name', 'phone', 'period', 'pet_description']);
+                $result = App::bookingRequest($params);
                 return v::twig()->render(v::partial('modals/booking_form.twig'), [
-                    'params' => $params
+                    'params' => $params,
+                    'result' => $result
                 ]);
             });
         });

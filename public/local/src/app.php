@@ -117,6 +117,27 @@ class App {
         return $ret;
     }
 
+    private static function simpleFormHandler($fields, $ifValidFn) {
+        return function($data) use ($fields, $ifValidFn) {
+            $errors = _::reduce($fields, function($acc, $field, $key) use ($data) {
+                try {
+                    $field['validator']->assert($data[$key]);
+                    return $acc;
+                } catch(NestedValidationException $exception) {
+                    return _::set($acc, $key, $exception->getMainMessage());
+                }
+            }, []);
+            $isValid = _::isEmpty($errors);
+            if ($isValid) {
+                $ifValidFn($data);
+            }
+            return [
+                'type' => $isValid ? 'success' : 'error',
+                'errors' => ['fields' => $errors]
+            ];
+        };
+    }
+
     static function requestCallback($data) {
         $fields = [
             'name' => [
@@ -130,32 +151,46 @@ class App {
                     ->setTemplate('Пожалуйста, заполните поле «Телефон».')
             ]
         ];
-        $errors = _::reduce($fields, function($acc, $field, $key) use ($data) {
-            try {
-                $field['validator']->assert($data[$key]);
-                return $acc;
-            } catch(NestedValidationException $exception) {
-                return _::set($acc, $key, $exception->getMainMessage());
-            }
-        }, []);
-        $isValid = _::isEmpty($errors);
-        if ($isValid) {
+        $handler = self::simpleFormHandler($fields, function($data) {
             self::sendMailEvent(MailEvent::CALLBACK_REQUEST, [
                 'EMAIL_TO' => self::emailTo(),
                 'NAME' => $data['name'],
                 'PHONE' => $data['phone'],
                 'MESSAGE' => $data['message']
             ]);
-        }
-        return [
-            'type' => $isValid ? 'success' : 'error',
-            'errors' => ['fields' => $errors]
+        });
+        return $handler($data);
+    }
+
+    static function bookingRequest($data) {
+        $requiredFields = [
+            'name' => 'Ваше имя',
+            'phone' => 'Номер телефона',
+            'period' => 'Период бронирования'
         ];
+        $fields = _::mapValues($requiredFields, function($label) {
+            return [
+                'label' => $label,
+                'validator' => val::stringType()->notEmpty()
+                    ->setTemplate('Пожалуйста, заполните поле «'.$label.'».')
+            ];
+        });
+        $handler = self::simpleFormHandler($fields, function($data) {
+            self::sendMailEvent(MailEvent::BOOKING_REQUEST, [
+                'EMAIL_TO' => self::emailTo(),
+                'NAME' => $data['name'],
+                'PHONE' => $data['phone'],
+                'PERIOD' => $data['period'],
+                'PET_DESCRIPTION' => $data['pet_description']
+            ]);
+        });
+        return $handler($data);
     }
 }
 
 class MailEvent {
     const CALLBACK_REQUEST = 'CALLBACK_REQUEST';
+    const BOOKING_REQUEST = 'BOOKING_REQUEST';
 }
 
 class PageProperty {
