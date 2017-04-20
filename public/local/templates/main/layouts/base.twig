@@ -51,8 +51,11 @@
     <!--Модалки-->
     <!--Обратный звонок-->
     <div class="modal" id="re_call">
-        <form class="block" ic-post-to="/api/callback">
-            {% include partial('modals/callback_form.twig') %}
+        <form class="block" ic-post-to="/api/callback" ic-target=".ic-target">
+            <span class="close"></span>
+            <div class="ic-target">
+                {% include partial('modals/callback_form.twig') %}
+            </div>
         </form>
     </div>
 {% endblock %}

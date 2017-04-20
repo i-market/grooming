@@ -10,8 +10,11 @@
     <div class="modal" id="hotel-booking-template">
         {# TODO refactor: see below #}
         {# data attr: keep intercooler away from the template, rename to ic-* when instantiated #}
-        <form class="block" data-post-to="/api/booking">
-            {% include partial('modals/booking_form.twig') %}
+        <form class="block" data-post-to="/api/booking" ic-target=".ic-target">
+            <span class="close"></span>
+            <div class="ic-target">
+                {% include partial('modals/booking_form.twig') %}
+            </div>
         </form>
     </div>
     {# append modal instances to this container #}
