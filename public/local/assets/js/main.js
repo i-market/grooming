@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 global.App = {
-  // es5
+  // TODO refactor: partially es5
   initHotelPage: function() {
     $(document).ready(function() {
       var $modalTemplate = $('#hotel-booking-template');
