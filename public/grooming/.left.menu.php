@@ -6,6 +6,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Услуги для кошек", 
+		"/grooming/cats/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>

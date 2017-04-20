@@ -5,14 +5,13 @@ use App\PageProperty;
 use App\Services;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Услуги для собак");
+$APPLICATION->SetTitle("Услуги для кошек");
 $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
     return App::layoutContext([
-        'hero_banner' => HeroBanner::SERVICES_DOGS_CODE
+        'hero_banner' => HeroBanner::GROOMING_CODE
     ]);
 }]);
-// TODO refactor: DRY (dogs,cats)/index.php
-$sectionCode = 'dogs';
+$sectionCode = 'cats';
 ?>
 
 <section class="services_for_dogs" data-anchor="next">
