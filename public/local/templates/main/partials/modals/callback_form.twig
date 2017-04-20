@@ -7,7 +7,7 @@
 <span class="close"></span>
 {% if result.type == 'success' %}
     {#<i class="fa fa-check fa-3x"></i>#}
-    <div class="success-message h3">Ваше сообщение успешно отправлено.</div>
+    <strong class="success-message">Ваше сообщение успешно отправлено.</strong>
 {% else %}
     <strong>Заказать звонок</strong>
     {% set errors = result.errors.fields %}
