@@ -8,7 +8,7 @@
 {% block modals %}
     {{ parent() }}
     <div class="modal" id="hotel-booking-template">
-        {# TODO refactor: see below #}
+        {# TODO refactor: see below, use .ic-ignore #}
         {# data attr: keep intercooler away from the template, rename to ic-* when instantiated #}
         <form class="block" data-post-to="/api/booking" ic-target=".ic-target">
             <span class="close"></span>
