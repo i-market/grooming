@@ -36,11 +36,11 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Галерея", 
-		"/gallery/", 
-		Array(), 
-		Array(), 
-		"" 
+		"Галерея",
+		"/gallery/",
+		Array(),
+		Array(),
+		""
 	),
     Array(
         "Акции",
@@ -48,6 +48,13 @@ $aMenuLinks = Array(
         Array(),
         Array(),
         ""
-    )
+    ),
+	Array(
+		"Контакты",
+		"/contact/",
+		Array(),
+		Array(),
+		""
+	)
 );
 ?>

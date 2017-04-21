@@ -1,5 +1,6 @@
 <?php
 
+use App\Contact;
 use Core\Strings;
 use Core\Underscore as _;
 
@@ -9,15 +10,19 @@ $filteredLists = array_map(function($list) {
         return !Strings::isEmpty($string);
     });
 }, $lists);
+$latLng = Contact::parseLatlng($arParams['~LATLNG']);
+$address = $arParams['~ADDRESS'];
 
 $arResult = array_merge($filteredLists, [
-    'ADDRESS' => $arParams['~ADDRESS'],
+    'ADDRESS' => $address,
     'HOURS_OF_OPERATION' => $arParams['~HOURS_OF_OPERATION'],
+    'LATLNG' => $latLng,
     'URLS' => array_map(function($url) {
         return [
             'URL' => $url,
             'HOST' => parse_url($url, PHP_URL_HOST)
         ];
-    }, $filteredLists['URLS'])
+    }, $filteredLists['URLS']),
+    'JSON' => json_encode(['address' => $address, 'latlng' => $latLng])
 ]);
 $this->IncludeComponentTemplate();

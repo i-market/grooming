@@ -1,0 +1,31 @@
+{% extends layout('base.twig') %}
+
+{% block scripts %}
+    {{ parent() }}
+    {# ymaps itself is included via the bitrix asset api #}
+    <script>
+        ymaps.ready(function() {
+            {# window._contactDetails comes from the app:contact component #}
+            var latlng = window._contactDetails.latlng;
+            var myMap = new ymaps.Map('map', {
+                        {# TODO get from app:contact params #}
+                        center: [latlng.lat, latlng.lng],
+                        zoom: 18
+                    }, {
+                        searchControlProvider: 'yandex#search'
+                    }),
+                    myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
+                        hintContent: 'Грумилье',
+                        balloonContent: '<div>' + window._contactDetails.address + '</div>'
+                    }, {
+                        iconLayout: 'default#image',
+                        iconImageHref: '{{ asset('images/marker.png') }}',
+                        iconImageSize: [244, 112],
+                        iconImageOffset: [-40, -100]
+                    });
+
+            myMap.geoObjects.add(myPlacemark);
+            myMap.behaviors.disable('scrollZoom');
+        });
+    </script>
+{% endblock %}

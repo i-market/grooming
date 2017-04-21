@@ -7,6 +7,11 @@ $arComponentParameters = [
             'TYPE' => 'STRING',
             'DEFAULT' => ''
         ],
+        'LATLNG' => [
+            'NAME' => 'Географические координаты (широта, долгота)',
+            'TYPE' => 'STRING',
+            'DEFAULT' => ''
+        ],
         'EMAILS' => [
             'NAME' => 'Email-адреса',
             'TYPE' => 'LIST',

@@ -1,0 +1,39 @@
+<script>
+    window._contactDetails = {{ result.JSON }};
+</script>
+<h1>Контакты</h1>
+<div class="contacts_line"><span></span></div>
+<div class="info_line">
+    <i class="fa fa-paper-plane"></i>
+    <p>{{ result.ADDRESS }}</p>
+</div>
+<div class="info_line">
+    <i class="fa fa-envelope"></i>
+    <p>
+        {% for email in result.EMAILS %}
+            <a href="{{ 'mailto:' ~ email }}">{{ email }}</a>{% if not loop.last %}<br>{% endif %}
+        {% endfor %}
+    </p>
+</div>
+<div class="info_line">
+    <i class="fa fa-phone"></i>
+    <p>
+        {% for phone in result.PHONES %}
+            {{ showComponent('app:phone_link', '', {PHONE: phone}, null, {HIDE_ICONS: 'Y'}) }}{% if not loop.last %}<br>{% endif %}
+        {% endfor %}
+    </p>
+</div>
+<div class="info_line">
+    <i class="fa fa-globe"></i>
+    <p>
+        {% for url_map in result.URLS %}
+            <a href="{{ url_map.URL }}">{{ url_map.HOST }}</a>{% if not loop.last %}<br>{% endif %}
+        {% endfor %}
+    </p>
+</div>
+<div class="info_line">
+    <i class="fa fa-clock-o"></i>
+    <p>{{ result.HOURS_OF_OPERATION }}</p>
+</div>
+<p class="text">Проложите до нас маршрут:</p>
+<a class="yandex" href="{{ 'geo:' ~ result.LATLNG.lat ~ ',' ~ result.LATLNG.lng }}"></a>
