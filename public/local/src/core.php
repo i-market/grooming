@@ -70,7 +70,8 @@ class Underscore extends ArraysMethods {
     }
 
     // TODO function $by support
-    static function keyBy($array, $by) {
+    static function keyBy($by, $array) {
+        assert(is_string($by));
         $ret = array();
         foreach ($array as $x) {
             $ret[$x[$by]] = $x;

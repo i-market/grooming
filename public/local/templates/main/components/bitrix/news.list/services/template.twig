@@ -1,0 +1,56 @@
+<section class="haircut" data-anchor="next">
+    <div class="wrap">
+        <strong class="heading"><h2>{{ result.NAME }}</h2></strong>
+    </div>
+    <div class="tab_links">
+        <div class="wrap">
+            {% for section in result.SECTIONS %}
+                {# TODO break lines somehow #}
+                <span data-tabLinks="{{ 'section-' ~ section.ID }}">{{ section.NAME }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="tab_blocks">
+        <div class="wrap">
+            {% for section in result.SECTIONS %}
+                <div data-tabContent="{{ 'section-' ~ section.ID }}">
+                    <div class="inner">
+                        <div class="top">
+                            <div class="img">
+                                <img src="images/pic_14.jpg" alt="">
+                            </div>
+                            <p>{{ section.ID }}</p>
+                        </div>
+                        {% if not section.ITEMS is empty %}
+                            <div class="wrap_table">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        {% set props = section.ITEMS[0].PROPERTIES %}
+                                        {% for prop in props %}
+                                            <td>{{ prop.NAME }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                    </thead>
+                                    <tbody class="show_items">
+                                    {% for item in section.ITEMS %}
+                                        {% set props = item.PROPERTIES %}
+                                        <tr id="{{ add_editing_actions(item, template) }}">
+                                            {% for prop in props %}
+                                                <td>{{ prop.VALUE }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="wrap_btn">
+                                <span class="more_table_items" style="display: none">Другие породы</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

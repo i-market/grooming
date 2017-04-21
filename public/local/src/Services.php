@@ -5,7 +5,10 @@ namespace App;
 use Bex\Tools\Iblock\IblockTools;
 use Bitrix\Iblock\ElementTable;
 use Bitrix\Iblock\IblockTable;
+use Bitrix\Iblock\SectionElementTable;
+use Bitrix\Iblock\SectionTable;
 use Core\View as v;
+use Core\Underscore as _;
 
 class Services {
     static function serviceTypes() {
@@ -27,6 +30,29 @@ class Services {
             }
             $count = ElementTable::getCount($filter);
             return $count > 0;
+        });
+    }
+
+    static function groupBySection($iblockId, $services) {
+        $rels = SectionElementTable::query()
+            ->setSelect([
+                'ID' => 'IBLOCK_SECTION.ID',
+                'NAME' => 'IBLOCK_SECTION.NAME',
+                'ELEMENT_ID' => 'IBLOCK_ELEMENT_ID'
+            ])
+            ->setFilter([
+                'IBLOCK_SECTION.IBLOCK_ID' => $iblockId,
+                '>=IBLOCK_SECTION.DEPTH_LEVEL' => 2,
+                'IBLOCK_SECTION.ACTIVE' => 'Y'
+            ])
+            ->exec()->fetchAll();
+        $elements = _::keyBy('ID', $services);
+        return _::mapValues(_::groupBy($rels, 'ID'), function($rels) use ($elements) {
+            $section = _::remove(_::first($rels), 'ELEMENT_ID');
+            $items = array_map(function($rel) use ($elements) {
+                return $elements[$rel['ELEMENT_ID']];
+            }, $rels);
+            return _::set($section, 'ITEMS', $items);
         });
     }
 
