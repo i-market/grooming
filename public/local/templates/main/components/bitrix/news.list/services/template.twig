@@ -17,9 +17,9 @@
                     <div class="inner">
                         <div class="top">
                             <div class="img">
-                                <img src="images/pic_14.jpg" alt="">
+                                <img src="{{ section.PICTURE.SRC }}" alt="{{ section.PICTURE.ALT }}">
                             </div>
-                            <p>{{ section.ID }}</p>
+                            <div class="description editable-area">{{ section.DESCRIPTION }}</div>
                         </div>
                         {% if not section.ITEMS is empty %}
                             <div class="wrap_table">

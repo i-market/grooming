@@ -57,7 +57,9 @@ class Services {
             ->setSelect([
                 'ID' => 'IBLOCK_SECTION.ID',
                 'NAME' => 'IBLOCK_SECTION.NAME',
-                'ELEMENT_ID' => 'IBLOCK_ELEMENT_ID'
+                'ELEMENT_ID' => 'IBLOCK_ELEMENT_ID',
+                'PICTURE' => 'IBLOCK_SECTION.PICTURE',
+                'DESCRIPTION' => 'IBLOCK_SECTION.DESCRIPTION'
             ])
             ->setFilter([
                 'IBLOCK_SECTION.IBLOCK_ID' => $iblockId,
@@ -87,7 +89,7 @@ class Services {
             'service_types' => $serviceTypes
         ]);
     }
-    
+
     static function renderGallerySection($sectionCode) {
         return v::twig()->render(v::partial('services/gallery_section.twig'), [
             'gallery' => self::renderGallery($sectionCode)
