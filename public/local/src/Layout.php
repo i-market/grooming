@@ -5,6 +5,21 @@ namespace App;
 use Bex\Tools\Iblock\IblockTools;
 
 class Layout {
+    static function renderHeaderSearch() {
+        global $APPLICATION;
+        ob_start();
+        $APPLICATION->IncludeComponent(
+            "bitrix:search.form",
+            "header",
+            Array(
+                "PAGE" => "#SITE_DIR#search/",
+                "USE_SUGGEST" => "N"
+            ),
+            null,
+            array('HIDE_ICONS' => 'Y')
+        );
+        return ob_get_clean();
+    }
     static function renderHeaderMenu() {
         global $APPLICATION;
         ob_start();

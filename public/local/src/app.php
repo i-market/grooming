@@ -31,7 +31,8 @@ class App {
             'scripts' => $scripts,
             'header' => [
                 'phone_fragment' => v::renderIncludedArea('header_phone.php', ['PARAMS' => ['HIDE_ICONS' => 'Y']]),
-                'menu' => Layout::renderHeaderMenu()
+                'menu' => Layout::renderHeaderMenu(),
+                'search' => Layout::renderHeaderSearch()
             ],
             'footer' => [
                 'menu' => Layout::renderFooterMenu(),

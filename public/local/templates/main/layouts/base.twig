@@ -10,11 +10,7 @@
         <a class="logo" href="{{ path('/') }}" title="{{ logo_label }}"></a>
         {{ header.menu }}
         <div class="header_info">
-            {# TODO search #}
-            <form action="" method="post" id="" class="search_form">
-                <input type="text" placeholder="Поиск">
-                <button type="submit"></button>
-            </form>
+            {{ header.search }}
             {{ header.phone_fragment }}
             <span class="re_call btn" data-modal="re_call">Обратный звонок</span>
             <span class="open_form"></span>
