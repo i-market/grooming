@@ -26,8 +26,7 @@ class Services {
                 $filter['IBLOCK_SECTION.CODE'] = $sectionCode;
             }
             $count = ElementTable::getCount($filter);
-            // TODO tmp
-            return true || $count > 0;
+            return $count > 0;
         });
     }
 
