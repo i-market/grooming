@@ -17,7 +17,7 @@
                 <span class="hotel_bottom_open_hidden">Подробнее</span>
             </div>
             <div class="hotel_bottom_right">
-                {# TODO modals #}
+                {# payments aren't implemented yet #}
                 {#<span class="hotel_btn pay">On-line оплата</span>#}
                 <span class="hotel_btn order" data-option-id="{{ item.ID }}">Зарезервировать</span>
             </div>
@@ -29,7 +29,6 @@
                 </div>
                 <div class="hotel_hidden_right">
                     {% if photos is not empty %}
-                        {# TODO optional photos label? generic label? #}
                         <p><strong>Фотографии номеров:</strong></p>
                         <div class="grid">
                             {% for photo in photos %}

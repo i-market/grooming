@@ -8,7 +8,6 @@
             {# window._contactDetails comes from the app:contact component #}
             var latlng = window._contactDetails.latlng;
             var myMap = new ymaps.Map('map', {
-                        {# TODO get from app:contact params #}
                         center: [latlng.lat, latlng.lng],
                         zoom: 18
                     }, {
