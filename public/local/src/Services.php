@@ -3,10 +3,14 @@
 namespace App;
 
 use Bex\Tools\Iblock\IblockTools;
+use Bitrix\Iblock\ElementTable;
 use Bitrix\Iblock\IblockTable;
 use Bitrix\Iblock\SectionElementTable;
+use CIBlockElement;
 use Core\View as v;
 use Core\Underscore as _;
+use Core\Iblock as ib;
+use Bitrix\Iblock\Component\Tools;
 
 class Services {
     static function serviceTypes() {
@@ -34,6 +38,20 @@ class Services {
         });
     }
 
+    static function serviceTypeImages($sectionCode) {
+        $el = new CIBlockElement();
+        $elements = ib::collectElements($el->GetList([], [
+            'IBLOCK_ID' => IblockTools::find(Iblock::CONTENT_TYPE, Iblock::IMAGES)->id(),
+            'ACTIVE' => 'Y',
+            'IBLOCK_SECTION.PARENT_SECTION.CODE' => 'services',
+            'IBLOCK_SECTION.CODE' => $sectionCode,
+        ]));
+        foreach ($elements as &$elementRef) {
+            Tools::getFieldImageData($elementRef, ['DETAIL_PICTURE'], Tools::IPROPERTY_ENTITY_ELEMENT);
+        }
+        return $elements;
+    }
+
     static function groupBySection($iblockId, $parentSectionCode, $services) {
         $rels = SectionElementTable::query()
             ->setSelect([
@@ -58,12 +76,11 @@ class Services {
     }
 
     static function renderServiceTypesGrid($sectionCode) {
-        $serviceTypes = array_map(function($serviceType) use ($sectionCode) {
+        $images = _::keyBy('CODE', self::serviceTypeImages($sectionCode));
+        $serviceTypes = array_map(function($serviceType) use ($sectionCode, $images) {
             return array_merge($serviceType, [
-                // TODO refactor: hardcoded uri
                 'LINK' => v::path(join('/', ['grooming', $sectionCode, $serviceType['CODE']])),
-                // TODO fetch the image
-                'IMAGE' => []
+                'IMAGE' => $images[$serviceType['CODE']]
             ]);
         }, self::activeServiceTypes($sectionCode));
         return v::twig()->render(v::partial('services/service_types_grid.twig'), [
