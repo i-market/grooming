@@ -7,11 +7,7 @@ use Bex\Tools\Iblock\IblockTools;
 use Core\View as v;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-// TODO title
-//$APPLICATION->SetTitle("Груминг");
 $APPLICATION->SetPageProperty(PageProperty::LAYOUT, 'base.twig');
-// TODO iblock code
-$iblockCode = 'haircut';
 ?>
 
 <? $APPLICATION->IncludeComponent(
@@ -40,7 +36,7 @@ $iblockCode = 'haircut';
 		"FIELD_CODE" => array("", ""),
 		"FILTER_NAME" => "",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"IBLOCK_ID" => IblockTools::find(Iblock::SERVICES_TYPE, $iblockCode)->id(),
+		"IBLOCK_ID" => IblockTools::find(Iblock::SERVICES_TYPE, $_REQUEST['IBLOCK_CODE'])->id(),
 		"IBLOCK_TYPE" => Iblock::SERVICES_TYPE,
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
 		"INCLUDE_SUBSECTIONS" => "Y",
@@ -54,7 +50,7 @@ $iblockCode = 'haircut';
 		"PAGER_TEMPLATE" => ".default",
 		"PAGER_TITLE" => '',
 		"PARENT_SECTION" => "",
-		"PARENT_SECTION_CODE" => "",
+		"PARENT_SECTION_CODE" => $_REQUEST['SECTION_CODE'],
 		"PREVIEW_TRUNCATE_LEN" => "",
 		"PROPERTY_CODE" => array("*"),
 		"SET_BROWSER_TITLE" => "N",

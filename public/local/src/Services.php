@@ -3,10 +3,8 @@
 namespace App;
 
 use Bex\Tools\Iblock\IblockTools;
-use Bitrix\Iblock\ElementTable;
 use Bitrix\Iblock\IblockTable;
 use Bitrix\Iblock\SectionElementTable;
-use Bitrix\Iblock\SectionTable;
 use Core\View as v;
 use Core\Underscore as _;
 
@@ -24,16 +22,19 @@ class Services {
     static function activeServiceTypes($sectionCode = null) {
         $iblocks = self::serviceTypes();
         return array_filter($iblocks, function($iblock) use ($sectionCode) {
-            $filter = ['IBLOCK_ID' => $iblock['ID'], 'ACTIVE' => 'Y'];
+            $filter = [
+                'IBLOCK_SECTION.IBLOCK_ID' => $iblock['ID'],
+                'IBLOCK_SECTION.ACTIVE' => 'Y'
+            ];
             if ($sectionCode !== null) {
-                $filter['IBLOCK_SECTION.CODE'] = $sectionCode;
+                $filter['IBLOCK_SECTION.PARENT_SECTION.CODE'] = $sectionCode;
             }
-            $count = ElementTable::getCount($filter);
+            $count = SectionElementTable::getCount($filter);
             return $count > 0;
         });
     }
 
-    static function groupBySection($iblockId, $services) {
+    static function groupBySection($iblockId, $parentSectionCode, $services) {
         $rels = SectionElementTable::query()
             ->setSelect([
                 'ID' => 'IBLOCK_SECTION.ID',
@@ -42,7 +43,7 @@ class Services {
             ])
             ->setFilter([
                 'IBLOCK_SECTION.IBLOCK_ID' => $iblockId,
-                '>=IBLOCK_SECTION.DEPTH_LEVEL' => 2,
+                'IBLOCK_SECTION.PARENT_SECTION.CODE' => $parentSectionCode,
                 'IBLOCK_SECTION.ACTIVE' => 'Y'
             ])
             ->exec()->fetchAll();
