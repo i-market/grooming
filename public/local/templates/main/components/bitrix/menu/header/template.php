@@ -8,13 +8,19 @@
                 echo str_repeat('</ul></li>', $previousLevel - $item['DEPTH_LEVEL']);
             }
             ?>
-            <? if ($item['IS_PARENT']): ?>
+            <? if ($item['DEPTH_LEVEL'] === 2): ?>
+                <li>
+                    <strong><a href="<?= $item['LINK'] ?>" class="<?= $class ?>"><?= $item['TEXT'] ?></a></strong>
+                    <? if ($item['IS_PARENT']): ?>
+                    <ul class="level-3">
+                    <? endif ?>
+            <? elseif ($item['IS_PARENT']): ?>
                 <li>
                     <a href="<?= $item['LINK'] ?>" class="<?= $class ?>"><?= $item['TEXT'] ?></a>
                     <ul>
             <? else: ?>
                 <li>
-                    <p><a href="<?= $item['LINK'] ?>" class="<?= $class ?>"><?= $item['TEXT'] ?></a></p>
+                    <a href="<?= $item['LINK'] ?>" class="<?= $class ?>"><?= $item['TEXT'] ?></a>
                 </li>
             <? endif ?>
             <? $previousLevel = $item['DEPTH_LEVEL'] ?>
