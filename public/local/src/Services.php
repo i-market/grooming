@@ -137,7 +137,7 @@ class Services {
                 "PAGER_TEMPLATE" => ".default",
                 "PAGER_TITLE" => '',
                 "PARENT_SECTION" => "",
-                "PARENT_SECTION_CODE" => $sectionCode,
+                "PARENT_SECTION_CODE" => 'gallery_'.$sectionCode,
                 "PREVIEW_TRUNCATE_LEN" => "",
                 "PROPERTY_CODE" => array("", ""),
                 "SET_BROWSER_TITLE" => "N",
