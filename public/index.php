@@ -282,7 +282,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
             "PAGER_TEMPLATE" => ".default",
             "PAGER_TITLE" => '',
             "PARENT_SECTION" => "",
-            "PARENT_SECTION_CODE" => "gallery",
+            "PARENT_SECTION_CODE" => "gallery_homepage",
             "PREVIEW_TRUNCATE_LEN" => "",
             "PROPERTY_CODE" => array("", ""),
             "SET_BROWSER_TITLE" => "N",
