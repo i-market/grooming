@@ -1,0 +1,17 @@
+{% import partial('modals/macros.twig') as macros %}
+
+{% if result.type == 'success' %}
+    <strong class="success-message">Ваше сообщение успешно отправлено.</strong>
+{% else %}
+    <strong>Заказать такси</strong>
+    {% set errors = result.errors.fields %}
+    <input name="name" type="text" placeholder="ФИО" class="{{ errors.name ? 'error' }}" value="{{ params.name }}">
+    {{ macros.error(errors.name) }}
+    <input name="phone" type="text" placeholder="Телефон" class="{{ errors.phone ? 'error' }}" value="{{ params.phone }}">
+    {{ macros.error(errors.phone) }}
+    <textarea name="message" placeholder="Сообщение" class="{{ errors.message ? 'error' }}">{{ params.message }}</textarea>
+    {{ macros.error(errors.message) }}
+    <div class="bottom">
+        <button type="submit">{% include partial('indicator.twig') %}Отправить</button>
+    </div>
+{% endif %}

@@ -8,8 +8,7 @@
                 <img src="{{ asset('images/' ~ (loop.index is odd ? 'taxi_ico.svg' : 'taxi_ico_2.svg')) }}" alt="">
             </div>
             <div class="text editable-area">{{ item.PREVIEW_TEXT }}</div>
-            {# TODO order link #}
-            <a class="order" href="#">Заказать</a>
+            <button class="order" data-modal="taxi-request">Заказать</button>
         </div>
     {% endfor %}
 </div>

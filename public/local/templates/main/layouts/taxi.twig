@@ -1,0 +1,14 @@
+{% extends layout('base.twig') %}
+
+{% block modals %}
+    {{ parent() }}
+    {# TODO reference taxi option #}
+    <div class="modal" id="taxi-request">
+        <form class="block" ic-post-to="/api/taxi-request" ic-target=".ic-target">
+            <span class="close"></span>
+            <div class="ic-target">
+                {% include partial('modals/taxi_request_form.twig') %}
+            </div>
+        </form>
+    </div>
+{% endblock %}

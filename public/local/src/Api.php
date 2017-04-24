@@ -17,6 +17,14 @@ class Api {
                     'result' => $result
                 ]);
             });
+            $router->respond('POST', '/taxi-request', function($request, $response) {
+                $params = $request->params(['name', 'phone', 'message']);
+                $result = App::requestTaxi($params);
+                return v::twig()->render(v::partial('modals/taxi_request_form.twig'), [
+                    'params' => $params,
+                    'result' => $result
+                ]);
+            });
             $router->respond('POST', '/booking', function($request, $response) {
                 $params = $request->params(['name', 'phone', 'period', 'pet_description']);
                 $result = App::bookingRequest($params);

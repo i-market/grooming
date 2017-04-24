@@ -163,6 +163,30 @@ class App {
         return $handler($data);
     }
 
+    static function requestTaxi($data) {
+        $fields = [
+            'name' => [
+                'label' => 'ФИО',
+                'validator' => val::stringType()->notEmpty()
+                    ->setTemplate('Пожалуйста, заполните поле «ФИО».')
+            ],
+            'phone' => [
+                'label' => 'Телефон',
+                'validator' => val::stringType()->notEmpty()
+                    ->setTemplate('Пожалуйста, заполните поле «Телефон».')
+            ]
+        ];
+        $handler = self::simpleFormHandler($fields, function($data) {
+            self::sendMailEvent(MailEvent::TAXI_REQUEST, [
+                'EMAIL_TO' => self::emailTo(),
+                'NAME' => $data['name'],
+                'PHONE' => $data['phone'],
+                'MESSAGE' => $data['message']
+            ]);
+        });
+        return $handler($data);
+    }
+
     static function bookingRequest($data) {
         $requiredFields = [
             'name' => 'Ваше имя',
@@ -191,6 +215,7 @@ class App {
 
 class MailEvent {
     const CALLBACK_REQUEST = 'CALLBACK_REQUEST';
+    const TAXI_REQUEST = 'TAXI_REQUEST';
     const BOOKING_REQUEST = 'BOOKING_REQUEST';
 }
 
