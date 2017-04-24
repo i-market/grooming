@@ -31,10 +31,12 @@ class Services {
                 'IBLOCK_SECTION.ACTIVE' => 'Y'
             ];
             if ($sectionCode !== null) {
-                $filter['IBLOCK_SECTION.PARENT_SECTION.CODE'] = $sectionCode;
+                $filter[] = ['LOGIC' => 'OR',
+                    ['IBLOCK_SECTION.CODE' => $sectionCode],
+                    ['IBLOCK_SECTION.PARENT_SECTION.CODE' => $sectionCode],
+                ];
             }
             $count = SectionElementTable::getCount($filter);
-            return true;
             return $count > 0;
         });
     }
