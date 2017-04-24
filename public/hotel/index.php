@@ -43,15 +43,13 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['hotel.twig', function() {
         <div class="wrap">
             <span data-tabLinks="cats">Кошки</span>
             <span data-tabLinks="dogs" class="some2">Собаки</span>
-            <span data-tabLinks="hamster">Грызуны</span>
+            <span data-tabLinks="rodents">Грызуны</span>
         </div>
     </div>
     <div class="tab_blocks tab_blocks--cat">
         <div class="wrap">
-            <? foreach (['cats', 'dogs', 'hamster'] as $tabId): ?>
-                <div data-tabContent="<?= $tabId ?>" class="<?= $tabId ?>">
-                    <?= Hotel::renderHotelServicesTab($tabId) ?>
-                </div>
+            <? foreach (['cats', 'dogs', 'rodents'] as $tabId): ?>
+                <?= Hotel::renderHotelServicesTab($tabId) ?>
             <? endforeach ?>
         </div>
     </div>

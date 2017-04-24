@@ -34,6 +34,7 @@
                                     </thead>
                                     <tbody class="show_items">
                                     {% for item in section.ITEMS %}
+                                        {# TODO pick column properties only #}
                                         {% set props = item.PROPERTIES %}
                                         <tr id="{{ add_editing_actions(item, template) }}">
                                             {% for prop in props %}
