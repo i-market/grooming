@@ -5,7 +5,7 @@
             <thead>
             <tr>
                 <td><b>Название услуги</b></td>
-                {% for prop in result.ITEMS[0].PROPERTIES %}
+                {% for prop in result.TABLE_PROPERTIES %}
                     <td><b>{{ prop.NAME }}</b></td>
                 {% endfor %}
             </tr>
@@ -14,9 +14,8 @@
             {% for item in result.ITEMS %}
                 <tr id="{{ add_editing_actions(item, template) }}">
                     <td>{{ item.NAME }}</td>
-                    {# TODO pick column properties only #}
-                    {% for prop in item.PROPERTIES %}
-                        <td>{{ prop.VALUE }}</td>
+                    {% for prop in result.TABLE_PROPERTIES %}
+                        <td>{{ item.PROPERTIES[prop.CODE].VALUE }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}

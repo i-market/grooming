@@ -34,20 +34,17 @@
                                     <thead>
                                     <tr>
                                         <td>Название услуги</td>
-                                        {% set props = section.ITEMS[0].PROPERTIES %}
-                                        {% for prop in props %}
+                                        {% for prop in result.TABLE_PROPERTIES %}
                                             <td>{{ prop.NAME }}</td>
                                         {% endfor %}
                                     </tr>
                                     </thead>
                                     <tbody class="show_items">
                                     {% for item in section.ITEMS %}
-                                        {# TODO pick column properties only #}
-                                        {% set props = item.PROPERTIES %}
                                         <tr id="{{ add_editing_actions(item, template) }}">
                                             <td>{{ item.NAME }}</td>
-                                            {% for prop in props %}
-                                                <td>{{ prop.VALUE }}</td>
+                                            {% for prop in result.TABLE_PROPERTIES %}
+                                                <td>{{ item.PROPERTIES[prop.CODE].VALUE }}</td>
                                             {% endfor %}
                                         </tr>
                                     {% endfor %}
