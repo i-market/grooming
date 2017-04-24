@@ -8,7 +8,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Услуги для кошек");
 $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
     return App::layoutContext([
-        'hero_banner' => HeroBanner::GROOMING_CODE
+        'hero_banner' => HeroBanner::SERVICES_CATS_CODE
     ]);
 }]);
 $sectionCode = 'cats';

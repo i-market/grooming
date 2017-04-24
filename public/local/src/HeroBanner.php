@@ -10,6 +10,7 @@ class HeroBanner {
     const TAXI_CODE = 'Зоотакси';
     const GROOMING_CODE = 'Груминг';
     const SERVICES_DOGS_CODE = 'Услуги для собак';
+    const SERVICES_CATS_CODE = 'Услуги для кошек';
     const HOTEL_CODE = 'Гостиница';
     const PROMOTIONS_CODE = 'Акции';
     const GALLERY_CODE = 'Галерея';
