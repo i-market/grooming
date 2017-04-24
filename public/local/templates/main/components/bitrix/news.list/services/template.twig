@@ -2,31 +2,38 @@
     <div class="wrap">
         <strong class="heading"><h2>{{ result.NAME }}</h2></strong>
     </div>
-    <div class="tab_links">
-        <div class="wrap">
-            {% for section in result.SECTIONS %}
-                {# TODO break lines somehow #}
-                <span data-tabLinks="{{ 'section-' ~ section.ID }}">{{ section.NAME }}</span>
-            {% endfor %}
+    {% if result.SECTIONS|length > 1 %}
+        <div class="tab_links">
+            <div class="wrap">
+                {% for section in result.SECTIONS %}
+                    {# TODO break lines somehow #}
+                    <span data-tabLinks="{{ 'section-' ~ section.ID }}">{{ section.NAME }}</span>
+                {% endfor %}
+            </div>
         </div>
-    </div>
+    {% endif %}
     <div class="tab_blocks">
         <div class="wrap">
             {% for section in result.SECTIONS %}
                 <div data-tabContent="{{ 'section-' ~ section.ID }}">
                     <div class="inner">
                         <div class="top">
-                            <div class="img">
-                                <img src="{{ section.PICTURE.SRC }}" alt="{{ section.PICTURE.ALT }}">
-                            </div>
-                            <div class="description editable-area">{{ section.DESCRIPTION }}</div>
+                            {# pseudosection for orphan elements #}
+                            {% if not section.PSEUDOSECTION %}
+                                {% if section.PICTURE %}
+                                    <div class="img">
+                                        <img src="{{ section.PICTURE.SRC }}" alt="{{ section.PICTURE.ALT }}">
+                                    </div>
+                                {% endif %}
+                                <div class="description editable-area">{{ section.DESCRIPTION }}</div>
+                            {% endif %}
                         </div>
                         {% if not section.ITEMS is empty %}
                             <div class="wrap_table">
                                 <table>
                                     <thead>
                                     <tr>
-                                        <td><b>Название услуги</b></td>
+                                        <td>Название услуги</td>
                                         {% set props = section.ITEMS[0].PROPERTIES %}
                                         {% for prop in props %}
                                             <td>{{ prop.NAME }}</td>

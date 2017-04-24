@@ -34,6 +34,7 @@ class Services {
                 $filter['IBLOCK_SECTION.PARENT_SECTION.CODE'] = $sectionCode;
             }
             $count = SectionElementTable::getCount($filter);
+            return true;
             return $count > 0;
         });
     }
@@ -52,7 +53,7 @@ class Services {
         return $elements;
     }
 
-    static function groupBySection($iblockId, $parentSectionCode, $services) {
+    static function groupBySection($iblockId, $parentSectionCode, $services, $includeOrphans = false) {
         $rels = SectionElementTable::query()
             ->setSelect([
                 'ID' => 'IBLOCK_SECTION.ID',
@@ -68,13 +69,28 @@ class Services {
             ])
             ->exec()->fetchAll();
         $elements = _::keyBy('ID', $services);
-        return _::mapValues(_::groupBy($rels, 'ID'), function($rels) use ($elements) {
+        // non-orphans
+        $seenRef = [];
+        $sections = _::mapValues(_::groupBy($rels, 'ID'), function($rels) use ($elements, &$seenRef) {
             $section = _::remove(_::first($rels), 'ELEMENT_ID');
-            $items = array_map(function($rel) use ($elements) {
+            $items = array_map(function($rel) use ($elements, &$seenRef) {
+                $seenRef[] = $rel['ELEMENT_ID'];
                 return $elements[$rel['ELEMENT_ID']];
             }, $rels);
             return _::set($section, 'ITEMS', $items);
         });
+        $orphans = array_values(_::remove($elements, $seenRef));
+        if ($includeOrphans && !_::isEmpty($orphans)) {
+            // TODO refactor: decomplect
+            $pseudoSection = [
+                'PSEUDOSECTION' => true,
+                'ID' => 'orphans',
+                'NAME' => 'Другие услуги',
+                'ITEMS' => $orphans
+            ];
+            $sections[] = $pseudoSection;
+        }
+        return $sections;
     }
 
     static function renderServiceTypesGrid($sectionCode) {
