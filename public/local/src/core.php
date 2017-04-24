@@ -97,6 +97,18 @@ class Underscore extends ArraysMethods {
     }
 
     static function noop() {}
+
+    static function cycle($values) {
+        $i = 0;
+        $len = count($values);
+        while (true) {
+            if ($i === $len) {
+                $i = 0;
+            }
+            yield $values[$i];
+            $i++;
+        }
+    }
 }
 
 class Nullable {

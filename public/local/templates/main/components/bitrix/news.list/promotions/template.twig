@@ -5,8 +5,7 @@
         {% set tag = link ? 'a' : 'div' %}
         <{{ tag }}{{ link ? ' href="' ~ link ~ '"' }} class="item" id="{{ add_editing_actions(item, template) }}">
             <img src="{{ item.PREVIEW_PICTURE.RESIZED.src }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
-            {# TODO dynamic bg color #}
-            <div class="discount right bottom" style="background: rgba(153, 153, 153, 0.6)">
+            <div class="discount {{ item.CLASS }}" style="{{ item.STYLE }}">
                 {{ caption }}
             </div>
             <div class="info">
