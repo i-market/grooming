@@ -156,6 +156,6 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
     </div>
 </section>
 <div class="dots dots_shares"></div>
-<?= Layout::renderBannersSection() ?>
+<?= Layout::renderBannersSection('store') ?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

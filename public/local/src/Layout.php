@@ -64,8 +64,7 @@ class Layout {
         return ob_get_clean();
     }
 
-    // TODO section code arg
-    static function renderBannersSection() {
+    static function renderBannersSection($sectionCode) {
         global $APPLICATION;
         ob_start();
         $APPLICATION->IncludeComponent(
@@ -108,7 +107,7 @@ class Layout {
                 "PAGER_TEMPLATE" => ".default",
                 "PAGER_TITLE" => '',
                 "PARENT_SECTION" => "",
-                "PARENT_SECTION_CODE" => "",
+                "PARENT_SECTION_CODE" => $sectionCode,
                 "PREVIEW_TRUNCATE_LEN" => "",
                 "PROPERTY_CODE" => array("LINK"),
                 "SET_BROWSER_TITLE" => "N",
