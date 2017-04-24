@@ -1,13 +1,14 @@
 <div class="grid slider_shares">
     {% for item in result.ITEMS %}
         {% set caption = item.PROPERTIES.IMAGE_CAPTION.VALUE %}
-        {# TODO link #}
-        <a href="#" class="item" id="{{ add_editing_actions(item, template) }}">
+        {% set link = item.PROPERTIES.LINK.VALUE %}
+        {% set tag = link ? 'a' : 'div' %}
+        <{{ tag }}{{ link ? ' href="' ~ link ~ '"' }} class="item" id="{{ add_editing_actions(item, template) }}">
             <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
             <span class="red_line">{{ caption }}</span>
             <div class="info">
                 <p>{{ item.PREVIEW_TEXT }}</p>
             </div>
-        </a>
+        </{{ tag }}>
     {% endfor %}
 </div>

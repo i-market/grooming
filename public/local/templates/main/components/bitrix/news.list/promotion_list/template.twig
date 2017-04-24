@@ -2,9 +2,9 @@
     {% for item in result.ITEMS %}
         {% set caption = item.PROPERTIES.IMAGE_CAPTION.VALUE %}
         {% set period = item.PROPERTIES.PERIOD.VALUE %}
-        {# TODO link? #}
-        {#{{ item.DETAIL_PAGE_URL }}#}
-        <a href="#" class="item_shares" id="{{ add_editing_actions(item, template) }}">
+        {% set link = item.PROPERTIES.LINK.VALUE %}
+        {% set tag = link ? 'a' : 'div' %}
+        <{{ tag }}{{ link ? ' href="' ~ link ~ '"' }} class="item_shares" id="{{ add_editing_actions(item, template) }}">
             <div class="left">
                 <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
                 <span class="red_line">{{ caption }}</span>
@@ -20,6 +20,6 @@
                     {{ item.DETAIL_TEXT }}
                 </div>
             </div>
-        </a>
+        </{{ tag }}>
     {% endfor %}
 </div>
