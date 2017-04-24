@@ -313,7 +313,6 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
     };
     $propFields = function($iblockId, $code, $name) {
         return array (
-//            'ID' => 0,
             'NAME' => $name,
             'SORT' => 500,
             'CODE' => $code,
@@ -350,7 +349,6 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
     $sectionFields = function($iblockId, $code, $name) {
         return array (
             'ACTIVE' => 'Y',
-//            'IBLOCK_SECTION_ID' => 0,
             'IBLOCK_ID' => $iblockId,
             'NAME' => $name,
             'SORT' => '500',
@@ -402,8 +400,7 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
     $priceProp = ['code' => 'PRICE', 'name' => 'Стоимость (руб.)'];
     $priceWithTrimming = ['code' => 'PRICE_WITH_TRIMMING', 'name' => 'Стоимость (руб.) с триммингом'];
     $durationProp = ['code' => 'DURATION', 'name' => 'Время'];
-    // TODO comment prop
-//    $commentProp = [];
+    $commentProp = ['code' => 'COMMENT', 'name' => 'Комментарии'];
     $iblocks = [
         [
             'code' => 'haircut',
@@ -435,11 +432,6 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
             'name' => 'Креативные услуги',
             'props' => [$priceProp, $durationProp]
         ]
-//        [
-//            'code' => 'generic',
-//            'name' => 'Услуги',
-//            'props' => [$priceProp, $durationProp]
-//        ]
     ];
     $sections = [
         [
