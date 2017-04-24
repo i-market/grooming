@@ -203,6 +203,7 @@ class Iblock {
     const LOG = 'log';
 
     const SERVICES_TYPE = 'services';
+    const HOTEL_SERVICES_TYPE = 'hotel_services';
 
     const CONTENT_TYPE = 'content';
     const SERVICE = 'service';

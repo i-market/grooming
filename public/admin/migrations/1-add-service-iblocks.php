@@ -1,10 +1,15 @@
 <?php
 
+use Core\Nullable as nil;
+use Core\Underscore as _;
+
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("migration");
 
-$tasks = explode(',', $_REQUEST['tasks']);
-if ($USER->IsAdmin() && count($tasks) > 0) {
+$tasks = nil::get(nil::map($_REQUEST['tasks'], function($s) {
+    return explode(',', $s);
+}), []);
+if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
     $iblockFields = function($code, $name) {
         return array (
             'ACTIVE' => 'Y',
@@ -394,9 +399,11 @@ if ($USER->IsAdmin() && count($tasks) > 0) {
         );
     };
     $breedProp = ['code' => 'BREED', 'name' => 'Название породы'];
-    $priceProp = ['code' => 'PRICE', 'name' => 'Стоимость'];
-    $priceWithTrimming = ['code' => 'PRICE_WITH_TRIMMING', 'name' => 'Стоимость с триммингом'];
+    $priceProp = ['code' => 'PRICE', 'name' => 'Стоимость (руб.)'];
+    $priceWithTrimming = ['code' => 'PRICE_WITH_TRIMMING', 'name' => 'Стоимость (руб.) с триммингом'];
     $durationProp = ['code' => 'DURATION', 'name' => 'Время'];
+    // TODO comment prop
+//    $commentProp = [];
     $iblocks = [
         [
             'code' => 'haircut',
