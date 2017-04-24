@@ -12,6 +12,7 @@ class HeroBanner {
     const SERVICES_DOGS_CODE = 'Услуги для собак';
     const HOTEL_CODE = 'Гостиница';
     const PROMOTIONS_CODE = 'Акции';
+    const GALLERY_CODE = 'Галерея';
 
     static function render($elementCode) {
         global $APPLICATION;

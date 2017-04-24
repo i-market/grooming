@@ -1,13 +1,20 @@
 <?
+use App\App;
+use App\HeroBanner;
 use App\Iblock;
+use App\PageProperty;
 use Bex\Tools\Iblock\IblockTools;
 use Core\View as v;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Галерея");
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
+    return App::layoutContext([
+        'hero_banner' => HeroBanner::GALLERY_CODE
+    ]);
+}]);
 ?>
 
-<? // TODO hero banner ?>
 <section class="shares--page" data-anchor="next">
     <div class="wrap">
         <strong class="heading">
