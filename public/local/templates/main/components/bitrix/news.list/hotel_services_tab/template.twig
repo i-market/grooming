@@ -1,11 +1,13 @@
-{% macro hotel_item(item, template) %}
+{% for item in result.ITEMS %}
     {% set cost = item.PROPERTIES.COST.VALUE %}
     {% set photos = item.DISPLAY_PROPERTIES.PHOTOS.FILE_VALUE %}
     <div class="hotel_item" id="{{ add_editing_actions(item, template) }}">
         <div class="hotel_top">
             <div class="hotel_top_left">
                 <p class="hotel_top_title">{{ item.NAME }}</p>
-                <div class="hotel_top_text editable-area">{{ item.PREVIEW_TEXT }}</div>
+                <div class="hotel_top_text editable-area">
+                    {{ item.PREVIEW_TEXT }}
+                </div>
             </div>
             <div class="hotel_top_right">
                 <p class="hotel_top_price">{{ cost }}</p>
@@ -24,7 +26,15 @@
         <div class="hotel_hidden">
             <div class="wrap_hotel_hidden">
                 <div class="hotel_hidden_left editable-area">
-                    {{ item.DETAIL_TEXT }}
+                    {% if not item.DETAIL_TEXT is empty %}
+                        {{ item.DETAIL_TEXT }}
+                    {% else %}
+                        {% set desc = result.SECTION_DESCRIPTION %}
+                        {% if desc.HEADING %}
+                            <p><b>{{ desc.HEADING }}</b><p>
+                        {% endif %}
+                        {{ desc.TEXT }}
+                    {% endif %}
                 </div>
                 <div class="hotel_hidden_right">
                     {% if photos is not empty %}
@@ -42,8 +52,4 @@
             </div>
         </div>
     </div>
-{% endmacro %}
-
-{% for item in result.ITEMS %}
-    {{ _self.hotel_item(item, template) }}
 {% endfor %}
