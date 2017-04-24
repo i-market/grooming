@@ -7,6 +7,12 @@ $arUrlRewrite = array(
         "PATH" => "/grooming/services.php",
     ),
     array(
+        "CONDITION" => "#^/grooming/without_appointment/#",
+        "RULE" => "SECTION_CODE=&IBLOCK_CODE=without_appointment",
+        "ID" => "",
+        "PATH" => "/grooming/services.php",
+    ),
+    array(
 		"CONDITION" => "#^/api/.*#",
 		"RULE" => "",
 		"ID" => "",

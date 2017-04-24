@@ -13,6 +13,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
-	)
+	),
+	Array(
+        "Услуги без записи",
+        "/grooming/without_appointment/",
+        Array(),
+        Array(),
+        ""
+    )
 );
 ?>
