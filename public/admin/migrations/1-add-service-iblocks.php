@@ -431,6 +431,11 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
             'code' => 'creative',
             'name' => 'Креативные услуги',
             'props' => [$priceProp, $durationProp]
+        ],
+        [
+            'code' => 'generic',
+            'name' => 'Услуги',
+            'props' => [$priceProp, $durationProp]
         ]
     ];
     $sections = [
@@ -459,15 +464,32 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                 foreach ($sections as $section) {
                     $sec = new CIBlockSection();
                     $fields = $sectionFields($iblockId, $section['code'], $section['name']);
-                    $results[] = ['section', $sec->Add($fields), $sec->LAST_ERROR];
+                    $sectionId = $sec->Add($fields);
+                    $results[] = ['section', $sectionId, $sec->LAST_ERROR];
+                    $fs = [
+                        'IBLOCK_ID' => $iblockId,
+                        'NAME' => 'Другие услуги',
+                        'CODE' => $section['code'].'_default',
+                        'IBLOCK_SECTION_ID' => $sectionId
+                    ];
+                    $results[] = ['child section', $sec->Add($fs), $sec->LAST_ERROR];
                 }
+                // root default section
+                $sec = new CIBlockSection();
+                $results[] = ['default section', $sec->Add([
+                    'IBLOCK_ID' => $iblockId,
+                    'NAME' => 'Другие услуги',
+                    'CODE' => 'default'
+                ]), $sec->LAST_ERROR];
             }
         } catch (Exception $e) {
             echo $e->getMessage();
             var_export($e);
         }
     }
+    echo '<pre>';
     var_export($results);
+    echo '</pre>';
 } else {
     echo 'did you forget something?';
 }

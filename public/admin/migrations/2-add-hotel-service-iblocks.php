@@ -443,7 +443,9 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
             var_export($e);
         }
     }
+    echo '<pre>';
     var_export($results);
+    echo '</pre>';
 } else {
     echo 'did you forget something?';
 }

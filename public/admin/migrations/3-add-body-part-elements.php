@@ -28,7 +28,9 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
             $results[] = [$result, $el->LAST_ERROR];
         }
     }
+    echo '<pre>';
     var_export($results);
+    echo '</pre>';
 } else {
     echo 'did you forget something?';
 }
