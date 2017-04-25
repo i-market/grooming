@@ -18,15 +18,12 @@
                 <div data-tabContent="{{ 'section-' ~ section.ID }}">
                     <div class="inner">
                         <div class="top">
-                            {# pseudosection for orphan elements #}
-                            {% if not section.PSEUDOSECTION %}
-                                {% if section.PICTURE %}
-                                    <div class="img">
-                                        <img src="{{ section.PICTURE.SRC }}" alt="{{ section.PICTURE.ALT }}">
-                                    </div>
-                                {% endif %}
-                                <div class="description editable-area">{{ section.DESCRIPTION }}</div>
+                            {% if section.PICTURE %}
+                                <div class="img">
+                                    <img src="{{ section.PICTURE.SRC }}" alt="{{ section.PICTURE.ALT }}">
+                                </div>
                             {% endif %}
+                            <div class="description editable-area">{{ section.DESCRIPTION }}</div>
                         </div>
                         {% if not section.TABLE_ROWS is empty %}
                             <div class="wrap_table">
@@ -62,7 +59,7 @@
                                 </table>
                             </div>
                             <div class="wrap_btn">
-                                <span class="more_table_items" style="display: none">Другие породы</span>
+                                <span class="more_table_items" style="display: none">Еще</span>
                             </div>
                         {% endif %}
                     </div>

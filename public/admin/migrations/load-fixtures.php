@@ -123,9 +123,7 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                         'IBLOCK_ID' => $iblockId,
                         'NAME' => $row['NAME']
                     ];
-                    if ($rootSectionId !== null) {
-                       $fields['IBLOCK_SECTION_ID'] = $rootSectionId;
-                    } elseif ($presetTabSectionId !== null) {
+                    if ($presetTabSectionId !== null) {
                         $fields['IBLOCK_SECTION_ID'] = $presetTabSectionId;
                     } else {
                         $fields['IBLOCK_SECTION_ID'] = $defaultSection['ID'];

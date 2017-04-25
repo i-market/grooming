@@ -3,10 +3,12 @@
 namespace App;
 
 use Bex\Tools\Iblock\IblockTools;
-use Bitrix\Iblock\ElementTable;
 use Bitrix\Iblock\IblockTable;
 use Bitrix\Iblock\SectionElementTable;
+use Bitrix\Iblock\SectionTable;
 use CIBlockElement;
+use Core\Strings;
+use Core\Nullable as nil;
 use Core\View as v;
 use Core\Underscore as _;
 use Core\Iblock as ib;
@@ -23,6 +25,7 @@ class Services {
     /**
      * returns non-empty (have at least one active element) service types
      */
+    // TODO refactor
     static function activeServiceTypes($sectionCode = null) {
         $iblocks = self::serviceTypes();
         return array_filter($iblocks, function($iblock) use ($sectionCode) {
@@ -57,61 +60,34 @@ class Services {
         return $elements;
     }
 
-    // TODO refactor
-    static function groupBySection($iblockId, $parentSectionCode, $services, $includeOrphans = false) {
-        $rels = SectionElementTable::query()
-            ->setSelect([
-                'ID' => 'IBLOCK_SECTION.ID',
-                'NAME' => 'IBLOCK_SECTION.NAME',
-                'ELEMENT_ID' => 'IBLOCK_ELEMENT_ID',
-                'PICTURE' => 'IBLOCK_SECTION.PICTURE',
-                'DESCRIPTION' => 'IBLOCK_SECTION.DESCRIPTION',
-                'PARENT_ID' => 'IBLOCK_SECTION.PARENT_SECTION.ID',
-                'DEPTH_LEVEL' => 'IBLOCK_SECTION.DEPTH_LEVEL'
-            ])
-            ->setFilter([
-                'IBLOCK_SECTION.IBLOCK_ID' => $iblockId,
-                ['LOGIC' => 'OR',
-                    // e.g. dogs → гигиеническая стрижка
-                    ['IBLOCK_SECTION.PARENT_SECTION.CODE' => $parentSectionCode],
-                    // e.g. dogs → все услуги → обработка антипаразитарной косметикой
-                    ['IBLOCK_SECTION.PARENT_SECTION.PARENT_SECTION.CODE' => $parentSectionCode],
-                ],
-                'IBLOCK_SECTION.ACTIVE' => 'Y'
-            ])
-            ->exec()->fetchAll();
-        $elements = _::keyBy('ID', $services);
-        // non-orphans
-        $seenRef = [];
-        $flatSections = _::mapValues(_::groupBy($rels, 'ID'), function($rels) use ($elements, &$seenRef) {
-            $section = _::remove(_::first($rels), 'ELEMENT_ID');
-            $items = array_map(function($rel) use ($elements, &$seenRef) {
-                $seenRef[] = $rel['ELEMENT_ID'];
-                return $elements[$rel['ELEMENT_ID']];
-            }, $rels);
-            return _::set($section, 'ITEMS', $items);
+    private static function inflate($roots, $groups) {
+        return array_map(function($section) use ($groups) {
+            return _::set($section, 'SECTIONS', self::inflate($groups[$section['ID']], $groups));
+        }, $roots);
+    }
+
+    static function groupBySection($iblockId, $parentSectionCode, $services) {
+        $sections = _::keyBy('ID', SectionTable::query()
+            ->setSelect(['ID', 'CODE', 'NAME', 'IBLOCK_SECTION_ID', 'DEPTH_LEVEL'])
+            ->setFilter(['IBLOCK_ID' => $iblockId])
+            ->exec()->fetchAll()
+        );
+        $parentSectionMaybe = _::find($sections, function($section) use ($parentSectionCode) {
+            return $section['CODE'] === $parentSectionCode;
         });
-        $sections = array_reduce($flatSections, function($acc, $section) {
-            if (intval($section['DEPTH_LEVEL']) === 3) {
-                // nest row group sections
-                $acc[$section['PARENT_ID']]['SECTIONS'][] = $section;
-                return _::remove($acc, $section['ID']);
-            } else {
-                return $acc;
-            }
-        }, $flatSections);
-        $orphans = array_values(_::remove($elements, $seenRef));
-        if ($includeOrphans && !_::isEmpty($orphans)) {
-            // TODO refactor: decomplect
-            $pseudoSection = [
-                'PSEUDOSECTION' => true,
-                'ID' => 'orphans',
-                'NAME' => 'Другие услуги',
-                'ITEMS' => $orphans
-            ];
-            $sections[] = $pseudoSection;
+        $localRootDepth = intval(_::get($parentSectionMaybe, 'DEPTH_LEVEL', 0));
+        foreach ($services as $service) {
+            $sections[$service['IBLOCK_SECTION_ID']]['ITEMS'][] = $service;
         }
-        return $sections;
+        $sections = array_filter($sections, function($section) use ($localRootDepth) {
+            // TODO better filtering of non-relevant sections
+            return intval($section['DEPTH_LEVEL']) > $localRootDepth;
+        });
+        // group by parent section
+        $groups = _::groupBy($sections, 'IBLOCK_SECTION_ID');
+        $roots = $groups[_::get($parentSectionMaybe, 'ID')];
+        $ret = self::inflate($roots, $groups);
+        return $ret;
     }
 
     static function renderServiceTypesGrid($sectionCode) {
