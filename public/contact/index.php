@@ -15,6 +15,7 @@ Asset::getInstance()->addString('<script data-skip-moving=true src="http://api-m
 <section class="contacts_section">
     <div class="left">
 		<div class="block">
+			<? $APPLICATION->ShowViewContent('bitrix:breadcrumb:top') ?>
 			<? $APPLICATION->IncludeComponent(
 				"bitrix:main.include",
 				"",
