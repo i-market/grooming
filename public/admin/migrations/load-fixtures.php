@@ -109,6 +109,12 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                 }
                 $parentSectionId = $sec->Add($fields);
             }
+            $defaultSection = SectionTable::query()
+                ->setSelect(['*'])
+                ->setFilter([
+                    'IBLOCK_ID' => $iblockId,
+                    'CODE' => join('_', _::clean([$fixture['root_section'], 'default']))
+                ])->exec()->fetch();
             foreach ($rowMaps as $row) {
                 if ($row['type'] === 'section') {
                     $sec = new CIBlockSection();
@@ -134,13 +140,11 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                     if ($inSection) {
                         $fields['IBLOCK_SECTION_ID'] = $inSection;
                     } else {
-                        $defaultSection = SectionTable::query()
-                            ->setSelect(['*'])
-                            ->setFilter([
-                                'IBLOCK_ID' => $iblockId,
-                                'CODE' => join('_', _::clean([$fixture['root_section'], 'default']))
-                            ])->exec()->fetch();
-                        $fields['IBLOCK_SECTION_ID'] = $defaultSection['ID'];
+                        if (isset($fixture['tab_section_name'])) {
+                            $fields['IBLOCK_SECTION_ID'] = $parentSectionId;
+                        } else {
+                            $fields['IBLOCK_SECTION_ID'] = $defaultSection['ID'];
+                        }
                     }
                     $results[] = ['add element', $el->Add($fields), $el->LAST_ERROR];
                 }
