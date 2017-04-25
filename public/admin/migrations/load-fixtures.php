@@ -85,10 +85,11 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                     'NAME' => _::first($row)
                 ], $map);
             }, $rows);
-            // section id
+            // row group section id
             $inSection = null;
             $iblockId = IblockTools::find(Iblock::SERVICES_TYPE, $fixture['iblock_code'])->id();
-            $parentSectionId = null;
+            $rootSectionId = null;
+            $presetTabSectionId = null;
             if (isset($fixture['root_section'])) {
                 $section = SectionTable::query()
                     ->setSelect(['*'])
@@ -96,7 +97,7 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                         'IBLOCK_ID' => $iblockId,
                         'CODE' => $fixture['root_section']
                     ])->exec()->fetch();
-                $parentSectionId = $section['ID'];
+                $rootSectionId = $section['ID'];
             }
             if (isset($fixture['tab_section_name'])) {
                 $sec = new CIBlockSection();
@@ -104,10 +105,10 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                     'IBLOCK_ID' => $iblockId,
                     'NAME' => $fixture['tab_section_name'],
                 ];
-                if ($parentSectionId !== null) {
-                    $fields['IBLOCK_SECTION_ID'] = $parentSectionId;
+                if ($rootSectionId !== null) {
+                    $fields['IBLOCK_SECTION_ID'] = $rootSectionId;
                 }
-                $parentSectionId = $sec->Add($fields);
+                $presetTabSectionId = $sec->Add($fields);
             }
             $defaultSection = SectionTable::query()
                 ->setSelect(['*'])
@@ -122,8 +123,12 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                         'IBLOCK_ID' => $iblockId,
                         'NAME' => $row['NAME']
                     ];
-                    if ($parentSectionId !== null) {
-                       $fields['IBLOCK_SECTION_ID'] = $parentSectionId;
+                    if ($rootSectionId !== null) {
+                       $fields['IBLOCK_SECTION_ID'] = $rootSectionId;
+                    } elseif ($presetTabSectionId !== null) {
+                        $fields['IBLOCK_SECTION_ID'] = $presetTabSectionId;
+                    } else {
+                        $fields['IBLOCK_SECTION_ID'] = $defaultSection['ID'];
                     }
                     $sectionId = $sec->Add($fields);
                     $results[] = ['add section', $sectionId, $el->LAST_ERROR];
@@ -140,8 +145,8 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                     if ($inSection) {
                         $fields['IBLOCK_SECTION_ID'] = $inSection;
                     } else {
-                        if (isset($fixture['tab_section_name'])) {
-                            $fields['IBLOCK_SECTION_ID'] = $parentSectionId;
+                        if ($presetTabSectionId !== null) {
+                            $fields['IBLOCK_SECTION_ID'] = $presetTabSectionId;
                         } else {
                             $fields['IBLOCK_SECTION_ID'] = $defaultSection['ID'];
                         }
