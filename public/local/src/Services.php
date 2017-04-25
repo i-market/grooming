@@ -32,7 +32,9 @@ class Services {
             ];
             if ($sectionCode !== null) {
                 $filter[] = ['LOGIC' => 'OR',
+                    // e.g. dogs
                     ['IBLOCK_SECTION.CODE' => $sectionCode],
+                    // e.g. dogs → гигиеническая стрижка
                     ['IBLOCK_SECTION.PARENT_SECTION.CODE' => $sectionCode],
                 ];
             }
@@ -55,6 +57,7 @@ class Services {
         return $elements;
     }
 
+    // TODO refactor
     static function groupBySection($iblockId, $parentSectionCode, $services, $includeOrphans = false) {
         $rels = SectionElementTable::query()
             ->setSelect([
@@ -62,18 +65,25 @@ class Services {
                 'NAME' => 'IBLOCK_SECTION.NAME',
                 'ELEMENT_ID' => 'IBLOCK_ELEMENT_ID',
                 'PICTURE' => 'IBLOCK_SECTION.PICTURE',
-                'DESCRIPTION' => 'IBLOCK_SECTION.DESCRIPTION'
+                'DESCRIPTION' => 'IBLOCK_SECTION.DESCRIPTION',
+                'PARENT_ID' => 'IBLOCK_SECTION.PARENT_SECTION.ID',
+                'DEPTH_LEVEL' => 'IBLOCK_SECTION.DEPTH_LEVEL'
             ])
             ->setFilter([
                 'IBLOCK_SECTION.IBLOCK_ID' => $iblockId,
-                'IBLOCK_SECTION.PARENT_SECTION.CODE' => $parentSectionCode,
+                ['LOGIC' => 'OR',
+                    // e.g. dogs → гигиеническая стрижка
+                    ['IBLOCK_SECTION.PARENT_SECTION.CODE' => $parentSectionCode],
+                    // e.g. dogs → все услуги → обработка антипаразитарной косметикой
+                    ['IBLOCK_SECTION.PARENT_SECTION.PARENT_SECTION.CODE' => $parentSectionCode],
+                ],
                 'IBLOCK_SECTION.ACTIVE' => 'Y'
             ])
             ->exec()->fetchAll();
         $elements = _::keyBy('ID', $services);
         // non-orphans
         $seenRef = [];
-        $sections = _::mapValues(_::groupBy($rels, 'ID'), function($rels) use ($elements, &$seenRef) {
+        $flatSections = _::mapValues(_::groupBy($rels, 'ID'), function($rels) use ($elements, &$seenRef) {
             $section = _::remove(_::first($rels), 'ELEMENT_ID');
             $items = array_map(function($rel) use ($elements, &$seenRef) {
                 $seenRef[] = $rel['ELEMENT_ID'];
@@ -81,6 +91,15 @@ class Services {
             }, $rels);
             return _::set($section, 'ITEMS', $items);
         });
+        $sections = array_reduce($flatSections, function($acc, $section) {
+            if (intval($section['DEPTH_LEVEL']) === 3) {
+                // nest row group sections
+                $acc[$section['PARENT_ID']]['SECTIONS'][] = $section;
+                return _::remove($acc, $section['ID']);
+            } else {
+                return $acc;
+            }
+        }, $flatSections);
         $orphans = array_values(_::remove($elements, $seenRef));
         if ($includeOrphans && !_::isEmpty($orphans)) {
             // TODO refactor: decomplect

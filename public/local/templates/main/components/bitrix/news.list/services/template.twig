@@ -28,7 +28,7 @@
                                 <div class="description editable-area">{{ section.DESCRIPTION }}</div>
                             {% endif %}
                         </div>
-                        {% if not section.ITEMS is empty %}
+                        {% if not section.TABLE_ROWS is empty %}
                             <div class="wrap_table">
                                 <table>
                                     <thead>
@@ -40,13 +40,23 @@
                                     </tr>
                                     </thead>
                                     <tbody class="show_items">
-                                    {% for item in section.ITEMS %}
-                                        <tr id="{{ add_editing_actions(item, template) }}">
-                                            <td>{{ item.NAME }}</td>
-                                            {% for prop in result.TABLE_PROPERTIES %}
-                                                <td>{{ item.PROPERTIES[prop.CODE].VALUE }}</td>
-                                            {% endfor %}
-                                        </tr>
+                                    {% for row in section.TABLE_ROWS %}
+                                        {% if row.TYPE == 'ELEMENT' %}
+                                            {% set item = row %}
+                                            <tr id="{{ add_editing_actions(item, template) }}" class="{{ row.INDENT > 0 ? 'indent-' ~ row.INDENT }}">
+                                                <td>{{ item.NAME }}</td>
+                                                {% for prop in result.TABLE_PROPERTIES %}
+                                                    <td>{{ item.PROPERTIES[prop.CODE].VALUE }}</td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% elseif row.TYPE == 'SECTION' %}
+                                            <tr>
+                                                <td>{{ row.NAME }}</td>
+                                                {% for prop in result.TABLE_PROPERTIES %}
+                                                    <td></td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endif %}
                                     {% endfor %}
                                     </tbody>
                                 </table>
