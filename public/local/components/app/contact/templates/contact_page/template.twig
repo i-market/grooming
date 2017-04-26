@@ -35,5 +35,7 @@
     <i class="fa fa-clock-o"></i>
     <p>{{ result.HOURS_OF_OPERATION }}</p>
 </div>
-<p class="text">Проложите до нас маршрут:</p>
-<a class="yandex" href="{{ 'geo:' ~ result.LATLNG.lat ~ ',' ~ result.LATLNG.lng }}"></a>
+<div class="hidden-desktop">
+    <p class="text">Проложите до нас маршрут:</p>
+    <a class="yandex" href="{{ 'geo:' ~ result.LATLNG.lat ~ ',' ~ result.LATLNG.lng }}"></a>
+</div>
