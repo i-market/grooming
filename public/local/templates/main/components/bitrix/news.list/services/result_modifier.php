@@ -4,7 +4,6 @@ use Core\Underscore as _;
 use App\Services;
 use Bitrix\Iblock\Component\Tools;
 
-$includeOrphans = true;
 $tabs = Services::groupBySection($arResult['ID'], $arResult['ITEMS']);
 foreach ($tabs as &$tabRef) {
     Tools::getFieldImageData($tabRef, ['PICTURE'], Tools::IPROPERTY_ENTITY_ELEMENT);
@@ -44,6 +43,10 @@ $arResult['SECTIONS'] = array_reduce($tabs, function($acc, $tab) use ($tableRows
 
 // TODO refactor wildcard table properties
 $props = _::remove($arResult['ITEMS'][0]['PROPERTIES'], '*');
-$arResult['TABLE_PROPERTIES'] = _::mapValues($props, function($prop) {
+$tableProps = _::mapValues($props, function($prop) {
     return _::pick($prop, ['CODE', 'NAME']);
 });
+$arResult['TABLE_PROPERTIES'] = $tableProps;
+$displayFields = Services::fieldsToDisplay(intval($arParams['IBLOCK_ID']));
+$arResult['DISPLAY_FIELDS'] = $displayFields;
+$arResult['COLS_COUNT'] = count($displayFields) + count($tableProps);

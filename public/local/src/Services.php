@@ -75,6 +75,19 @@ class Services {
         return $ret;
     }
 
+    static function fieldsToDisplay($iblockId) {
+        $default = ['NAME'];
+        $fields = [
+            'haircut' => [],
+            'fancy_haircut' => [],
+            'bathing' => [],
+        ];
+        $fieldsById = _::mapKeys($fields, function($_, $code) {
+            return IblockTools::find(Iblock::SERVICES_TYPE, $code)->id();
+        });
+        return _::get($fieldsById, $iblockId, $default);
+    }
+
     static function renderServiceTypesGrid($sectionCode) {
         $images = _::keyBy('CODE', self::serviceTypeImages($sectionCode));
         $serviceTypes = array_map(function($serviceType) use ($sectionCode, $images) {

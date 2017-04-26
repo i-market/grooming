@@ -30,7 +30,9 @@
                                 <table>
                                     <thead>
                                     <tr>
-                                        <td>Название услуги</td>
+                                        {% for field in result.DISPLAY_FIELDS %}
+                                            <td>{{ field == 'NAME' ? 'Название услуги' }}</td>
+                                        {% endfor %}
                                         {% for prop in result.TABLE_PROPERTIES %}
                                             <td>{{ prop.NAME }}</td>
                                         {% endfor %}
@@ -41,7 +43,9 @@
                                         {% if row.TYPE == 'ELEMENT' %}
                                             {% set item = row %}
                                             <tr id="{{ add_editing_actions(item, template) }}" class="{{ row.INDENT > 0 ? 'indent-' ~ row.INDENT }}">
-                                                <td>{{ item.NAME }}</td>
+                                                {% for field in result.DISPLAY_FIELDS %}
+                                                    <td>{{ row[field] }}</td>
+                                                {% endfor %}
                                                 {% for prop in result.TABLE_PROPERTIES %}
                                                     <td>{{ item.PROPERTIES[prop.CODE].VALUE }}</td>
                                                 {% endfor %}
@@ -49,7 +53,7 @@
                                         {% elseif row.TYPE == 'SECTION' %}
                                             <tr>
                                                 <td>{{ row.NAME }}</td>
-                                                {% for prop in result.TABLE_PROPERTIES %}
+                                                {% for x in range(0, result.COLS_COUNT - 2) %}
                                                     <td></td>
                                                 {% endfor %}
                                             </tr>

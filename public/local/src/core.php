@@ -25,6 +25,15 @@ class Underscore extends ArraysMethods {
         return $ret;
     }
 
+    static function mapKeys($array, $f) {
+        $ret = array();
+        foreach ($array as $k => $v) {
+            $result = is_string($f) ? self::get($v, $f) : $f($v, $k);
+            $ret[$result] = $v;
+        }
+        return $ret;
+    }
+
     static function pick($array, $keys) {
         return array_filter($array, function ($key) use ($keys) {
             return in_array($key, $keys);
