@@ -5,9 +5,9 @@
 {% else %}
     <strong>Заказать звонок</strong>
     {% set errors = result.errors.fields %}
-    <input name="name" type="text" placeholder="ФИО" class="{{ errors.name ? 'error' }}" value="{{ params.name }}">
+    <input name="name" type="text" placeholder="ФИО *" class="{{ errors.name ? 'error' }}" value="{{ params.name }}">
     {{ macros.error(errors.name) }}
-    <input name="phone" type="text" placeholder="Телефон" class="{{ errors.phone ? 'error' }}" value="{{ params.phone }}">
+    <input name="phone" type="text" placeholder="Телефон *" class="{{ errors.phone ? 'error' }}" value="{{ params.phone }}">
     {{ macros.error(errors.phone) }}
     <textarea name="message" placeholder="Сообщение" class="{{ errors.message ? 'error' }}">{{ params.message }}</textarea>
     {{ macros.error(errors.message) }}
