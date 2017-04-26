@@ -1,7 +1,7 @@
 <div class="grid">
     {% for item in result.ITEMS %}
         <div class="col col_3" id="{{ add_editing_actions(item, template) }}">
-            <img src="{{ item.DETAIL_PICTURE.SRC }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
+            <img src="{{ item.DETAIL_PICTURE.RESIZED.src }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
         </div>
     {% endfor %}
 </div>

@@ -2,7 +2,7 @@
     {% for item in result.ITEMS %}
         <div class="item col col_4" id="{{ add_editing_actions(item, template) }}">
             <div class="img">
-                <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
+                <img src="{{ item.PREVIEW_PICTURE.RESIZED.src }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
             </div>
             <p class="title">{{ item.NAME }}</p>
             <div class="text editable-area">{{ item.PREVIEW_TEXT }}</div>

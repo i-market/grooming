@@ -23,7 +23,7 @@
                 </div>
             {% elseif column == 'right' %}
                 <div class="right">
-                    <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
+                    <img src="{{ item.PREVIEW_PICTURE.RESIZED.src }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
                 </div>
             {% endif %}
         {% endfor %}
