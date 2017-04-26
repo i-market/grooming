@@ -217,6 +217,11 @@ class View {
         });
     }
 
+    static function resize($imageFileArray, $width, $height) {
+        $dimensions = ['width' => $width, 'height' => $height];
+        return CFile::ResizeImageGet($imageFileArray, $dimensions)['src'];
+    }
+
     static function twig() {
         return TemplateEngine::getInstance()->getEngine();
     }
@@ -228,6 +233,7 @@ class View {
         $twig->addFunction(new Twig_SimpleFunction('partial', 'Core\View::partial'));
         $twig->addFunction(new Twig_SimpleFunction('path', 'Core\View::path'));
         $twig->addFunction(new Twig_SimpleFunction('layout', 'Core\View::layout'));
+        $twig->addFunction(new Twig_SimpleFunction('resize', 'Core\View::resize'));
         $twig->addFunction(new Twig_SimpleFunction('add_editing_actions', 'Core\NewsListLike::addEditingActions'));
 
     }
