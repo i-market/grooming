@@ -7,8 +7,6 @@ use Bitrix\Iblock\IblockTable;
 use Bitrix\Iblock\SectionElementTable;
 use Bitrix\Iblock\SectionTable;
 use CIBlockElement;
-use Core\Strings;
-use Core\Nullable as nil;
 use Core\View as v;
 use Core\Underscore as _;
 use Core\Iblock as ib;
@@ -34,12 +32,7 @@ class Services {
                 'IBLOCK_SECTION.ACTIVE' => 'Y'
             ];
             if ($sectionCode !== null) {
-                $filter[] = ['LOGIC' => 'OR',
-                    // e.g. dogs
-                    ['IBLOCK_SECTION.CODE' => $sectionCode],
-                    // e.g. dogs → гигиеническая стрижка
-                    ['IBLOCK_SECTION.PARENT_SECTION.CODE' => $sectionCode],
-                ];
+                $filter['IBLOCK_SECTION.CODE'] = $sectionCode;
             }
             $count = SectionElementTable::getCount($filter);
             return $count > 0;
@@ -66,26 +59,18 @@ class Services {
         }, $roots);
     }
 
-    static function groupBySection($iblockId, $parentSectionCode, $services) {
+    static function groupBySection($iblockId, $services) {
         $sections = _::keyBy('ID', SectionTable::query()
-            ->setSelect(['ID', 'CODE', 'NAME', 'IBLOCK_SECTION_ID', 'DEPTH_LEVEL'])
+            ->setSelect(['ID', 'CODE', 'NAME', 'IBLOCK_SECTION_ID', 'DESCRIPTION', 'PICTURE'])
             ->setFilter(['IBLOCK_ID' => $iblockId])
             ->exec()->fetchAll()
         );
-        $parentSectionMaybe = _::find($sections, function($section) use ($parentSectionCode) {
-            return $section['CODE'] === $parentSectionCode;
-        });
-        $localRootDepth = intval(_::get($parentSectionMaybe, 'DEPTH_LEVEL', 0));
         foreach ($services as $service) {
             $sections[$service['IBLOCK_SECTION_ID']]['ITEMS'][] = $service;
         }
-        $sections = array_filter($sections, function($section) use ($localRootDepth) {
-            // TODO better filtering of non-relevant sections
-            return intval($section['DEPTH_LEVEL']) > $localRootDepth;
-        });
         // group by parent section
         $groups = _::groupBy($sections, 'IBLOCK_SECTION_ID');
-        $roots = $groups[_::get($parentSectionMaybe, 'ID')];
+        $roots = $groups[null];
         $ret = self::inflate($roots, $groups);
         return $ret;
     }

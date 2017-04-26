@@ -5,7 +5,7 @@ use App\Services;
 use Bitrix\Iblock\Component\Tools;
 
 $includeOrphans = true;
-$tabs = Services::groupBySection($arResult['ID'], $arParams['PARENT_SECTION_CODE'], $arResult['ITEMS']);
+$tabs = Services::groupBySection($arResult['ID'], $arResult['ITEMS']);
 foreach ($tabs as &$tabRef) {
     Tools::getFieldImageData($tabRef, ['PICTURE'], Tools::IPROPERTY_ENTITY_ELEMENT);
 }

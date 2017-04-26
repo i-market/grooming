@@ -47,10 +47,10 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                 array (
                     'IBLOCK_SECTION' =>
                         array (
-                            'IS_REQUIRED' => 'N',
+                            'IS_REQUIRED' => 'Y',
                             'DEFAULT_VALUE' =>
                                 array (
-                                    'KEEP_IBLOCK_SECTION_ID' => 'N',
+                                    'KEEP_IBLOCK_SECTION_ID' => 'Y',
                                 ),
                         ),
                     'ACTIVE' =>
@@ -433,8 +433,8 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
             'props' => [$priceProp, $durationProp]
         ],
         [
-            'code' => 'generic',
-            'name' => 'Услуги',
+            'code' => 'other_services',
+            'name' => 'Другие услуги',
             'props' => [$priceProp, $durationProp]
         ]
     ];
@@ -472,7 +472,7 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                         'CODE' => $section['code'].'_default',
                         'IBLOCK_SECTION_ID' => $sectionId
                     ];
-                    $results[] = ['child section', $sec->Add($fs), $sec->LAST_ERROR];
+//                    $results[] = ['child section', $sec->Add($fs), $sec->LAST_ERROR];
                 }
                 // root default section
                 $sec = new CIBlockSection();
