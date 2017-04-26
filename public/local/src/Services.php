@@ -83,7 +83,11 @@ class Services {
                 'IMAGE' => $images[$serviceType['CODE']]
             ]);
         }, self::activeServiceTypes($sectionCode));
+        $defaultImage = $sectionCode === 'cats'
+            ? 'images/pic_10.jpg'
+            : 'images/pic_13.jpg';
         return v::twig()->render(v::partial('services/service_types_grid.twig'), [
+            'default_image' => v::asset($defaultImage),
             'service_types' => $serviceTypes
         ]);
     }

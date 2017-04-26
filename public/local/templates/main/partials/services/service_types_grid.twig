@@ -2,8 +2,12 @@
     {% for service_type in service_types %}
         <a href="{{ service_type.LINK }}" class="col col_3 item">
             <div class="img">
-                {# TODO resize #}
-                <img src="{{ service_type.IMAGE.DETAIL_PICTURE.SRC }}" alt="{{ service_type.IMAGE.DETAIL_PICTURE.ALT }}">
+                {% if service_type.IMAGE %}
+                    {# TODO resize #}
+                    <img src="{{ service_type.IMAGE.DETAIL_PICTURE.SRC }}" alt="{{ service_type.IMAGE.DETAIL_PICTURE.ALT }}">
+                {% else %}
+                    <img src="{{ default_image }}" alt="{{ service_type.NAME }}">
+                {% endif %}
                 <div class="hidden">
                     <p>Подробнее<br>об услуге</p>
                 </div>
