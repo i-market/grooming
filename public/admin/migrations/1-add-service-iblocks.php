@@ -398,7 +398,7 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
     };
     $breedProp = ['code' => 'BREED', 'name' => 'Название породы'];
     $priceProp = ['code' => 'PRICE', 'name' => 'Стоимость (руб.)'];
-    $priceWithTrimming = ['code' => 'PRICE_WITH_TRIMMING', 'name' => 'Стоимость (руб.) с триммингом'];
+    $priceWithTrimming = ['code' => 'PRICE_WITH_TRIMMING', 'name' => 'Стоимость с триммингом (руб.)'];
     $durationProp = ['code' => 'DURATION', 'name' => 'Время'];
     $commentProp = ['code' => 'COMMENT', 'name' => 'Комментарии'];
     $iblocks = [
