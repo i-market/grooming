@@ -6,7 +6,7 @@
         {% set tag = link ? 'a' : 'div' %}
         <{{ tag }}{{ link ? ' href="' ~ link ~ '"' }} class="item_shares" id="{{ add_editing_actions(item, template) }}">
             <div class="left">
-                <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
+                <img src="{{ resize(item.PREVIEW_PICTURE, 390, 390) }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
                 <span class="red_line">{{ caption }}</span>
                 <div class="info">
                     <p>{{ item.PREVIEW_TEXT }}</p>

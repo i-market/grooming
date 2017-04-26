@@ -2,9 +2,8 @@
     <div class="wrap">
         <div class="grid">
             {% for item in result.ITEMS %}
-                {# TODO resize #}
-                <a class="gellery_item col col_3" href="{{ item.DETAIL_PICTURE.SRC }}" rel="group">
-                    <img src="{{ item.DETAIL_PICTURE.SRC }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
+                <a class="gellery_item col col_3" href="{{ resize(item.DETAIL_PICTURE, 1920, 1080) }}" rel="group">
+                    <img src="{{ resize(item.DETAIL_PICTURE, 360, 360) }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
                 </a>
             {% endfor %}
         </div>
