@@ -7,6 +7,7 @@ use Bitrix\Main\Config\Configuration;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Mail\Event;
+use CFile;
 use CIBlockElement;
 use Core\Env;
 use Core\View as v;
@@ -248,5 +249,20 @@ class Iblock {
 class Util {
     static function normalizePhoneNumber($string) {
         return Strings::replaceAll($string, '/[^\+\d]/', '');
+    }
+
+    static function resizeForGallery($elements, $previewDimensions) {
+        $dimensions = [
+            'PREVIEW' => $previewDimensions,
+            'MODAL' => ['width' => 1920, 'height' => 1080]
+        ];
+        return array_map(function($item) use ($dimensions) {
+            return _::update($item, 'DETAIL_PICTURE', function($pic) use ($dimensions) {
+                $resized = _::mapValues($dimensions, function($dim) use ($pic) {
+                    return CFile::ResizeImageGet($pic, $dim);
+                });
+                return _::set($pic, 'RESIZED', $resized);
+            });
+        }, $elements);
     }
 }

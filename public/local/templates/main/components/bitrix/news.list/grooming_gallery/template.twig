@@ -1,11 +1,10 @@
 <div class="grid gallery_big">
     {% for item in result.ITEMS %}
-        {# TODO resize #}
-        <a href="{{ item.DETAIL_PICTURE.SRC }}"
+        <a href="{{ item.DETAIL_PICTURE.RESIZED.MODAL.src }}"
            rel="gallery"
            class="gellery_item col col_5"
            id="{{ add_editing_actions(item, template) }}">
-            <img src="{{ item.DETAIL_PICTURE.SRC }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
+            <img src="{{ item.DETAIL_PICTURE.RESIZED.PREVIEW.src }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
         </a>
     {% endfor %}
 </div>

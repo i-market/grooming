@@ -8,7 +8,7 @@
             {% for column in order %}
                 {% if column == 'left' %}
                     <div class="left">
-                        <img src="{{ item.PREVIEW_PICTURE.SRC }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
+                        <img src="{{ item.PREVIEW_PICTURE.RESIZED.src }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
                     </div>
                 {% elseif column == 'right' %}
                     <div class="right">
