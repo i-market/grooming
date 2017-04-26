@@ -251,13 +251,13 @@ class Util {
         return Strings::replaceAll($string, '/[^\+\d]/', '');
     }
 
-    static function resizeForGallery($elements, $previewDimensions) {
+    static function resizeForGallery($elements, $previewDimensions, $key = 'DETAIL_PICTURE') {
         $dimensions = [
             'PREVIEW' => $previewDimensions,
             'MODAL' => ['width' => 1920, 'height' => 1080]
         ];
-        return array_map(function($item) use ($dimensions) {
-            return _::update($item, 'DETAIL_PICTURE', function($pic) use ($dimensions) {
+        return array_map(function($item) use ($dimensions, $key) {
+            return _::update($item, $key, function($pic) use ($dimensions) {
                 $resized = _::mapValues($dimensions, function($dim) use ($pic) {
                     return CFile::ResizeImageGet($pic, $dim);
                 });

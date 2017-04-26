@@ -41,9 +41,8 @@
                         <p><strong>Фотографии номеров:</strong></p>
                         <div class="grid">
                             {% for photo in photos %}
-                                {# TODO resize #}
-                                <a class="gellery_item col col_2" href="{{ photo.SRC }}">
-                                    <img src="{{ photo.SRC }}" alt="{{ photo.ALT }}" rel="name">
+                                <a class="gellery_item col col_2" href="{{ photo.RESIZED.MODAL.src }}">
+                                    <img src="{{ photo.RESIZED.PREVIEW.src }}" alt="{{ photo.ALT }}" rel="name">
                                 </a>
                             {% endfor %}
                         </div>
