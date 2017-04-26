@@ -106,10 +106,6 @@ class Underscore extends ArraysMethods {
     }
 
     static function noop() {}
-
-    static function cycle($values) {
-        return new \InfiniteIterator(new \ArrayIterator($values));
-    }
 }
 
 class Nullable {
