@@ -1,4 +1,4 @@
-<div class="gallery_slider_1 grid">
+<div class="gallery_slider_x grid">
     {% for item in result.ITEMS %}
         {# TODO resize #}
         <a href="{{ item.DETAIL_PICTURE.SRC }}" rel="some1" class="gellery_item col col_5" id="{{ add_editing_actions(item, template) }}">
@@ -6,4 +6,4 @@
         </a>
     {% endfor %}
 </div>
-<div class="dots gallery_slider_1_dots"></div>
+<div class="dots gallery_slider_x_dots"></div>
