@@ -26,11 +26,12 @@
         <div class="hotel_hidden">
             <div class="wrap_hotel_hidden">
                 <div class="hotel_hidden_left editable-area">
+                    {# TODO remove the whole left column if there is no text #}
                     {% if not item.DETAIL_TEXT is empty %}
                         {{ item.DETAIL_TEXT }}
                     {% else %}
                         {% set desc = result.SECTION_DESCRIPTION %}
-                        {% if desc.HEADING %}
+                        {% if (not desc.TEXT is empty) and desc.HEADING %}
                             <p><b>{{ desc.HEADING }}</b><p>
                         {% endif %}
                         {{ desc.TEXT }}
