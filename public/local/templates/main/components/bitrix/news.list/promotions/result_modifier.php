@@ -18,6 +18,7 @@ $styles = [
 ];
 $arResult['ITEMS'] = _::mapValues($items, function($item, $idx) use ($classes, $styles) {
     return array_merge($item, [
+        // cycle
         'CLASS' => $classes[$idx % count($classes)],
         'STYLE' => $styles[$idx % count($styles)]
     ]);
