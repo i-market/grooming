@@ -1,5 +1,6 @@
 <div class="grid slider_why_us">
     {% for item in result.ITEMS %}
+        {% set display_name = item.PROPERTIES.DISPLAY_NAME['~VALUE'] %}
         {% set icon = item.DISPLAY_PROPERTIES.ICON.FILE_VALUE %}
         {% set animation_delay = 0.2 + 0.3 * loop.index %}
         <div class="item wow fadeInDown"
@@ -9,7 +10,7 @@
             <div class="ico">
                 <img src="{{ icon.SRC }}" alt="">
             </div>
-            <strong>{{ item.NAME }}</strong>
+            <strong>{{ display_name ? display_name : item.NAME }}</strong>
             <div class="text">{{ item.PREVIEW_TEXT }}</div>
         </div>
     {% endfor %}

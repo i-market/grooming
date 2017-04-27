@@ -207,7 +207,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
                 "PARENT_SECTION" => "",
                 "PARENT_SECTION_CODE" => "grooming",
                 "PREVIEW_TRUNCATE_LEN" => "",
-                "PROPERTY_CODE" => array("ICON"),
+                "PROPERTY_CODE" => array('ICON', 'DISPLAY_NAME'),
                 "SET_BROWSER_TITLE" => "N",
                 "SET_LAST_MODIFIED" => "N",
                 "SET_META_DESCRIPTION" => "N",
