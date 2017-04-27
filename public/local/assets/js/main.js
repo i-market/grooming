@@ -31,5 +31,20 @@ global.App = {
         });
       });
     });
+  },
+  initTaxiPage: () => {
+    $(document).ready(() => {
+      const $input = $('#taxi-request').find('input[name=option-id]');
+      $('.taxi_tarif').each(function() {
+        const $component = $(this);
+        $component.find('.item').each(function() {
+          const $item = $(this);
+          const optionId = $item.attr('data-option-id');
+          $item.find('.order').on('click', () => {
+            $input.val(optionId);
+          });
+        });
+      });
+    });
   }
 };

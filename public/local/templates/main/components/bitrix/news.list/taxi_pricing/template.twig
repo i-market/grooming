@@ -1,6 +1,6 @@
 <div class="grid">
     {% for item in result.ITEMS %}
-        <div class="item col col_5" id="{{ add_editing_actions(item, template) }}">
+        <div class="item col col_5" data-option-id="{{ item.ID }}" id="{{ add_editing_actions(item, template) }}">
             <div class="top">
                 <p>{{ item.FORMATTED_COST }}</p>
             </div>

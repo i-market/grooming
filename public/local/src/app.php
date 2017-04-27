@@ -3,6 +3,7 @@
 namespace App;
 
 use Bex\Tools\Iblock\IblockTools;
+use Bitrix\Iblock\ElementTable;
 use Bitrix\Main\Config\Configuration;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Loader;
@@ -178,11 +179,14 @@ class App {
             ]
         ];
         $handler = self::simpleFormHandler($fields, function($data) {
+            $taxiOptionId = intval($data['option-id']);
+            $taxiOption = ElementTable::getById($taxiOptionId)->fetch();
             self::sendMailEvent(MailEvent::TAXI_REQUEST, [
                 'EMAIL_TO' => self::emailTo(),
                 'NAME' => $data['name'],
                 'PHONE' => $data['phone'],
-                'MESSAGE' => $data['message']
+                'MESSAGE' => $data['message'],
+                'TAXI_OPTION' => $taxiOption['NAME']
             ]);
         });
         return $handler($data);
