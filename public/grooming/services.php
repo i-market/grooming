@@ -66,5 +66,14 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, 'base.twig');
 		"SORT_ORDER2" => "ASC"
 	)
 ); ?>
+<? $APPLICATION->IncludeComponent(
+	"bitrix:main.include",
+	"simple_text_section",
+	Array(
+		"AREA_FILE_SHOW" => "file",
+		"PATH" => v::includedArea('grooming/services/'.$_REQUEST['SECTION_CODE'].'/'.$_REQUEST['IBLOCK_CODE'].'.php')
+	)
+); ?>
+
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -280,20 +280,13 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
 		"SORT_ORDER2" => "ASC"
 	)
 ); ?>
-<section class="simple-text-section">
-    <div class="wrap">
-        <? // not .editable-area ?>
-        <div class="simple_text">
-            <? $APPLICATION->IncludeComponent(
-                "bitrix:main.include",
-                "",
-                Array(
-                    "AREA_FILE_SHOW" => "file",
-                    "PATH" => v::includedArea('grooming/bottom_text.php')
-                )
-            ); ?>
-        </div>
-    </div>
-</section>
+<? $APPLICATION->IncludeComponent(
+	"bitrix:main.include",
+	"simple_text_section",
+	Array(
+		"AREA_FILE_SHOW" => "file",
+		"PATH" => v::includedArea('grooming/bottom_text.php')
+	)
+); ?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
