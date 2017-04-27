@@ -7,7 +7,6 @@
 
 {% block modals %}
     {{ parent() }}
-    {# TODO reference taxi option #}
     <div class="modal" id="taxi-request">
         <form class="block" ic-post-to="/api/taxi-request" ic-target="find .ic-target">
             <span class="close"></span>
