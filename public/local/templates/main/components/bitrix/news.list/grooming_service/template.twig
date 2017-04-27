@@ -8,14 +8,14 @@
             {% for column in order %}
                 {% if column == 'left' %}
                     <div class="left">
-                        <img src="{{ item.PREVIEW_PICTURE.RESIZED.src }}" alt="{{ item.PREVIEW_PICTURE.ALT }}">
+                        <div class="img" style="background-image: url('{{ item.PREVIEW_PICTURE.RESIZED.src }}');" title="{{ item.PREVIEW_PICTURE.ALT }}"></div>
                     </div>
                 {% elseif column == 'right' %}
                     <div class="right">
                         <a href="{{ link }}" class="inner">
                             <span class="title">{{ item.NAME }}</span>
                             <span class="ico">
-                                <img src="{{ icon.SRC }}" alt="">
+                                <img src="{{ icon.SRC }}" aria-hidden="true">
                             </span>
                             <span class="text editable-area">
                                 {{ item.PREVIEW_TEXT }}
