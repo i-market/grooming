@@ -7,9 +7,10 @@
                 <div class="left">
                     <div class="block">
                         <div class="number">
-                            {% set no_image = loop.index > 5 %}
+                            {% set idx = loop.parent.loop.index %}
+                            {% set no_image = idx > 5 %}
                             {% if not no_image %}
-                                <img src="{{ asset('images/0' ~ loop.index ~ '.png') }}" alt="">
+                                <img src="{{ asset('images/0' ~ idx ~ '.png') }}" alt="">
                             {% else %}
                                 {# just in case #}
                                 <img src="{{ asset('images/01.png') }}" alt="" style="visibility: hidden">
