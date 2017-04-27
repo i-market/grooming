@@ -206,12 +206,15 @@ class App {
             ];
         });
         $handler = self::simpleFormHandler($fields, function($data) {
+            $hotelOptionId = intval($data['option-id']);
+            $hotelOption = ElementTable::getById($hotelOptionId)->fetch();
             self::sendMailEvent(MailEvent::BOOKING_REQUEST, [
                 'EMAIL_TO' => self::emailTo(),
                 'NAME' => $data['name'],
                 'PHONE' => $data['phone'],
                 'PERIOD' => $data['period'],
-                'PET_DESCRIPTION' => $data['pet_description']
+                'PET_DESCRIPTION' => $data['pet_description'],
+                'HOTEL_OPTION' => $hotelOption['NAME']
             ]);
         });
         return $handler($data);
