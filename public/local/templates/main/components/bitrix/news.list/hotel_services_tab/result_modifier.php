@@ -16,9 +16,10 @@ $dimensions = [
     'PREVIEW' => ['width' => 300, 'height' => 300],
     'MODAL' => ['width' => 1920, 'height' => 1080]
 ];
-$arResult['ITEMS'] = array_map(function($item) use ($dimensions) {
+$limitPhotos = 4;
+$arResult['ITEMS'] = array_map(function($item) use ($dimensions, $limitPhotos) {
     $key = 'DISPLAY_PROPERTIES.PHOTOS.FILE_VALUE';
-    return _::update($item, $key, function($pics) use ($dimensions) {
+    return _::update($item, $key, function($pics) use ($dimensions, $limitPhotos) {
         // bitrix is weird
         if (isset($pics['ID'])) {
             $pics = [$pics];
@@ -28,7 +29,7 @@ $arResult['ITEMS'] = array_map(function($item) use ($dimensions) {
                 return CFile::ResizeImageGet($pic, $dim);
             });
             return _::set($pic, 'RESIZED', $resized);
-        }, $pics);
+        }, _::take($pics, $limitPhotos));
     });
 }, $arResult['ITEMS']);
 
