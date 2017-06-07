@@ -1,0 +1,11 @@
+roles:
+  all:
+    sentry:
+      enabled: false
+  dev:
+    local: true
+    app_env: dev
+    hosts: [local]
+  stage:
+    app_env: prod
+    hosts: [imarket]
