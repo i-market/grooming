@@ -19,3 +19,5 @@ vault_pass.txt
 /public/local/templates/*/build/
 
 *.log
+__pycache__
+secrets.yml
