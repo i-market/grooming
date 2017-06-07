@@ -84,6 +84,11 @@ class App {
     }
 
     static function sendMailEvent($eventName, $fields) {
+        $app = Configuration::getValue('app');
+        $emailFromMaybe = _::get($app, 'override_default_email_from');
+        if ($emailFromMaybe !== null) {
+            $fields['DEFAULT_EMAIL_FROM'] = $emailFromMaybe;
+        }
         $event = [
             'EVENT_NAME' => $eventName,
             'LID' => self::SITE_ID,
