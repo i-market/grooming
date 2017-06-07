@@ -40,9 +40,9 @@
                 <div class="hotel_hidden_right">
                     {% if photos is not empty %}
                         <p><strong>Фотографии номеров:</strong></p>
-                        <div class="grid">
+                        <div class="grid hotel_gallery">
                             {% for photo in photos %}
-                                <a class="gellery_item col col_2" href="{{ photo.RESIZED.MODAL.src }}">
+                                <a class="hotel_gallery_item col col_2" href="{{ photo.RESIZED.MODAL.src }}">
                                     <img src="{{ photo.RESIZED.PREVIEW.src }}" alt="{{ photo.ALT }}" rel="name">
                                 </a>
                             {% endfor %}
