@@ -23,7 +23,7 @@ templates = {
     'settings.php.j2': 'bitrix/.settings.php',
     'dbconn.php.j2': 'bitrix/php_interface/dbconn.php'
 }
-asset_build_command = 'npm install && npm run build'
+asset_build_command = 'npm install && npm run release'
 # TODO needs configuration such as the url to run tests against
 test_command = 'npm test'
 git_ftp_syncroot = 'public'
