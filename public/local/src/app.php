@@ -71,7 +71,7 @@ class App {
             }, [
                 'js/vendor/slick.min.js',
                 'js/vendor/wow.min.js',
-                'js/vendor/jquery.fancybox.pack.js',
+                'js/vendor/jquery.fancybox.js',
                 'js/script.js',
                 'js/vendor.js',
                 'js/bundle.js'
