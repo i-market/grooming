@@ -38,7 +38,7 @@
     "clean": "gulp clean",
     "build:vendor": "./scripts/build-vendor.sh",
     "build": "gulp build && npm run build:vendor",
-    "release": "gulp release",
+    "release": "npm run build && gulp revision",
     "watch:js": "watchify assets/js/main.js -o ${npm_package_config_dist}/js/bundle.js -v -d -t [ babelify --presets [ es2015 ] ]",
     "watch": "gulp watch & npm run watch:js"
   },
