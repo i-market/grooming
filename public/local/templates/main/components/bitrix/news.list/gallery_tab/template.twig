@@ -1,6 +1,9 @@
 <div class="gallery_slider_x grid">
     {% for item in result.ITEMS %}
-        <a href="{{ resize(item.DETAIL_PICTURE, 1920, 1080) }}" data-fancybox="gallery_tab" class="gellery_item col col_5" id="{{ add_editing_actions(item, template) }}">
+        <a href="{{ resize(item.DETAIL_PICTURE, 1920, 1080) }}"
+           data-fancybox="{{ params.PARENT_SECTION_CODE|default('gallery_tab') }}"
+           class="gellery_item col col_5"
+           id="{{ add_editing_actions(item, template) }}">
             <img src="{{ resize(item.DETAIL_PICTURE, 270, 270) }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
         </a>
     {% endfor %}
