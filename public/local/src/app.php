@@ -57,7 +57,7 @@ class App {
             return v::asset($path);
         }, [
             'css/lib/normalize.min.css',
-            'css/lib/jquery.fancybox.css',
+            'css/lib/jquery.fancybox3.css',
             'css/lib/slick.css',
             'css/main.css'
         ]);
@@ -71,7 +71,7 @@ class App {
             }, [
                 'js/vendor/slick.min.js',
                 'js/vendor/wow.min.js',
-                'js/vendor/jquery.fancybox.js',
+                'js/vendor/jquery.fancybox3.js',
                 'js/script.js',
                 'js/vendor.js',
                 'js/bundle.js'
