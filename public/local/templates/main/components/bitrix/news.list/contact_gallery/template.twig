@@ -2,7 +2,7 @@
     <div class="wrap">
         <div class="grid">
             {% for item in result.ITEMS %}
-                <a class="gellery_item col col_3" href="{{ resize(item.DETAIL_PICTURE, 1920, 1080) }}" rel="group">
+                <a class="gellery_item col col_3" data-fancybox="contact_gallery" href="{{ resize(item.DETAIL_PICTURE, 1920, 1080) }}">
                     <img src="{{ resize(item.DETAIL_PICTURE, 360, 360) }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
                 </a>
             {% endfor %}

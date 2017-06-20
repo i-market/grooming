@@ -1,7 +1,7 @@
 <div class="grid">
     {% for item in result.ITEMS %}
         <div class="col col_3" id="{{ add_editing_actions(item, template) }}">
-            <a class="gellery_item" rel="gallery" href="{{ resize(item.DETAIL_PICTURE, 1920, 1080) }}">
+            <a class="gellery_item" data-fancybox="our_taxi" href="{{ resize(item.DETAIL_PICTURE, 1920, 1080) }}">
                 <img src="{{ resize(item.DETAIL_PICTURE, 400, 400) }}" alt="{{ item.DETAIL_PICTURE.ALT }}" />
             </a>
         </div>

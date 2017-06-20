@@ -1,7 +1,7 @@
 <div class="grid gallery_big">
     {% for item in result.ITEMS %}
         <a href="{{ item.DETAIL_PICTURE.RESIZED.MODAL.src }}"
-           rel="gallery"
+           data-fancybox="grooming_gallery"
            class="gellery_item col col_5"
            id="{{ add_editing_actions(item, template) }}">
             <img src="{{ item.DETAIL_PICTURE.RESIZED.PREVIEW.src }}" alt="{{ item.DETAIL_PICTURE.ALT }}">
