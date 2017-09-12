@@ -41,7 +41,7 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
             <span data-tabLinks="gallery_grooming">Груминг</span>
             <span data-tabLinks="hotel" class="some2">Гостиница</span>
             <span data-tabLinks="store">Зоомагазин</span>
-            <span data-tabLinks="taxi">Зоотакси</span>
+            <? //<span data-tabLinks="taxi">Зоотакси</span> ?>
         </div>
         <div class="tab_blocks">
             <? foreach (['gallery_grooming', 'hotel', 'store', 'taxi'] as $sectionCode): ?>

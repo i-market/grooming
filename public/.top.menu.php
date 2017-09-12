@@ -29,32 +29,25 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Зоотакси", 
-		"/taxi/", 
+		"Галерея", 
+		"/gallery/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Галерея",
-		"/gallery/",
-		Array(),
-		Array(),
-		""
+		"Акции", 
+		"/promotions/", 
+		Array(), 
+		Array(), 
+		"" 
 	),
-    Array(
-        "Акции",
-        "/promotions/",
-        Array(),
-        Array(),
-        ""
-    ),
 	Array(
-		"Контакты",
-		"/contact/",
-		Array(),
-		Array(),
-		""
+		"Контакты", 
+		"/contact/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>
