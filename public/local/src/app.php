@@ -72,6 +72,7 @@ class App {
                 'js/vendor/slick.min.js',
                 'js/vendor/wow.min.js',
                 'js/vendor/jquery.fancybox3.js',
+                'js/vendor/jquery.maskedinput.js',
                 'js/script.js',
                 'js/vendor.js',
                 'js/bundle.js'

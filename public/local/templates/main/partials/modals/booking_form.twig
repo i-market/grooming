@@ -7,7 +7,7 @@
     {% set errors = result.errors.fields %}
     <input name="name" type="text" placeholder="Ваше имя *" class="{{ errors.name ? 'error' }}" value="{{ params.name }}">
     {{ macros.error(errors.name) }}
-    <input name="phone" type="text" placeholder="Номер телефона *" class="{{ errors.phone ? 'error' }}" value="{{ params.phone }}">
+    <input name="phone" type="text" placeholder="Номер телефона *" class="phone-mask {{ errors.phone ? 'error' }}" value="{{ params.phone }}">
     {{ macros.error(errors.phone) }}
     <input name="period" type="text" placeholder="Период бронирования *" class="{{ errors.period ? 'error' }}" value="{{ params.period }}">
     {{ macros.error(errors.period) }}
