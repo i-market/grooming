@@ -60,8 +60,8 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, 'base.twig');
 		"SET_STATUS_404" => "N",
 		"SET_TITLE" => "Y",
 		"SHOW_404" => "N",
-		"SORT_BY1" => "DATE_CREATE",
-		"SORT_BY2" => "SORT",
+		"SORT_BY1" => "SORT",
+		"SORT_BY2" => "NAME",
 		"SORT_ORDER1" => "ASC",
 		"SORT_ORDER2" => "ASC"
 	)
