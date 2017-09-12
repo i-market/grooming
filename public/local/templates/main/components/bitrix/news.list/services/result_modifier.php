@@ -33,7 +33,7 @@ $tableRows = function($tab) use ($tagElements) {
 $arResult['SECTIONS'] = array_reduce($tabs, function($acc, $tab) use ($tableRows) {
     $rows = $tableRows($tab);
     // TODO refactor: filter in `groupBySection`
-    // filter tabs with no items
+    // filter tabs without items
     if (!_::isEmpty($rows)) {
         return _::append($acc, _::set($tab, 'TABLE_ROWS', $rows));
     } else {
