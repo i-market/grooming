@@ -1,1 +1,1 @@
-Copyright <?= date('Y') ?> © Grumilier.ru - Груминг, гостиница, магазин для животных.
+Copyright <?= date('Y') ?> © Groomelier.ru - Груминг, гостиница, магазин для животных.
