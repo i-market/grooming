@@ -24,7 +24,9 @@ if (App::useBitrixAsset()) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title><? $APPLICATION->ShowTitle() ?></title>
+    <title><? $APPLICATION->AddBufferContent(function() use (&$APPLICATION) {
+        return $APPLICATION->GetProperty('title') ?: 'Грумелье. '.$APPLICATION->GetTitle();
+    }) ?></title>
     <? if (!App::useBitrixAsset()): ?>
         <? foreach ($assets['styles'] as $path): ?>
             <link rel="stylesheet" media="screen" href="<?= $path ?>">
