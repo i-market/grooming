@@ -44,7 +44,7 @@ $arComponentParameters = [
             'DEFAULT' => ''
         ],
         'VK' => [
-            'NAME' => 'Вконтакте',
+            'NAME' => 'ВКонтакте',
             'TYPE' => 'STRING',
             'DEFAULT' => ''
         ],
