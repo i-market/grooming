@@ -26,6 +26,11 @@ $arComponentParameters = [
             'ADDITIONAL_VALUES' => 'Y',
             'DEFAULT' => ''
         ],
+        'HOURS_OF_OPERATION' => [
+            'NAME' => 'Время работы',
+            'TYPE' => 'STRING',
+            'DEFAULT' => ''
+        ],
         'URLS' => [
             'NAME' => 'URL-адреса',
             'TYPE' => 'LIST',
@@ -33,10 +38,20 @@ $arComponentParameters = [
             'ADDITIONAL_VALUES' => 'Y',
             'DEFAULT' => ''
         ],
-        'HOURS_OF_OPERATION' => [
-            'NAME' => 'Время работы',
+        'INSTAGRAM' => [
+            'NAME' => 'Instagram',
             'TYPE' => 'STRING',
             'DEFAULT' => ''
-        ]
+        ],
+        'VK' => [
+            'NAME' => 'Вконтакте',
+            'TYPE' => 'STRING',
+            'DEFAULT' => ''
+        ],
+        'FACEBOOK' => [
+            'NAME' => 'Facebook',
+            'TYPE' => 'STRING',
+            'DEFAULT' => ''
+        ],
     ]
 ];

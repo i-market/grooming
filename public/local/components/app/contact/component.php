@@ -13,7 +13,8 @@ $filteredLists = array_map(function($list) {
 $latLng = Contact::parseLatlng($arParams['~LATLNG']);
 $address = $arParams['~ADDRESS'];
 
-$arResult = array_merge($filteredLists, [
+$social = _::pick($arParams, ['INSTAGRAM', 'VK', 'FACEBOOK']);
+$arResult = array_merge($social, $filteredLists, [
     'ADDRESS' => $address,
     'HOURS_OF_OPERATION' => $arParams['~HOURS_OF_OPERATION'],
     'LATLNG' => $latLng,

@@ -1,3 +1,4 @@
+{# TODO DRY #}
 <div class="contacts">
     <strong>Контакты</strong>
     <div class="line">
@@ -14,18 +15,40 @@
     </div>
     <div class="line">
         <i class="fa fa-phone"></i>
-        {% for phone in result.PHONES %}
-            {{ showComponent('app:phone_link', '', {PHONE: phone}, null, {HIDE_ICONS: 'Y'}) }}{% if not loop.last %}<br>{% endif %}
-        {% endfor %}
-    </div>
-    <div class="line">
-        <i class="fa fa-globe"></i>
-        {% for url_map in result.URLS %}
-            <a href="{{ url_map.URL }}">{{ url_map.HOST }}</a>{% if not loop.last %}<br>{% endif %}
-        {% endfor %}
+        <span class="text">
+            {% for phone in result.PHONES %}
+                {{ showComponent('app:phone_link', '', {PHONE: phone}, null, {HIDE_ICONS: 'Y'}) }}{% if not loop.last %}<br>{% endif %}
+            {% endfor %}
+        </span>
     </div>
     <div class="line">
         <i class="fa fa-clock-o"></i>
         <span class="text">{{ result.HOURS_OF_OPERATION }}</span>
+    </div>
+    <div class="line">
+        <i class="fa fa-globe"></i>
+        <span class="text">
+            {% for url_map in result.URLS %}
+                <a href="{{ url_map.URL }}">{{ url_map.HOST }}</a>{% if not loop.last %}<br>{% endif %}
+            {% endfor %}
+        </span>
+    </div>
+    <div class="line">
+        <i class="fa fa-instagram"></i>
+        <span class="text">
+            <a href="{{ result.INSTAGRAM }}" target="_blank">Instagram</a>{% if not loop.last %}<br>{% endif %}
+        </span>
+    </div>
+    <div class="line">
+        <i class="fa fa-vk"></i>
+        <span class="text">
+            <a href="{{ result.VK }}" target="_blank">Вконтакте</a>{% if not loop.last %}<br>{% endif %}
+        </span>
+    </div>
+    <div class="line">
+        <i class="fa fa-facebook"></i>
+        <span class="text">
+            <a href="{{ result.FACEBOOK }}" target="_blank">Facebook</a>{% if not loop.last %}<br>{% endif %}
+        </span>
     </div>
 </div>
