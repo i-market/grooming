@@ -13,7 +13,9 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
         'hero_banner' => HeroBanner::GALLERY_CODE
     ]);
 }]);
-?><section class="shares--page" data-anchor="next">
+?>
+
+<section class="shares--page" data-anchor="next">
     <div class="wrap">
         <strong class="heading">
             <? $APPLICATION->IncludeComponent(
@@ -104,4 +106,6 @@ $APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function() {
             <? endforeach ?>
         </div>
     </div>
-</section><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+</section>
+
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
