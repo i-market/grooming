@@ -2,4 +2,4 @@
 
 use Core\Underscore as _;
 
-$arResult['COLUMNS'] = _::splitAt($arResult, 6);
+$arResult['COLUMNS'] = _::splitAt($arResult, ceil(count($arResult) / 2));
