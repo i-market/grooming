@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 global.App = {
   init: ($scope) => {
-    $scope.find('.phone-mask').mask('9 (999) 999-99-99');
+    $scope.find('.phone-mask').mask('+9 (999) 999-99-99');
   },
   initTaxiPage: () => {
     $(document).ready(() => {
