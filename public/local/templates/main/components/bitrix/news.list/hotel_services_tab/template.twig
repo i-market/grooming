@@ -1,6 +1,8 @@
 {% for item in result.ITEMS %}
     {% set cost = item.PROPERTIES.COST.VALUE %}
     {% set photos = item.DISPLAY_PROPERTIES.PHOTOS.FILE_VALUE %}
+    {% set desc = result.SECTION_DESCRIPTION %}
+    {% set has_details = not (item.DETAIL_TEXT is empty and desc.TEXT is empty) %}
     <div class="hotel_item" id="{{ add_editing_actions(item, template) }}">
         <div class="hotel_top">
             <div class="hotel_top_left">
@@ -15,7 +17,9 @@
         </div>
         <div class="hotel_bottom">
             <div class="hotel_bottom_left">
-                <span class="hotel_bottom_open_hidden">Подробнее</span>
+                {% if has_details %}
+                    <span class="hotel_bottom_open_hidden">Подробнее</span>
+                {% endif %}
             </div>
             <div class="hotel_bottom_right">
                 {# payments aren't implemented yet #}
@@ -30,7 +34,6 @@
                     {% if not item.DETAIL_TEXT is empty %}
                         {{ item.DETAIL_TEXT }}
                     {% else %}
-                        {% set desc = result.SECTION_DESCRIPTION %}
                         {% if (not desc.TEXT is empty) and desc.HEADING %}
                             <p><b>{{ desc.HEADING }}</b><p>
                         {% endif %}
