@@ -17,8 +17,19 @@ use Underscore\Methods\ArraysMethods;
 use Underscore\Methods\StringsMethods;
 
 class Underscore extends ArraysMethods {
+    /** @deprecated use `map` */
     static function mapValues($array, $f) {
         $ret = array();
+        foreach ($array as $k => $v) {
+            $ret[$k] = is_string($f) ? self::get($v, $f) : $f($v, $k);
+        }
+        return $ret;
+    }
+
+
+    // TODO string callables support
+    static function map($array, $f) {
+        $ret = [];
         foreach ($array as $k => $v) {
             $ret[$k] = is_string($f) ? self::get($v, $f) : $f($v, $k);
         }
@@ -60,9 +71,10 @@ class Underscore extends ArraysMethods {
         return array_slice($array, 0, $n);
     }
 
-    static function update($array, $key, $f) {
-        $nullable = nil::map(self::get($array, $key), $f);
-        return $nullable === null ? $array : self::set($array, $key, $nullable);
+    static function update($array, $key, callable $f) {
+        return !self::has($array, $key)
+            ? $array
+            : self::set($array, $key, $f(self::get($array, $key)));
     }
 
     static function isEmpty($x) {
@@ -74,6 +86,20 @@ class Underscore extends ArraysMethods {
         foreach ($array as $x) {
             $key = is_string($f) ? self::get($x, $f) : $f($x);
             $ret[$key][] = $x;
+        }
+        return $ret;
+    }
+
+    static function uniqBy($array, callable $f) {
+        $seenRef = [];
+        $ret = [];
+        foreach ($array as $k => $v) {
+            $computed = $f($v, $k);
+            if (!self::contains($seenRef, $computed)) {
+                $seenRef[] = $computed;
+                // preserve keys? not sure
+                $ret[] = $v;
+            }
         }
         return $ret;
     }
@@ -105,7 +131,17 @@ class Underscore extends ArraysMethods {
         };
     }
 
-    static function noop() {}
+    static function partial(callable $f, ...$args) {
+        return function (...$rest) use ($f, $args) {
+            return $f(...array_merge($args, $rest));
+        };
+    }
+
+    static function partialRight(callable $f, ...$args) {
+        return function (...$rest) use ($f, $args) {
+            return $f(...array_merge($rest, $args));
+        };
+    }
 }
 
 class Nullable {
@@ -113,7 +149,7 @@ class Nullable {
         return $nullable === null ? $default : $nullable;
     }
 
-    static public function map($nullable, $f) {
+    static public function map($nullable, callable $f) {
         return $nullable !== null ? $f($nullable) : $nullable;
     }
 }
