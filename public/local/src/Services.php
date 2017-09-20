@@ -17,6 +17,7 @@ class Services {
         return IblockTable::query()
             ->setSelect(['ID', 'NAME', 'CODE'])
             ->setFilter(['IBLOCK_TYPE_ID' => Iblock::SERVICES_TYPE])
+            ->setOrder(['SORT' => 'ASC'])
             ->exec()->fetchAll();
     }
 
