@@ -17,7 +17,9 @@ use Core\Underscore as _;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as val;
 
-assert(Loader::includeModule('iblock'));
+if (class_exists('Bitrix\Main\Loader')) {
+    assert(Loader::includeModule('iblock'));
+}
 
 class App {
     const SITE_ID = 's1';
@@ -242,6 +244,7 @@ class Iblock {
     const LOG = 'log';
 
     const SERVICES_TYPE = 'services';
+    const SERVICES = 'services';
     const HOTEL_SERVICES_TYPE = 'hotel_services';
 
     const CONTENT_TYPE = 'content';

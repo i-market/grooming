@@ -44,6 +44,7 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
         $mergedPropSpecs = _::map(_::uniqBy($allProps, $getCode), function($prop) use ($iblockId) {
             return _::pick($prop, ['NAME', 'CODE']);
         });
+        $mergedPropSpecs = _::prepend($mergedPropSpecs, ['NAME' => 'Название услуги', 'CODE' => 'NAME']);
         $data = [];
         foreach ($iblocks as $iblock) {
             $sections = SectionTable::getList(['filter' => ['IBLOCK_ID' => $iblock['ID']]])->fetchAll();
@@ -195,13 +196,24 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                 // add elements
                 $elementIds = _::map($elements, function($element) use ($relsByElement, $newSectionId, $topLevelSpecs, $data, $iblock, $serviceSection, $iblockId, $registerSectionMapping, &$results) {
                     $el = new CIBlockElement();
+                    $propValues = _::reduce($element['PROPERTIES'], function($acc, $prop) {
+                        return _::set($acc, $prop['CODE'], $prop['~VALUE']);
+                    }, []);
+                    $propValues['NAME'] = $element['~NAME'];
                     $fields = array_merge(_::pick($element, ['CODE', 'SORT']), [
                         'NAME' => $element['~NAME'],
                         'IBLOCK_ID' => $iblockId,
-                        'PROPERTY_VALUES' => _::reduce($element['PROPERTIES'], function($acc, $prop) {
-                            return _::set($acc, $prop['CODE'], $prop['VALUE']);
-                        }, [])
+                        'PROPERTY_VALUES' => $propValues
                     ]);
+                    if ($iblock['CODE'] === 'fancy_haircut') {
+                        $propValues['BREED'] = trim($propValues['BREED']) !== '' ? $propValues['BREED'] : $element['~NAME'];
+                        $propValues['NAME'] = '';
+                    } elseif ($iblock['CODE'] === 'buzzcut') {
+                        $propValues['BREED'] = $element['~NAME'];
+                        $propValues['NAME'] = '';
+                    } elseif ($iblock['CODE'] === 'haircut') {
+                        $propValues['BREED'] = '';
+                    }
                     $elementId = $el->Add($fields);
                     assert(is_numeric($elementId), $el->LAST_ERROR);
                     $results[] = 'added element: '.json_encode([$elementId, $fields], JSON_UNESCAPED_UNICODE);

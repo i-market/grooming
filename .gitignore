@@ -18,6 +18,7 @@ vault_pass.txt
 
 /public/local/reports/
 /public/local/templates/*/build/
+/public/local/scratch.php
 
 *.log
 __pycache__

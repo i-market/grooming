@@ -27,11 +27,10 @@ class Underscore extends ArraysMethods {
     }
 
 
-    // TODO string callables support
     static function map($array, $f) {
         $ret = [];
         foreach ($array as $k => $v) {
-            $ret[$k] = is_string($f) ? self::get($v, $f) : $f($v, $k);
+            $ret[$k] = is_callable($f) ? $f($v, $k) : self::get($v, $f);
         }
         return $ret;
     }
@@ -41,6 +40,17 @@ class Underscore extends ArraysMethods {
         foreach ($array as $k => $v) {
             $result = is_string($f) ? self::get($v, $f) : $f($v, $k);
             $ret[$result] = $v;
+        }
+        return $ret;
+    }
+
+    static function flatMap($array, $f) {
+        $ret = [];
+        foreach ($array as $k => $v) {
+            $xs = is_callable($f) ? $f($v, $k) : self::get($v, $f);
+            foreach ($xs as $x) {
+                $ret[] = $x;
+            }
         }
         return $ret;
     }
@@ -322,20 +332,55 @@ class View {
 }
 
 class NewsListLike {
+    private static function elementEditingLinks($element) {
+        assert(isset($element['IBLOCK_ID']));
+        assert(isset($element['ID']));
+        // from news.list
+        $arButtons = \CIBlock::GetPanelButtons(
+            $element["IBLOCK_ID"],
+            $element["ID"],
+            0,
+            array("SECTION_BUTTONS"=>false, "SESSID"=>false)
+        );
+        return [
+            "EDIT_LINK" => $arButtons["edit"]["edit_element"]["ACTION_URL"],
+            "DELETE_LINK" => $arButtons["edit"]["delete_element"]["ACTION_URL"]
+        ];
+    }
+
+    private static function sectionEditingLinks($section) {
+        assert(isset($section['IBLOCK_ID']));
+        assert(isset($section['ID']));
+        // from catalog.section.list
+        $arButtons = \CIBlock::GetPanelButtons(
+            $section["IBLOCK_ID"],
+            0,
+            $section["ID"],
+            array("SESSID"=>false, "CATALOG"=>true)
+        );
+        return [
+            "EDIT_LINK" => $arButtons["edit"]["edit_section"]["ACTION_URL"],
+            "DELETE_LINK" => $arButtons["edit"]["delete_section"]["ACTION_URL"]
+        ];
+    }
+
     /**
-     * @param array $element
+     * @param array $el
      * @param CBitrixComponentTemplate $template
      * @return string dom element id
      */
-    static function addEditingActions($element, $template) {
-        assert(array_key_exists('EDIT_LINK', $element));
-        assert(array_key_exists('DELETE_LINK', $element));
-        $template->AddEditAction($element['ID'], $element['EDIT_LINK'],
-            CIBlock::GetArrayByID($element['IBLOCK_ID'], 'ELEMENT_EDIT'));
-        $template->AddDeleteAction($element['ID'], $element['DELETE_LINK'],
-            CIBlock::GetArrayByID($element['IBLOCK_ID'], 'ELEMENT_DELETE'),
-            array('CONFIRM' => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
-        return $template->GetEditAreaId($element['ID']);
+    static function addEditingActions($el, $template, $type = 'element') {
+        $isSection = $type === 'section' || isset($el['DEPTH_LEVEL']);
+        if (!_::isEmpty(array_diff(['EDIT_LINK', 'DELETE_LINK'] , array_keys($el)))) {
+            $links = $isSection ? self::sectionEditingLinks($el) : self::elementEditingLinks($el);
+            $el = array_merge($el, $links);
+        }
+        $template->AddEditAction($el['ID'], $el['EDIT_LINK'],
+            CIBlock::GetArrayByID($el['IBLOCK_ID'], $isSection ? 'SECTION_EDIT' : 'ELEMENT_EDIT'));
+        $template->AddDeleteAction($el['ID'], $el['DELETE_LINK'],
+            CIBlock::GetArrayByID($el['IBLOCK_ID'], $isSection ? 'SECTION_DELETE' : 'ELEMENT_DELETE'),
+            ['CONFIRM' => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')]);
+        return $template->GetEditAreaId($el['ID']);
     }
 }
 

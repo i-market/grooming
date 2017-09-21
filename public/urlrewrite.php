@@ -13,6 +13,12 @@ $arUrlRewrite = array(
         "PATH" => "/grooming/services.php",
     ),
     array(
+        "CONDITION" => "#^/grooming/#",
+        "RULE" => "",
+        "ID" => "bitrix:catalog",
+        "PATH" => "/grooming/index.php",
+    ),
+    array(
 		"CONDITION" => "#^/api/.*#",
 		"RULE" => "",
 		"ID" => "",
