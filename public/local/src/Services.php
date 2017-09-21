@@ -13,31 +13,17 @@ use Core\Iblock as ib;
 use Bitrix\Iblock\Component\Tools;
 
 class Services {
-    static function serviceTypes() {
-        return IblockTable::query()
-            ->setSelect(['ID', 'NAME', 'CODE'])
-            ->setFilter(['IBLOCK_TYPE_ID' => Iblock::SERVICES_TYPE])
-            ->setOrder(['SORT' => 'ASC'])
-            ->exec()->fetchAll();
-    }
-
-    /**
-     * returns non-empty (have at least one active element) service types
-     */
     // TODO refactor
     static function activeServiceTypes($sectionCode = null) {
-        $iblocks = self::serviceTypes();
-        return array_filter($iblocks, function($iblock) use ($sectionCode) {
-            $filter = [
-                'IBLOCK_SECTION.IBLOCK_ID' => $iblock['ID'],
-                'IBLOCK_SECTION.ACTIVE' => 'Y'
-            ];
-            if ($sectionCode !== null) {
-                $filter['IBLOCK_SECTION.CODE'] = $sectionCode;
-            }
-            $count = SectionElementTable::getCount($filter);
-            return $count > 0;
-        });
+        $sections = SectionTable::getList([
+            'select' => ['ID', 'NAME', 'CODE'],
+            'filter' => [
+                'IBLOCK_ID' => IblockTools::find(Iblock::SERVICES_TYPE, Iblock::SERVICES)->id(),
+                'DEPTH_LEVEL' => 2,
+                'PARENT_SECTION.CODE' => $sectionCode
+            ]
+        ])->fetchAll();
+        return $sections;
     }
 
     static function serviceTypeImages($sectionCode) {

@@ -1,14 +1,26 @@
 <? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
+use App\App;
+use App\HeroBanner;
+use App\PageProperty;
+use Core\Underscore as _;
 use Bitrix\Iblock\SectionTable;
 
 $sectionId = $arResult['VARIABLES']['SECTION_ID'];
 $section = SectionTable::getById($sectionId)->fetch();
+
+$banners = [
+    'cats' => HeroBanner::SERVICES_CATS_CODE,
+    'dogs' => HeroBanner::SERVICES_DOGS_CODE
+];
+$APPLICATION->SetPageProperty(PageProperty::LAYOUT, ['base.twig', function () use ($banners, $section) {
+    return App::layoutContext([
+        'hero_banner' => _::get($banners, $section['CODE'])
+    ]);
+}]);
 ?>
 
-<? // TODO hero banner ?>
-
-<? if ($section['DEPTH_LEVEL'] == 1): ?>
+<? if ($section['DEPTH_LEVEL'] == 1 && $section['CODE'] !== 'without_appointment'): ?>
     <? $APPLICATION->IncludeComponent(
         "bitrix:catalog.section.list",
         "",

@@ -21,7 +21,7 @@ $sectionsByElement = _::map(_::groupBy($rels, 'IBLOCK_ELEMENT_ID'), function($re
 });
 $sections = _::keyBy('ID', SectionTable::query()
     ->setSelect(['ID', 'CODE', 'NAME', 'IBLOCK_SECTION_ID', 'DESCRIPTION', 'PICTURE'])
-    ->setFilter(['IBLOCK_ID' => $arResult['IBLOCK_ID'] /*'>DEPTH_LEVEL' => $arResult['DEPTH_LEVEL']*/])
+    ->setFilter(['IBLOCK_ID' => $arResult['IBLOCK_ID']])
     ->exec()->fetchAll()
 );
 foreach ($arResult['ITEMS'] as $item) {
