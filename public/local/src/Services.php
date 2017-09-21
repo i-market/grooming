@@ -20,8 +20,10 @@ class Services {
             'filter' => [
                 'IBLOCK_ID' => IblockTools::find(Iblock::SERVICES_TYPE, Iblock::SERVICES)->id(),
                 'DEPTH_LEVEL' => 2,
-                'PARENT_SECTION.CODE' => $sectionCode
-            ]
+                'PARENT_SECTION.CODE' => $sectionCode,
+                'ACTIVE' => 'Y'
+            ],
+            'order' => ['SORT' => 'ASC']
         ])->fetchAll();
         return $sections;
     }
