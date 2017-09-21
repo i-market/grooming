@@ -249,10 +249,6 @@ if ($USER->IsAdmin() && !_::isEmpty($tasks)) {
                 return $elementIds;
             });
 
-            // TODO clean up empty sections?
-
-            // TODO tmp
-//            $conn->rollbackTransaction();
             $conn->commitTransaction();
         } catch (Exception $e) {
             $conn->rollbackTransaction();

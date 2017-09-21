@@ -24,6 +24,7 @@ use Core\NewsListLike;
                         <div class="top">
                             <? if ($section['PICTURE']): ?>
                                 <div class="img">
+                                    <? // TODO resize ?>
                                     <img src="<?= $section['PICTURE']['SRC'] ?>" alt="<?= $section['PICTURE']['ALT'] ?>">
                                 </div>
                             <? endif ?>
