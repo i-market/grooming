@@ -33,22 +33,15 @@
             {% endfor %}
         </span>
     </div>
-    <div class="line">
-        <i class="fa fa-instagram"></i>
-        <span class="text">
-            <a href="{{ result.INSTAGRAM }}" target="_blank">Instagram</a>{% if not loop.last %}<br>{% endif %}
-        </span>
-    </div>
-    <div class="line">
-        <i class="fa fa-vk"></i>
-        <span class="text">
-            <a href="{{ result.VK }}" target="_blank">ВКонтакте</a>{% if not loop.last %}<br>{% endif %}
-        </span>
-    </div>
-    <div class="line">
-        <i class="fa fa-facebook"></i>
-        <span class="text">
-            <a href="{{ result.FACEBOOK }}" target="_blank">Facebook</a>{% if not loop.last %}<br>{% endif %}
-        </span>
+    <div class="footer-social">
+        <a class="footer-social__item" href="{{ result.INSTAGRAM }}" target="_blank" title="Instagram">
+            <i class="fa fa-instagram"></i>
+        </a>
+        <a class="footer-social__item" href="{{ result.VK }}" target="_blank" title="ВКонтакте">
+            <i class="fa fa-vk"></i>
+        </a>
+        <a class="footer-social__item" href="{{ result.FACEBOOK }}" target="_blank" title="Facebook">
+            <i class="fa fa-facebook"></i>
+        </a>
     </div>
 </div>
